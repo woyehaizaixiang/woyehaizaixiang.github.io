@@ -1,0 +1,89 @@
+# 格式
+# -  
+#   name: 链接名
+#   url: 链接
+#   type: {blog|doc|tool|download}
+
+-
+  name: 阮一峰的网络日志
+  url: http://www.ruanyifeng.com/blog/
+  type: blog
+
+-
+  name: 有道无术，术尚可求，有术无道，止于术 - 李卫民
+  url: https://www.funtl.com/
+  type: blog
+
+-
+  name: 码农桃花源
+  url: https://qcrao.com/
+  type: blog
+
+-
+  name: 全网优秀教程汇总
+  url: https://zoharyip.club/wiki/method-excellent-tutorial/
+  type: blog
+# -
+#   name: 廖雪峰
+#   url: https://www.liaoxuefeng.com/
+#   type: blog
+
+-
+  name: 本站文档
+  url: /doc/
+  type: doc
+
+-
+  name: Jekyll 官方中文文档
+  url: https://jekyllcn.com/docs/home/
+  type: doc
+
+-
+  name: Liquid 模板语言官方中文文档
+  url: https://liquid.bootcss.com/
+  type: doc
+
+-
+  name: 独特工具箱
+  url: https://www.dute.org/
+  type: tool
+
+-
+  name: 在线工具
+  url: https://tool.lu/
+  type: tool
+  
+-
+  name: 在线 API 测试
+  url: http://coolaf.com/
+  type: tool
+
+-
+  name: BootCDN
+  url: https://www.bootcdn.cn/
+  type: download
+
+-
+  name: 第八基地
+  url: http://doc.d8jd.com/
+  type: download
+  
+-
+  name: 阿里 maven 仓库
+  url: https://maven.aliyun.com/mvn/view
+  type: download
+
+-
+  name: Android SDK 镜像服务器
+  url: http://tools.android-studio.org/index.php/proxy
+  type: download
+  
+-
+  name: Linux 中科大软件源
+  url: https://mirrors.ustc.edu.cn/repogen/
+  type: download
+  
+-
+  name: 中科大开源镜像
+  url: http://mirrors.ustc.edu.cn/
+  type: download

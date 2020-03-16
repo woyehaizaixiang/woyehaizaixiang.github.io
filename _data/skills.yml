@@ -1,0 +1,25 @@
+-
+  name: Software Engineer
+  keywords:
+    - Java
+    - Go
+    - C/C++
+    - Php
+
+-
+  name: Web Developer
+  keywords:
+    - JavaScript
+    - JQuery
+
+-
+  name: Mobile Developer
+  keywords:
+    - Android
+    - Wechat
+
+-
+  name: Operations Engineer
+  keywords:
+    - CentOS
+    - Ubuntu

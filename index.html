@@ -1,39 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我也还在想(笔记)</title>
-    <link rel="stylesheet" href="./assets/index.css">
-</head>
-<body>
-    <div id="header_wrap" class="outer">
-        <div class="inner">
-            <h1 id="project_title">wellcome to kuangSong blog</h1>
-        </div>
+---
+layout: default
+class: home
+css: ['pages/index.css']
+canvas: true
+---
+
+<section class="banner">
+  <div class="collection-head">
+    <div class="container">
+      <div class="collection-title">
+        <h2 class="collection-header" id="sub-title">
+          <span>{{ site.subtitle }}</span>
+        </h2>
+      </div>
+      <div class="collection-info">
+        <span class="meta-info mobile-hidden">
+          <span class="octicon octicon-pulse"></span>
+          <span id="site_statistics"></span>
+        </span>
+        <span class="meta-info mobile-hidden">
+          <span class="octicon octicon-location"></span>
+          {{ site.location }}
+        </span>
+        {% if site.organization %}
+          <span class="meta-info">
+            <span class="octicon octicon-organization"></span>
+            <a href="{{ site.organization_url }}" target="_blank">{{ site.organization }}</a>
+          </span>
+        {% endif %}
+        <!-- <span class="meta-info">
+          <span class="octicon octicon-mark-github"></span>
+          <a href="https://github.com/{{ site.github_username }}" target="_blank">{{ site.github_username }}</a>
+        </span> -->
+      </div>
     </div>
-    <div id="main_content_wrap" class="outer">
-        <section id="main_content" class="inner">
-            <h2>Welcome to GitHub Pages</h2>
-            <h2>后面再写吧</h2>
-            <h2>现在有点饿了</h2>
-            <h2>疫情早点结束</h2>
-            <p>
-                微前端是一种利用微件拆分来达到工程拆分治理的方案，可以解决工程膨胀、开发维护困难等问题。随着前端业务场景越来越复杂，微前端这个概念最近被提起得越来越多，业界也有很多团队开始探索实践并在业务中进行了落地。可以看到，很多团队也遇到了各种各样的问题，但各自也都有着不同的处理方案。诚然，任何技术的实现都要依托业务场景才会变得有意义，所以在阐述美团外卖广告团队的微前端实践之前，我们先来简单介绍一下外卖商家广告端的业务形态。目前，我们开发和维护的系统主要包括三端：
-            </p>
-            <p>
-                新业务线产品急速增加，同时为了保证三端系统复用效率的最大化，把文件放入同一仓库管理，导致文件数量增长极快，管理及协同开发难度也在不断加大。
-文件越来越多，文件结构越不受控制，业务开发寻址变得越来越困难。
-文件越来越多，开发、构建、部署速度变得越来越慢，开发体验在持续下降。
-不同业务线间没有物理隔离，出现了跨业务线互相引用混乱，例如A业务线出现了B业务线名字的组件。
-具体地说明了原有架构存在的问题。为了要解决这些问题，我们意识到需要拆分这些应用，即进行工程优化的常规手段进行“分治”。那么要怎么拆呢？自然而然地我们就想到了微前端的概念。也从这个概念出发，我们参考业界优秀方案，同时也深度结合了广告端实际业务的开发情况，对现有工程进行了微前端的实践与落地
-            </p>
-        </section>
+  </div>
+</section>
+<!-- /.banner -->
+<!-- Main Session -->
+<section class="container content">
+  <ol class="repo-list">
+    {% for post in paginator.posts %}
+      <li class="repo-list-item">
+        <h3 class="repo-list-name"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <p class="repo-list-description">{{ post.excerpt | strip_html | strip }}</p>
+        <p class="repo-list-meta">
+          <span class="meta-info-left">
+            <span class="octicon octicon-calendar"></span> {{ post.date | date: "%Y/%m/%d" }}
+          </span>
+          {% for cat in post.categories %}
+          <span class="meta-info-right">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="/categories/#{{ cat }}" title="{{ cat }}">{{ cat }}</a>
+          </span>
+          {% endfor %}
+        </p>
+      </li>
+      <div class="repo-filler"> </div>
+    {% endfor %}
+  </ol>
+  <div class="pagination text-align" style="text-align: center; margin:0px auto">
+    <div class="btn-group">
+    {% if paginator.previous_page %}
+      {% if paginator.previous_page == 1 %}
+        <a href="/" class="btn btn-outline">&laquo;</a>
+      {% else %}
+        <a href="/page{{paginator.previous_page}}" class="btn btn-outline">&laquo;</a>
+      {% endif %}
+    {% else %}
+      <button disabled="disabled" href="javascript:;" class="btn btn-outline">&laquo;</button>
+    {% endif %}
+    {% if paginator.page == 1 %}
+      <a href="javascript:;" class="active btn btn-outline">1</a>
+    {% else %}
+      <a href="/" class="btn btn-outline">1</a>
+    {% endif %}
+    {% for count in (2..paginator.total_pages) %}
+      {% if count == paginator.page %}
+        <a href="javascript:;" class="active btn btn-outline">{{count}}</a>
+      {% else %}
+        <a href="/page{{count}}" class="btn btn-outline">{{count}}</a>
+      {% endif %}
+    {% endfor %}
+    {% if paginator.next_page %}
+      <a href="/page{{paginator.next_page}}" class="btn btn-outline">&raquo;</a>
+    {% else %}
+      <button disabled="disabled" href="javascript:;" class="btn btn-outline">&raquo;</button>
+    {% endif %}
     </div>
-    <div id="footer_wrap" class="outer">
-        <footer class="inner">
-            <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
-        </footer>
-    </div>
-</body>
-</html>
+  </div>
+  {% include sidebar-search.html %}
+</section>
+<!-- /Main Session -->

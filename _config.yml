@@ -1,0 +1,114 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your entire site, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# `jekyll serve`. If you change this file, please restart the server process.
+
+# Site Settings
+baseurl:
+# It will redirect your site to this url
+url                 : https://zoharyips.github.io
+title               : Zohar's blog
+name                : zohar's blog
+subtitle            : "Chinese by birth, Programmer by choice"
+description         : "The personal blog of zohar, a ascetic on the road to programming."
+repository          : zoharyips/zoharyips.github.io
+keywords            : zohar, zohar Yip, Zohar' Blog, 叶卓豪, zohar_Yip, zoharyips
+date_format         : "ordinal"
+timezone            : Asia/Shanghai
+encoding            : "utf-8"
+side_bar_repo_limit : 3
+
+author              : zohar
+github_username     : zoharyips
+location            : Guangzhou, China
+email               : zoharyips@outlook.com
+
+markdown            : kramdown
+kramdown:
+  input             : GFM
+  syntax_highlighter_opts:
+    disable: true
+# highlighter         : rouge
+paginate            : 12
+lsi                 : false
+quiet               : false
+future              : true
+excerpt_separator   : "\n\n"                # 摘录的分隔符
+permalink           : /posts/:title.html    # 博文发布的 URL，伪静态
+plugins:
+  - jekyll-github-metadata                  # github 元信息
+  # - rouge                                   # Jekyll 的语法高亮在 Jekyll 3.0 以上默认使用的是 Rouge
+  - jekyll-octicons                         # 支持 octions 图标
+  - jekyll-paginate                         # 分页
+  - jekyll-feed                             # 自动生成 SSR 源
+  - jemoji                                  # 解析 emoji
+  - jekyll-sitemap                          # 自动生成 sitemap
+  - jekyll-seo-tag                          # 自动 SEO 头信息生成
+#   - jekyll-html-pipeline                  #
+#   - jekyll-mentions                       # 用于 @github 用户
+collections:
+  wiki:
+    output          : true
+    permalink       : /wiki/:path.html
+  design-mode: 
+    output          : true
+    permalink       : /design-mode/:path.html
+
+
+
+# 导航
+navs:
+  -
+    href            : /
+    label           : 首页
+
+  -
+    href            : /categories/
+    label           : 分类
+
+# -
+#   href            : /archives/
+#   label           : 归档
+
+  -
+    href            : /wiki/
+    label           : 维基
+
+  -
+    href            : /links/
+    label           : 链接
+
+  -
+    href            : /about/
+    label           : 关于
+
+subscribe_rss       : /feed.xml
+
+# 评论模块
+# gitalk:
+#   owner             : zoharyips
+#   repo              : blog-comments
+#   clientID          : 4f7905fa91963e1cb585
+#   clientSecret      : 860aa59b9dac0ff81e468c3a67bec5a052e8b8ec
+
+# 站内搜索
+simple_jekyll_search:
+  fulltext          : false
+
+# leanCloud 访问统计
+leancloud:
+  enable: true
+  app_id: 7EiyLoiTRMpJGKx5Jyy6FV0S-gzGzoHsz
+  app_key: 0l02blBLDj6noCkLMoF76LD8
+  data_class_name: visited_times
+  ip_class_name: visiting_ip
+
+# 谷歌分析
+google:
+  analytics_id      : UA-146513129-1
+
+# 备案号
+beian               : 粤ICP备18146252号-1
+MIIT                : http://www.beian.miit.gov.cn

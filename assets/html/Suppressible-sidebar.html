@@ -1,0 +1,50 @@
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .sidebar {
+        float: left;
+        width: 100px;
+        height: 100%;
+        margin-left: -100px;        /* 默认隐藏自身 */
+        overflow: hidden;
+        background-color: #2c3e50;
+        transition: 0.8s all;       /* 动画速度 */
+    }
+
+    .sidebar-appear {
+        margin-left: 0;
+    }
+
+    .btn {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1em;
+        color: #fff;
+        font-size: 1em;
+        font-family: Ionicons;
+        text-decoration: none;
+        background-color: #2d5686;
+        cursor: pointer;
+    }
+
+    .btn:before {
+        content: 'Hide';
+    }
+
+    .btnc:before {
+        content: 'Reveal';
+    }
+</style>
+<div class="sidebar sidebar-appear"></div>
+<a class="btn"></a>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('.btn').on('click', function () {
+        $('.btn').toggleClass('btnc');
+        $('.sidebar').toggleClass('sidebar-appear');
+    })
+</script>

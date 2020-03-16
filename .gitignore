@@ -1,0 +1,13 @@
+_site/
+.bundle/*
+vendor/*
+.vscode
+*.swp
+*.~vsd
+\#*\#
+*~
+.DS_Store
+Gemfile.lock
+desktop.ini
+sitemap.xml
+feed.xml
