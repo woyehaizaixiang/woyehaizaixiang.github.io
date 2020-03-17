@@ -296,9 +296,9 @@ Thumbs.db
 
 <p>下面两篇参考文章各有特色，如果希望了解一下可以点击链接去看。</p>
 
-<p>我在<a href="https://github.com/suyan/Laravel-Bower-Grunt">Github</a>上建立了这篇博客中所讲的目录结构，想要快速建立一个可使用的工程，只需要以下几部：</p>
+<p>我在<a href="https://github.com/woyehaizaixiang/Laravel-Bower-Grunt">Github</a>上建立了这篇博客中所讲的目录结构，想要快速建立一个可使用的工程，只需要以下几部：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/suyan/Laravel-Bower-Grunt.git
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/woyehaizaixiang/Laravel-Bower-Grunt.git
 composer install
 bower update
 npm install

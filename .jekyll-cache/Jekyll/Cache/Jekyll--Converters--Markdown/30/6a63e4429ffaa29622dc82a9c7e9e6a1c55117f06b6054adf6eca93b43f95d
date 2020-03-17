@@ -1,4 +1,5 @@
-I"<blockquote>
+I"
+<blockquote>
   <p>Apache对于所有经手的访问日志，都会记录在access_log中，对这个文件分析，可以了解很多服务器情况。例如访问来源，访问资源等</p>
 </blockquote>
 
@@ -103,7 +104,7 @@ awk '{print $4}' default-access_log |cut -c 14-18|sort|uniq -c|sort -nr|head
 </code></pre></div></div>
 
 <p>另外可以对日志进行简单的处理，只保留自己需要的行和列，这个处理我用python写了。例如SAE拿下来的日志</p>
-
+woyehaizaixiangwoyehaizaixiang
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yansublog.sinaapp.com 61.135.219.2 930269 99 [01/Jan/2014:00:02:02 +0800] yansublog 636 1 "GET /feed/ HTTP/1.0" 304 - "-" "Mozilla/5.0 (compatible;YoudaoFeedFetcher/1.0;http://www.youdao.com/help/reader/faq/topic006/;2 subscribers;)" 61.135.219.2.1388505722221452 yq22
 </code></pre></div></div>
 

@@ -1,4 +1,5 @@
-I"�<h2 id="安装和了解distutils">安装和了解distutils</h2>
+I"�
+<h2 id="安装和了解distutils">安装和了解distutils</h2>
 <p>python中自带了distutils，直接用</p>
 
 <h3 id="使用步骤">使用步骤</h3>
@@ -47,8 +48,8 @@ setup(name='test',
 <span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'test'</span><span class="p">,</span>
       <span class="n">version</span><span class="o">=</span><span class="s">'1.0'</span><span class="p">,</span>
       <span class="n">description</span><span class="o">=</span><span class="s">'test package'</span><span class="p">,</span>
-      <span class="n">author</span><span class="o">=</span><span class="s">'Su Yan'</span><span class="p">,</span>
-      <span class="n">author_email</span><span class="o">=</span><span class="s">'yansu0711@gmail.com'</span><span class="p">,</span>
+      <span class="n">author</span><span class="o">=</span><span class="s">'Su Yanwoyehaizaixiangan><span class="p">,</span>
+      <span class="n">author_email</span><span class="o">=</span><span class="s">'yawoyehaizaixiang11@gmail.com'</span><span class="p">,</span>
       <span class="n">url</span><span class="o">=</span><span class="s">'http://www.yansu.org'</span><span class="p">,</span>
       <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">'test'</span><span class="p">],</span>
       <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s">'scripts/test.sh'</span><span class="p">]</span>

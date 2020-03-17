@@ -1,4 +1,4 @@
-I"�<blockquote>
+I"�<blockquote>
   <p>由于工作中需要写一个比较复杂的类库，这个类库需要很高的扩展性、维护性及复用性。为了麻烦现在简单未来，使用设计模式思想来优化类库可以使工作事半功倍，在这里记录一下各种设计模式，总结一下知识，顺便也可以做为自己日后的参考。</p>
 </blockquote>
 
@@ -67,7 +67,7 @@
 <h3 id="关系">关系</h3>
 <p>这里有一张各个模式关系图，可以在了解各个模式以后梳理一下</p>
 
-<p><img src="http://imgs.yansu.org/tech-design-patterns.jpg" alt="设计模式" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-design-patterns.jpg" alt="设计模式" /></p>
 
 <h3 id="参考">参考</h3>
 <ol>
@@ -95,7 +95,7 @@
 </ul>
 
 <h3 id="类图">类图</h3>
-<p><img src="http://imgs.yansu.org/tech-builder-pattern-uml.png" alt="builder pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-builder-pattern-uml.png" alt="builder pattern" /></p>
 
 <h3 id="实例">实例</h3>
 
@@ -168,7 +168,7 @@
 </ul>
 
 <h3 id="类图-1">类图</h3>
-<p><img src="http://imgs.yansu.org/tech-singleton-pattern-uml.png" alt="singleton pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-singleton-pattern-uml.png" alt="singleton pattern" /></p>
 
 <h3 id="实例-1">实例</h3>
 
@@ -252,10 +252,10 @@
 <h3 id="类图-2">类图</h3>
 
 <h4 id="类适配器">类适配器</h4>
-<p><img src="http://imgs.yansu.org/tech-class-adapter-pattern-uml.jpg" alt="class adapter pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-class-adapter-pattern-uml.jpg" alt="class adapter pattern" /></p>
 
 <h4 id="对象适配器">对象适配器</h4>
-<p><img src="http://imgs.yansu.org/tech-object-adapter-pattern-uml.jpg" alt="object adapter pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-object-adapter-pattern-uml.jpg" alt="object adapter pattern" /></p>
 
 <h3 id="实例-2">实例</h3>
 
@@ -344,7 +344,7 @@
 
 <h3 id="类图-3">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-bridge-pattern-uml.jpg" alt="bridge pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-bridge-pattern-uml.jpg" alt="bridge pattern" /></p>
 
 <h3 id="实例-3">实例</h3>
 
@@ -422,11 +422,11 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h4 id="安全式合成模式">安全式合成模式</h4>
 
-<p><img src="http://imgs.yansu.org/tech-safe-composite-pattern-uml.jpg" alt="safe composite pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-safe-composite-pattern-uml.jpg" alt="safe composite pattern" /></p>
 
 <h4 id="透明式合成模式">透明式合成模式</h4>
 
-<p><img src="http://imgs.yansu.org/tech-transparent-composite-pattern-uml.jpg" alt="transparent composite pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-transparent-composite-pattern-uml.jpg" alt="transparent composite pattern" /></p>
 
 <h3 id="实例-4">实例</h3>
 
@@ -591,7 +591,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-5">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-decorator-pattern-uml.jpg" alt="decorator pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-decorator-pattern-uml.jpg" alt="decorator pattern" /></p>
 
 <h3 id="实例-5">实例</h3>
 
@@ -698,7 +698,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-6">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-facade-pattern-uml.jpg" alt="facade pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-facade-pattern-uml.jpg" alt="facade pattern" /></p>
 
 <h3 id="实例-6">实例</h3>
 
@@ -820,7 +820,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-7">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-flyweight-pattern-uml.jpg" alt="flyweight pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-flyweight-pattern-uml.jpg" alt="flyweight pattern" /></p>
 
 <h3 id="实例-7">实例</h3>
 
@@ -919,7 +919,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-8">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-observer-pattern-uml.jpg" alt="observer pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-observer-pattern-uml.jpg" alt="observer pattern" /></p>
 
 <h3 id="实例-8">实例</h3>
 
@@ -1023,7 +1023,7 @@ Composite变化的是一个对象的结构和组成。</p>
 </ul>
 
 <h3 id="类图-9">类图</h3>
-<p><img src="http://imgs.yansu.org/tech-prototype-pattern-uml.jpg" alt="prototype pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-prototype-pattern-uml.jpg" alt="prototype pattern" /></p>
 
 <h3 id="实例-9">实例</h3>
 
@@ -1089,7 +1089,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-10">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-proxy-pattern-uml.png" alt="proxy pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-proxy-pattern-uml.png" alt="proxy pattern" /></p>
 
 <h3 id="实例-10">实例</h3>
 
@@ -1154,7 +1154,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-11">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-strategy-pattern-uml.jpg" alt="strategy pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-strategy-pattern-uml.jpg" alt="strategy pattern" /></p>
 
 <h3 id="实例-11">实例</h3>
 
@@ -1252,7 +1252,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-12">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-command-pattern-uml.jpg" alt="command pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-command-pattern-uml.jpg" alt="command pattern" /></p>
 
 <h3 id="实例-12">实例</h3>
 
@@ -1325,7 +1325,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-13">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-interpreter-pattern-uml.jpg" alt="interpreter pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-interpreter-pattern-uml.jpg" alt="interpreter pattern" /></p>
 
 <h3 id="实例-13">实例</h3>
 
@@ -1527,7 +1527,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-14">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-memento-pattern-uml.jpg" alt="memento pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-memento-pattern-uml.jpg" alt="memento pattern" /></p>
 
 <h3 id="实例-16">实例</h3>
 
@@ -1635,7 +1635,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-15">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-visitor-pattern-uml.jpg" alt="visitor pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-visitor-pattern-uml.jpg" alt="visitor pattern" /></p>
 
 <h3 id="实例-17">实例</h3>
 
@@ -1759,7 +1759,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-16">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-state-pattern-uml.jpg" alt="state pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-state-pattern-uml.jpg" alt="state pattern" /></p>
 
 <h3 id="实例-18">实例</h3>
 
@@ -1863,7 +1863,7 @@ Composite变化的是一个对象的结构和组成。</p>
 </ul>
 
 <h3 id="类图-17">类图</h3>
-<p><img src="http://imgs.yansu.org/tech-abstract-pattern-uml.png" alt="abstract pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-abstract-pattern-uml.png" alt="abstract pattern" /></p>
 
 <h3 id="实例-19">实例</h3>
 
@@ -1937,7 +1937,7 @@ Composite变化的是一个对象的结构和组成。</p>
 </ul>
 
 <h3 id="类图-18">类图</h3>
-<p><img src="http://imgs.yansu.org/tech-factory-method-uml.png" alt="factory method" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-factory-method-uml.png" alt="factory method" /></p>
 
 <h3 id="实例-20">实例</h3>
 
@@ -2013,7 +2013,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-19">类图</h3>
 
-<p><img src="http://imgs.yansu.org/tech-template-method-pattern-uml.jpg" alt="template method pattern" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-template-method-pattern-uml.jpg" alt="template method pattern" /></p>
 
 <h3 id="实例-21">实例</h3>
 

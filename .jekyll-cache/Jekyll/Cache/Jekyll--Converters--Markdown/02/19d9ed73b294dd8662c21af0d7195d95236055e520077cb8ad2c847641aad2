@@ -1,4 +1,4 @@
-I"�]<blockquote>
+I"�]<blockquote>
   <p>用正确的工具，做正确的事情。</p>
 </blockquote>
 
@@ -137,7 +137,7 @@
 
 <p>Apache处理http请求的生命周期:</p>
 
-<p><img src="http://imgs.yansu.org/tech-apache-http-handle.jpg" alt="Apache处理http请求的生命周期" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-apache-http-handle.jpg" alt="Apache处理http请求的生命周期" /></p>
 
 <ol>
   <li>Post-Read-Request阶段:在正常请求处理流程中，这是模块可以插入钩子的第一个阶段。对于那些想很早进入处理请求的模块来说，这个阶段可以被利用。</li>
@@ -201,7 +201,7 @@ based conf           |                    |
 
 <h3 id="nginx架构及工作流程">Nginx架构及工作流程</h3>
 
-<p><img src="http://imgs.yansu.org/tech-nginx-architecture.png" alt="Nginx架构" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-nginx-architecture.png" alt="Nginx架构" /></p>
 
 <p>上图是Nginx的架构，这个架构类似于Apache的Worker工作状态，Nginx的每一个Worker进程都管理着大量的线程，真正处理请求的是Worker之下的线程。</p>
 

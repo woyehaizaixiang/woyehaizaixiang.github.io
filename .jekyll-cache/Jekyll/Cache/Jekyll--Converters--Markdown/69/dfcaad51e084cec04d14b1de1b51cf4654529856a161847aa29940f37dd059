@@ -1,8 +1,9 @@
-I"�<blockquote>
+I"�
+<blockquote>
   <p>之前我在用SAE的Storage作为博客图床，但是令我非常不爽的是没有一个很好的上传和获得公共链接的方法。现在总算用Dropzone和七牛把这个问题解决了，下面是我上传图片和获得URL的操作，方法再往下看。</p>
 </blockquote>
 
-<p><img src="http://imgs.yansu.org/tool-qiniu-workflow.gif" alt="七牛操作流" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tool-qiniu-workflow.gif" alt="七牛操作流" /></p>
 
 <h2 id="设置七牛帐号">设置七牛帐号</h2>
 
@@ -16,14 +17,14 @@
 
     <p>刚刚创建的帐号是测试帐号，完成个人认证就可以成为标准帐号，获得10G的存储空间和各10G的上传下载流量。</p>
 
-    <p><img src="http://imgs.yansu.org/tool-qiniu-normal-account.png" alt="标准帐号" /></p>
+    <p><img src="http://imgs.woyehaizaixiang.org/tool-qiniu-normal-account.png" alt="标准帐号" /></p>
   </li>
   <li>
     <p>创建一个空间</p>
 
     <p>创建空间也比较容易，记得选择公开空间。</p>
 
-    <p><img src="http://imgs.yansu.org/tool-qiniu-create-bucket.png" alt="创建空间" /></p>
+    <p><img src="http://imgs.woyehaizaixiang.org/tool-qiniu-create-bucket.png" alt="创建空间" /></p>
   </li>
 </ol>
 
@@ -41,7 +42,7 @@
   </li>
   <li>
     <p>安装Qiniu插件</p>
-
+woyehaizaixiangwoyehaizaixiang
     <p><del>我把这个插件放到了<a href="https://github.com/suyan/scripts/tree/master/Dropzone%20Action">Github</a>上，戳<a href="https://github.com/suyan/scripts/blob/master/Dropzone%20Action/Qiniu.dzbundle.zip?raw=true">这里</a>下载。</del>
  这个插件已经上传到了官方网站的非官方插件处，可以直接戳<a href="https://aptonic.com/actions/install.php?bundle_name=Qiniu">这里</a>下载。</p>
   </li>
@@ -55,7 +56,7 @@
 
     <p>从增加列表中选择我们安装好的七牛插件。</p>
 
-    <p><img src="http://imgs.yansu.org/tool-use-bundle.png" alt="启用插件" /></p>
+    <p><img src="http://imgs.woyehaizaixiang.org/tool-use-bundle.png" alt="启用插件" /></p>
 
     <p>然后填写配置：</p>
 
@@ -67,9 +68,9 @@
       <li>root url: 七牛的公共链接根目录</li>
     </ul>
 
-    <p><img src="http://imgs.yansu.org/tool-qiniu-access-key.png" alt="access key" /></p>
+    <p><img src="http://imgs.woyehaizaixiang.org/tool-qiniu-access-key.png" alt="access key" /></p>
 
-    <p><img src="http://imgs.yansu.org/tool-qiniu-root-url.png" alt="root url" /></p>
+    <p><img src="http://imgs.woyehaizaixiang.org/tool-qiniu-root-url.png" alt="root url" /></p>
   </li>
 </ol>
 

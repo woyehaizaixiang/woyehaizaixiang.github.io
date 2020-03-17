@@ -25,7 +25,7 @@ Move to core for H</p>
 
 <h3 id="ceilometer架构介绍">Ceilometer架构介绍</h3>
 
-<p><img src="http://imgs.yansu.org/tech-ceilometer-architecture.png" alt="Ceilometer架构介绍" /></p>
+<p><img src="http://imgs.woyehaizaixiang.org/tech-ceilometer-architecture.png" alt="Ceilometer架构介绍" /></p>
 
 <h3 id="ceilometer项目主要由agentcollectordatastoreapi和消息队列组成">Ceilometer项目主要由Agent，Collector，DataStore，API和消息队列组成。</h3>
 
