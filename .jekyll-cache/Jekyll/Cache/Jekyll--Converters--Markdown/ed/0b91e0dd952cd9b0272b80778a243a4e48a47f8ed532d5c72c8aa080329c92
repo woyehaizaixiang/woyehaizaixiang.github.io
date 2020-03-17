@@ -8,7 +8,7 @@
   <p>socket的英文原义是“孔”或“插座”。作为BSD UNIX的进程通信机制，取后一种意思。通常也称作”套接字”，用于描述IP地址和端口，是一个通信链的句柄。在Internet上的主机一般运行了多个服务软件，同时提供几种服务。每种服务都打开一个Socket，并绑定到一个端口上，不同的端口对应于不同的服务。</p>
 </blockquote>
 
-<p>以上内容来自<a href="http://baike.baidu.com/link?url=Hnush4cjfuWUCEOUwCNaQbQCiwIhY-oL-wDv0VQEpxIkAiY9gf2kjoDfpH6BjUNH">百度百科</a></p>
+<p>以上内容来自<a href="https://baike.baidu.com/link?url=Hnush4cjfuWUCEOUwCNaQbQCiwIhY-oL-wDv0VQEpxIkAiY9gf2kjoDfpH6BjUNH">百度百科</a></p>
 
 <p>简单说来，socket可以帮助不同的服务在不同的端口进行通信。</p>
 

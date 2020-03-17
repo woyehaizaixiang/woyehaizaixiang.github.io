@@ -5,12 +5,12 @@
 </blockquote>
 
 <h2 id="调用api获得下载地址">调用API获得下载地址</h2>
-<p>文档位置在<a href="http://sae.sina.com.cn/?m=devcenter&amp;catId=281">这里</a></p>
+<p>文档位置在<a href="https://sae.sina.com.cn/?m=devcenter&amp;catId=281">这里</a></p>
 
 <h3 id="设置自己的应用和下载参数">设置自己的应用和下载参数</h3>
 <p>请求中需要设置的变量如下</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>api_url = 'http://dloadcenter.sae.sina.com.cn/interapi.php?'
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>api_url = 'https://dloadcenter.sae.sina.com.cn/interapi.php?'
 appname = 'xxxxx'
 from_date = '20140101'
 to_date = '20140116'

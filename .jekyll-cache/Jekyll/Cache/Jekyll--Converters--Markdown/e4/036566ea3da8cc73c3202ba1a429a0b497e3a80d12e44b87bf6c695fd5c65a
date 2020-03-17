@@ -1,4 +1,4 @@
-I"�<blockquote>
+I"�<blockquote>
   <p>xdebug是php调试的好帮手，sublime是php编写的好帮手。这里只说如何配置，默认读者会用sublime和xdebug</p>
 </blockquote>
 
@@ -47,7 +47,7 @@ xdebug.remote_log="/var/log/xdebug/xdebug.log"
     ],
     "settings": {
         "xdebug": {
-             "url": "http://my.local.website/",
+             "url": "https://my.local.website/",
         }
     }
 }
@@ -83,7 +83,7 @@ xdebug.remote_log="/var/log/xdebug/xdebug.log"
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://www.sitepoint.com/debugging-xdebug-sublime-text-3/">Debugging with Xdebug and Sublime Text 3</a></li>
+  <li><a href="https://www.sitepoint.com/debugging-xdebug-sublime-text-3/">Debugging with Xdebug and Sublime Text 3</a></li>
 </ol>
 
 :ET

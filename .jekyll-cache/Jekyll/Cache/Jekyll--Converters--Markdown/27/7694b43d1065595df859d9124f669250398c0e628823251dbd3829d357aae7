@@ -7,7 +7,7 @@
 <h3 id="安装vagrant">安装Vagrant</h3>
 <p>Vagrant的旧版本是可以通过gem来安装的，但是由于依赖实在太多，官方放弃了这种安装方式，建议下载官方安装包来安装。</p>
 
-<p>下载地址在<a href="http://www.vagrantup.com/downloads">http://www.vagrantup.com/downloads</a>。下载好pkg包后，点击安装即可。</p>
+<p>下载地址在<a href="https://www.vagrantup.com/downloads">https://www.vagrantup.com/downloads</a>。下载好pkg包后，点击安装即可。</p>
 
 <h3 id="安装virtualbox">安装Virtualbox</h3>
 <p>Vagrant依赖现有的虚拟机软件来管理虚拟机，如Virtualbox, Vmware Fusion, Parallel Desktop等，其中最方便的是VirtualBox，所以我选择了Virtualbox。</p>
@@ -17,7 +17,7 @@
 <h2 id="使用">使用</h2>
 
 <h3 id="下载启动box">下载启动Box</h3>
-<p>在Vagrant中，box是一种打包好的镜像，通过这个镜像，可以生成相应的虚拟机。box可以通过<a href="http://www.vagrantbox.es/">官方网站</a>下载，也可以自己制作，在团队内分享。</p>
+<p>在Vagrant中，box是一种打包好的镜像，通过这个镜像，可以生成相应的虚拟机。box可以通过<a href="https://www.vagrantbox.es/">官方网站</a>下载，也可以自己制作，在团队内分享。</p>
 
 <p>官方的Box可以在创建时自动下载。例如以下步骤</p>
 
@@ -76,7 +76,7 @@ ls
 <h2 id="参考">参考</h2>
 
 <ol>
-  <li><a href="http://docs.vagrantup.com/v2/">Vagrant Docs</a></li>
-  <li><a href="http://blog.segmentfault.com/fenbox/1190000000264347">使用 Vagrant 打造跨平台开发环境</a></li>
+  <li><a href="https://docs.vagrantup.com/v2/">Vagrant Docs</a></li>
+  <li><a href="https://blog.segmentfault.com/fenbox/1190000000264347">使用 Vagrant 打造跨平台开发环境</a></li>
 </ol>
 :ET

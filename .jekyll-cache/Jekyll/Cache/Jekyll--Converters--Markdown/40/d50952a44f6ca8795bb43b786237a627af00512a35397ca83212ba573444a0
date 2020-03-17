@@ -16,7 +16,7 @@
 <p>这段的意思就是在a标签前后都增加了123文本，利用这个特性，可以给一个按钮前后都增加尖角了。</p>
 
 <h3 id="利用border实现尖角">利用border实现尖角</h3>
-<p>border有一个特点，就是当元素内容是空的时候，border会占据内容的空间，效果点<a href="http://codepen.io/woyehaizaixiang0830/pen/roAtK">这里</a>查看。</p>
+<p>border有一个特点，就是当元素内容是空的时候，border会占据内容的空间，效果点<a href="https://codepen.io/woyehaizaixiang0830/pen/roAtK">这里</a>查看。</p>
 
 <p>HTML代码：</p>
 
@@ -40,7 +40,7 @@
 <p>如果导航是纯色的，那么直接将before和after作为尖角即可，因为border可以设置纯色。但是如果想要给导航设置颜色渐变，那就只能通过设置导航来实现，border不能设置渐变色。这个时候只能通过将border设置的和背景色一致，遮挡导航主体部分来实现尖角特点。</p>
 
 <h2 id="最终效果">最终效果</h2>
-<p>效果点<a href="http://codepen.io/woyehaizaixiang0830/pen/uqHCD">这里</a>查看。</p>
+<p>效果点<a href="https://codepen.io/woyehaizaixiang0830/pen/uqHCD">这里</a>查看。</p>
 
 <p>HTML代码：</p>
 

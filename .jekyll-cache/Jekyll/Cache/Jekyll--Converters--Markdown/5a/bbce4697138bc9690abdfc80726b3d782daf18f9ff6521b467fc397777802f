@@ -1,5 +1,5 @@
-I"�%<blockquote>
-  <p>本文经原作者同意后进行转载和翻译，<a href="http://www.sandywalsh.com/2012/04/openstack-nova-internals-pt1-overview.html">原文链接</a></p>
+I"�%<blockquote>
+  <p>本文经原作者同意后进行转载和翻译，<a href="https://www.sandywalsh.com/2012/04/openstack-nova-internals-pt1-overview.html">原文链接</a></p>
 </blockquote>
 
 <p>本人正在学习Openstack源码，为了自己学习和他人学习方便，故可能将一些国外优秀博客翻译转载。本人看英语文章基本顺利，但是翻译却不太在行，也希望通过这个方式提升一下英语水平，如果您发现我翻译后的文章问题太严重，尽管指出，谢谢！另外也希望志同道合的朋友一起探讨有关Openstack的问题!</p>

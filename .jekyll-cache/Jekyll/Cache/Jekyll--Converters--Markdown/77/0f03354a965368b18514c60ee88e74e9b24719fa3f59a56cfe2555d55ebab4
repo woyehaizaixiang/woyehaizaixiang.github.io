@@ -1,5 +1,5 @@
-I"�<h2 id="命名空间">命名空间</h2>
-<p>什么是<a href="http://zh.wikipedia.org/wiki/%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">命名空间</a>呢？</p>
+I"�<h2 id="命名空间">命名空间</h2>
+<p>什么是<a href="https://zh.wikipedia.org/wiki/%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">命名空间</a>呢？</p>
 
 <blockquote>
   <p>命名空间（英语：Namespace）表示标识符（identifier）的可见范围。一个标识符可在多个命名空间中定义，它在不同命名空间中的含义是互不相干的。这样，在一个新的命名空间中可定义任何标识符，它们不会与任何已有的标识符发生冲突，因为已有的定义都处于其它命名空间中。</p>
@@ -72,7 +72,7 @@
 
 <p>首先要注意的是命名空间只起申明作用，也就是在使用了命名空间的时候依然得把这个命名空间申明的那个文件包含进来。在使用中可以通过<code class="highlighter-rouge">__NAMESPACE__</code>来查看当前命名空间。</p>
 
-<p>更多内容可以查看<a href="http://www.php.net/manual/zh/language.namespaces.basics.php">PHP官方文档</a></p>
+<p>更多内容可以查看<a href="https://www.php.net/manual/zh/language.namespaces.basics.php">PHP官方文档</a></p>
 
 <h2 id="自动加载">自动加载</h2>
 <p>每个文件既要申明命名控件又要手动<code class="highlighter-rouge">include</code>是非常不智能的事情，所以在自己的PHP系统或者框架中可以使用自动加载技术，让系统自己去找</p>

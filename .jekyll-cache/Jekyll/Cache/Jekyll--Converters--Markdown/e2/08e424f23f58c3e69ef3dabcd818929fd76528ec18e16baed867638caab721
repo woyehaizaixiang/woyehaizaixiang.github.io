@@ -1,4 +1,4 @@
-I"��<p>排序算法是非常常见也非常基础的算法，以至于大部分情况下它们都被集成到了语言的辅助库中。排序算法虽然已经可以很方便的使用，但是理解排序算法可以帮助我们找到解题的方向。</p>
+I"��<p>排序算法是非常常见也非常基础的算法，以至于大部分情况下它们都被集成到了语言的辅助库中。排序算法虽然已经可以很方便的使用，但是理解排序算法可以帮助我们找到解题的方向。</p>
 
 <h2 id="1-冒泡排序-bubble-sort">1. 冒泡排序 (Bubble Sort)</h2>
 
@@ -330,8 +330,8 @@
 
 <ul>
   <li>维基百科</li>
-  <li><a href="http://wuchong.me/blog/2014/02/09/algorithm-sort-summary/">经典排序算法总结与实现</a></li>
-  <li><a href="http://segmentfault.com/a/1190000002466215">堆排序C++实现</a></li>
-  <li><a href="http://bubkoo.com/2014/01/14/sort-algorithm/heap-sort/">常见排序算法 - 堆排序 (Heap Sort)</a></li>
+  <li><a href="https://wuchong.me/blog/2014/02/09/algorithm-sort-summary/">经典排序算法总结与实现</a></li>
+  <li><a href="https://segmentfault.com/a/1190000002466215">堆排序C++实现</a></li>
+  <li><a href="https://bubkoo.com/2014/01/14/sort-algorithm/heap-sort/">常见排序算法 - 堆排序 (Heap Sort)</a></li>
 </ul>
 :ET

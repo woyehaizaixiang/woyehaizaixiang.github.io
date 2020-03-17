@@ -1,20 +1,20 @@
-I"�<h2 id="官方资源">官方资源</h2>
+I"�<h2 id="官方资源">官方资源</h2>
 
 <ul>
-  <li><a href="http://jquery.com/">官方首页</a></li>
-  <li><a href="http://plugins.jquery.com/">官方插件</a></li>
+  <li><a href="https://jquery.com/">官方首页</a></li>
+  <li><a href="https://plugins.jquery.com/">官方插件</a></li>
 </ul>
 
 <h2 id="下拉框扩展">下拉框扩展</h2>
 
 <ul>
   <li>
-    <p><a href="http://ivaynberg.github.io/select2/">Select 2</a></p>
+    <p><a href="https://ivaynberg.github.io/select2/">Select 2</a></p>
 
     <p>功能强大的下拉列表插件，基本包含了所有可能的需求……</p>
   </li>
   <li>
-    <p><a href="http://kotowicz.net/jquery-option-tree/demo/demo.html">OptionTree</a></p>
+    <p><a href="https://kotowicz.net/jquery-option-tree/demo/demo.html">OptionTree</a></p>
 
     <p>联动下拉列表插件，可以动态生成下拉列表，而且支持ajax获取数据</p>
   </li>

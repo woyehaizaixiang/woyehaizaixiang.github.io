@@ -1,11 +1,11 @@
-I"�><h3 id="0什么是setuptools">0.什么是setuptools</h3>
-<p>setuptools是Python distutils增强版的集合，它可以帮助我们更简单的创建和分发Python包，尤其是拥有依赖关系的。用户在使用setuptools创建的包时，并不需要已安装setuptools，只要一个<a href="http://peak.telecommunity.com/dist/ez_setup.py">启动模块</a>即可。</p>
+I"�><h3 id="0什么是setuptools">0.什么是setuptools</h3>
+<p>setuptools是Python distutils增强版的集合，它可以帮助我们更简单的创建和分发Python包，尤其是拥有依赖关系的。用户在使用setuptools创建的包时，并不需要已安装setuptools，只要一个<a href="https://peak.telecommunity.com/dist/ez_setup.py">启动模块</a>即可。</p>
 
 <p>功能亮点：</p>
 
 <ul>
-  <li>利用<a href="http://peak.telecommunity.com/DevCenter/EasyInstall">EasyInstall</a>自动查找、下载、安装、升级依赖包</li>
-  <li>创建<a href="http://peak.telecommunity.com/DevCenter/PythonEggs">Python Eggs</a></li>
+  <li>利用<a href="https://peak.telecommunity.com/DevCenter/EasyInstall">EasyInstall</a>自动查找、下载、安装、升级依赖包</li>
+  <li>创建<a href="https://peak.telecommunity.com/DevCenter/PythonEggs">Python Eggs</a></li>
   <li>包含包目录内的数据文件</li>
   <li>自动包含包目录内的所有的包，而不用在setup.py中列举</li>
   <li>自动包含包内和发布有关的所有相关文件，而不用创建一个MANIFEST.in文件</li>
@@ -27,7 +27,7 @@
 
 <p>2) 启动脚本安装</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://peak.telecommunity.com/dist/ez_setup.py
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://peak.telecommunity.com/dist/ez_setup.py
 sudo python ez_setup.py
 </code></pre></div></div>
 
@@ -94,7 +94,7 @@ Archive:  dist/demo-0.1-py2.7.egg
   <li>packages 所包含的其他包</li>
 </ul>
 
-<p>要想发布到PyPI中，需要增加别的参数，这个可以参考<a href="http://pythonhosted.org/setuptools/setuptools.html#basic-use">官方文档</a>中的例子了。</p>
+<p>要想发布到PyPI中，需要增加别的参数，这个可以参考<a href="https://pythonhosted.org/setuptools/setuptools.html#basic-use">官方文档</a>中的例子了。</p>
 
 <h3 id="3给包增加内容">3.给包增加内容</h3>
 <p>上面生成的egg中没有实质的内容，显然谁也用不了，现在我们稍微调色一下，增加一点内容。</p>
@@ -336,9 +336,9 @@ setup(
 
 <p>别的应用使用的方法是通过<code class="highlighter-rouge">pkg_resources.require()</code>来导入这些模块。</p>
 
-<p>另外，一个名叫<a href="http://stevedore.readthedocs.org/en/latest/index.html">stevedore</a>的库将这个方式做了封装，更加方便进行应用的扩展。</p>
+<p>另外，一个名叫<a href="https://stevedore.readthedocs.org/en/latest/index.html">stevedore</a>的库将这个方式做了封装，更加方便进行应用的扩展。</p>
 
 <h3 id="5-以后增加">5. 以后增加</h3>
-<p>以上内容大部分来自于<a href="http://pythonhosted.org/setuptools/setuptools.html">官方文档</a>，需要额外学习的以后再增加</p>
+<p>以上内容大部分来自于<a href="https://pythonhosted.org/setuptools/setuptools.html">官方文档</a>，需要额外学习的以后再增加</p>
 
 :ET

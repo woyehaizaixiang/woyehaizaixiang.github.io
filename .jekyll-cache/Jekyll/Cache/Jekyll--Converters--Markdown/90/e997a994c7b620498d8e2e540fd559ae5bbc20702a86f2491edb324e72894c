@@ -1,8 +1,8 @@
-I"�0<blockquote>
+I"�0<blockquote>
   <p>Mac下搭建lamp开发环境很容易，有xampp和mamp现成的集成环境。但是集成环境对于经常需要自定义一些配置的开发者来说会非常麻烦，而且Mac本身自带apache和php，在brew的帮助下非常容易手动搭建，可控性很高</p>
 </blockquote>
 
-<h2 id="brew"><a href="http://brew.sh/">Brew</a></h2>
+<h2 id="brew"><a href="https://brew.sh/">Brew</a></h2>
 <p>brew对于mac，就像apt-get对于ubuntu，安装软件的好帮手，不能方便更多…</p>
 
 <p>brew的安装方式如下：</p>
@@ -34,7 +34,7 @@ sudo apachectl stop
 
 <p>唯一要改的是主目录，mac默认在home下有个<code class="highlighter-rouge">Sites</code>（站点）目录，访问路径是</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost/~user_name
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://localhost/~user_name
 </code></pre></div></div>
 
 <p>这样不太容易访问，修改<code class="highlighter-rouge">/etc/apache2/httpd.conf</code>内容</p>
@@ -52,7 +52,7 @@ sudo apachectl stop
 &lt;/Directory&gt;
 </code></pre></div></div>
 
-<p>这样<code class="highlighter-rouge">Sites</code>目录就是网站根目录了，通过<code class="highlighter-rouge">http://localhost</code>就可以访问了。</p>
+<p>这样<code class="highlighter-rouge">Sites</code>目录就是网站根目录了，通过<code class="highlighter-rouge">https://localhost</code>就可以访问了。</p>
 
 <h4 id="常用命令">常用命令</h4>
 
@@ -82,7 +82,7 @@ sudo apachectl stop
 &lt;/VirtualHost&gt;
 </code></pre></div></div>
 
-<p>这么设置会有个问题，默认的<code class="highlighter-rouge">http://localhost</code>会被转到这儿来，所以专门再设置一下<code class="highlighter-rouge">localhost</code>的host就好了。</p>
+<p>这么设置会有个问题，默认的<code class="highlighter-rouge">https://localhost</code>会被转到这儿来，所以专门再设置一下<code class="highlighter-rouge">localhost</code>的host就好了。</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;VirtualHost <span class="k">*</span>:80&gt;
     ServerName localhost
@@ -264,10 +264,10 @@ general_log_file = /usr/local/var/log/mysqld.log
 <p>phpmyadmin几乎是管理mysql最容易的web应用了吧，每次我都顺道装上。</p>
 
 <ul>
-  <li>去<a href="http://www.phpmyadmin.net/home_page/downloads.php">官网</a>下载最新的版本</li>
+  <li>去<a href="https://www.phpmyadmin.net/home_page/downloads.php">官网</a>下载最新的版本</li>
   <li>解压到~/Sites/phpmyadmin下</li>
   <li>在phpmyadmin目录下创建一个可写的config目录</li>
-  <li>打开http://localhost/phpmyadmin/setup，安装一个服务，最后保存（这里只需要输入帐号密码就够了）</li>
+  <li>打开https://localhost/phpmyadmin/setup，安装一个服务，最后保存（这里只需要输入帐号密码就够了）</li>
   <li>将config下生成的config.inc.php移到phpmyadmin根目录下</li>
   <li>删除config</li>
 </ul>
@@ -284,9 +284,9 @@ sudo ln -s /tmp/mysql.sock /var/mysql/mysql.sock
 <p>RockMongo是MongoDB很好用的一个web应用，安装也很容易</p>
 
 <ul>
-  <li>去<a href="http://rockmongo.com/">官网</a>下载最新版本</li>
+  <li>去<a href="https://rockmongo.com/">官网</a>下载最新版本</li>
   <li>解压到~/Sites/rockmongo下</li>
-  <li>运行http://localhost/rockmongo即可</li>
+  <li>运行https://localhost/rockmongo即可</li>
 </ul>
 
 <h2 id="把-site-放在-dropbox-文件夹下">把 site 放在 Dropbox 文件夹下</h2>
@@ -301,8 +301,8 @@ chmod a+rw ~/Dropbox/sitename
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://www.nabito.net/hot-to-install-nginx-php-fpm-5-5-6-mongo-and-mysql-on-mac-with-homebrew/">Hot to install nginx, PHP-fpm 5.5.6, mongo and MySql on mac with homebrew</a></li>
-  <li><a href="http://my.oschina.net/chen0dgax/blog/190161">Mac OSX 10.9搭建nginx+mysql+php-fpm环境</a></li>
+  <li><a href="https://www.nabito.net/hot-to-install-nginx-php-fpm-5-5-6-mongo-and-mysql-on-mac-with-homebrew/">Hot to install nginx, PHP-fpm 5.5.6, mongo and MySql on mac with homebrew</a></li>
+  <li><a href="https://my.oschina.net/chen0dgax/blog/190161">Mac OSX 10.9搭建nginx+mysql+php-fpm环境</a></li>
 </ol>
 
 :ET

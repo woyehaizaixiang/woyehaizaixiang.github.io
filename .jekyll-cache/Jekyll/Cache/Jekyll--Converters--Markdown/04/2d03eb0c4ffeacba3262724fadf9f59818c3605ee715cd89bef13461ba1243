@@ -119,6 +119,6 @@ fastcgi_param MYSQL_PASSWORD 'root';
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://hi.baidu.com/epplera/item/9e41798601f6da7f850fab71">apache和nginx设置环境变量的方法</a></li>
+  <li><a href="https://hi.baidu.com/epplera/item/9e41798601f6da7f850fab71">apache和nginx设置环境变量的方法</a></li>
 </ol>
 :ET

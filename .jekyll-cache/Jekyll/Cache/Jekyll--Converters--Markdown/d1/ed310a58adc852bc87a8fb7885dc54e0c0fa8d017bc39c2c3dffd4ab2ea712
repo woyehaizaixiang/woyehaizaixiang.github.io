@@ -28,5 +28,5 @@ logging.info('xxx')
 <p>即可输出trace错误界面，在界面中查看变量即可</p>
 
 <h2 id="经常查看文档">经常查看文档</h2>
-<p>OpenStack的文档越来越完善，在Horizon部分有详细的二次开发文档，具体可以查看<a href="http://docs.openstack.org/developer/horizon/">官方文档</a></p>
+<p>OpenStack的文档越来越完善，在Horizon部分有详细的二次开发文档，具体可以查看<a href="https://docs.openstack.org/developer/horizon/">官方文档</a></p>
 :ET

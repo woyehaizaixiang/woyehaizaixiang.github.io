@@ -1,4 +1,4 @@
-I"�<blockquote>
+I"�<blockquote>
   <p>最近在读的几篇论文中都使用ROC曲线来分析算法的好坏，这里总结一下这个曲线的一些名词和用法。我这里只列举一些很简单的内容，想要掌握详细的用法请移步参考中维基百科链接，那里讲解非常详细。</p>
 </blockquote>
 
@@ -27,6 +27,6 @@
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://zh.wikipedia.org/wiki/ROC%E6%9B%B2%E7%BA%BF">Wikipedia: ROC曲线</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/ROC%E6%9B%B2%E7%BA%BF">Wikipedia: ROC曲线</a></li>
 </ol>
 :ET

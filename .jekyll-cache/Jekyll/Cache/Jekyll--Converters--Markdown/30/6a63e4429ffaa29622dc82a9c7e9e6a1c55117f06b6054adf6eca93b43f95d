@@ -4,7 +4,7 @@
 </blockquote>
 
 <h2 id="日志格式">日志格式</h2>
-<p>根据<a href="http://httpd.apache.org/docs/mod/mod_log_config.html">Apache文档</a>，可以看到我们可以通过设置<code class="highlighter-rouge">LogFormat</code>来设置Apache记录的日志格式。简单的几种设置格式如下：</p>
+<p>根据<a href="https://httpd.apache.org/docs/mod/mod_log_config.html">Apache文档</a>，可以看到我们可以通过设置<code class="highlighter-rouge">LogFormat</code>来设置Apache记录的日志格式。简单的几种设置格式如下：</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Common Log Format (CLF)
 "%h %l %u %t \"%r\" %&gt;s %b"
@@ -105,7 +105,7 @@ awk '{print $4}' default-access_log |cut -c 14-18|sort|uniq -c|sort -nr|head
 
 <p>另外可以对日志进行简单的处理，只保留自己需要的行和列，这个处理我用python写了。例如SAE拿下来的日志</p>
 woyehaizaixiangwoyehaizaixiang
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yansublog.sinaapp.com 61.135.219.2 930269 99 [01/Jan/2014:00:02:02 +0800] yansublog 636 1 "GET /feed/ HTTP/1.0" 304 - "-" "Mozilla/5.0 (compatible;YoudaoFeedFetcher/1.0;http://www.youdao.com/help/reader/faq/topic006/;2 subscribers;)" 61.135.219.2.1388505722221452 yq22
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yansublog.sinaapp.com 61.135.219.2 930269 99 [01/Jan/2014:00:02:02 +0800] yansublog 636 1 "GET /feed/ HTTP/1.0" 304 - "-" "Mozilla/5.0 (compatible;YoudaoFeedFetcher/1.0;https://www.youdao.com/help/reader/faq/topic006/;2 subscribers;)" 61.135.219.2.1388505722221452 yq22
 </code></pre></div></div>
 
 <p>挺多数据，但是其中有不知道干啥用的，为了分析方便，把不知道用处的删掉</p>
@@ -126,6 +126,6 @@ f_input.close()
 f_output.close()
 </code></pre></div></div>
 
-<p>如果想要对日志进一步分析，也可以安装使用<a href="http://awstats.sourceforge.net/">awstats</a></p>
+<p>如果想要对日志进一步分析，也可以安装使用<a href="https://awstats.sourceforge.net/">awstats</a></p>
 
 :ET

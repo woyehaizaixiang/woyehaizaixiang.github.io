@@ -50,7 +50,7 @@ setup(name='test',
       <span class="n">description</span><span class="o">=</span><span class="s">'test package'</span><span class="p">,</span>
       <span class="n">author</span><span class="o">=</span><span class="s">'Su Yanwoyehaizaixiangan><span class="p">,</span>
       <span class="n">author_email</span><span class="o">=</span><span class="s">'yawoyehaizaixiang11@gmail.com'</span><span class="p">,</span>
-      <span class="n">url</span><span class="o">=</span><span class="s">'http://www.yansu.org'</span><span class="p">,</span>
+      <span class="n">url</span><span class="o">=</span><span class="s">'https://www.yansu.org'</span><span class="p">,</span>
       <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">'test'</span><span class="p">],</span>
       <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s">'scripts/test.sh'</span><span class="p">]</span>
      <span class="p">)</span>

@@ -6,7 +6,7 @@
 
 <h3 id="什么是-ioc">什么是 IoC</h3>
 <blockquote>
-  <p>控制反转（Inversion of Control，缩写为IoC），是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。 — <a href="http://zh.wikipedia.org/wiki/控制反转">维基百科</a></p>
+  <p>控制反转（Inversion of Control，缩写为IoC），是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。 — <a href="https://zh.wikipedia.org/wiki/控制反转">维基百科</a></p>
 </blockquote>
 
 <p>简单说来，就是一个类把自己的的控制权交给另外一个对象，类间的依赖由这个对象去解决。依赖注入属于依赖的显示申明，而依赖查找则是通过查找来解决依赖。</p>
@@ -40,7 +40,7 @@
 
 <p>这样的话每次实例化后的都是同一个对象。</p>
 
-<p>注入类的更多例子可以看 <a href="http://laravel.com/docs/4.2/ioc">Laravel 官网</a></p>
+<p>注入类的更多例子可以看 <a href="https://laravel.com/docs/4.2/ioc">Laravel 官网</a></p>
 
 <p>你可能会疑问上面的代码应该写在哪儿呢？答案是你希望他们在哪儿运行就写在哪儿。0 —— 0 知道写哪儿还用来看这种基础文章么！</p>
 
@@ -90,7 +90,7 @@
 <p>为了让 Laravel 中的核心类使用起来更加方便，Laravel实现了门面模式。</p>
 
 <blockquote>
-  <p>外觀模式（Facade pattern），是軟件工程中常用的一種軟件設計模式，它為子系統中的一組接口提供一個統一的高層接口，使得子系統更容易使用。 — <a href="http://zh.wikipedia.org/wiki/外觀模式">维基百科</a></p>
+  <p>外觀模式（Facade pattern），是軟件工程中常用的一種軟件設計模式，它為子系統中的一組接口提供一個統一的高層接口，使得子系統更容易使用。 — <a href="https://zh.wikipedia.org/wiki/外觀模式">维基百科</a></p>
 </blockquote>
 
 <h3 id="laravel-中的使用-2">Laravel 中的使用</h3>

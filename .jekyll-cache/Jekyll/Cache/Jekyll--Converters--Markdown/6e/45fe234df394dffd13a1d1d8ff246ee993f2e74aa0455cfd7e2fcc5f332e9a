@@ -1,4 +1,4 @@
-I"�<h1>kanyun的部署</h1>
+I"�<h1>kanyun的部署</h1>
 
 <ul>
   <li><a href="#all">1 全部节点配置</a>
@@ -27,7 +27,7 @@
   <li>yum install libtool autoconf automake</li>
   <li>yum install uuid-devel</li>
   <li>yum install libuuid-devel</li>
-  <li>wget http://download.zeromq.org/zeromq-2.2.0.tar.gz</li>
+  <li>wget https://download.zeromq.org/zeromq-2.2.0.tar.gz</li>
   <li>tar zxvf zeromq-2.2.0.tar.gz &amp; cd zeromq-2.2.0 &amp; ./configure &amp; make install</li>
   <li>ldconfig</li>
 </ol>
@@ -89,7 +89,7 @@ git clone https://github.com/woyehaizaixiang/kanyun.git
 <h3 id="controller-cassandra">2.1 安装配置cassandra</h3>
 <h4>下载Cassandra</h4>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt
-wget http://mirror.bit.edu.cn/apache/cassandra/0.8.10/apache-cassandra-0.8.10-bin.tar.gz
+wget https://mirror.bit.edu.cn/apache/cassandra/0.8.10/apache-cassandra-0.8.10-bin.tar.gz
 </code></pre></div></div>
 <h4>解压</h4>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar zxvf apache-cassandra-0.8.10-bin.tar.gz

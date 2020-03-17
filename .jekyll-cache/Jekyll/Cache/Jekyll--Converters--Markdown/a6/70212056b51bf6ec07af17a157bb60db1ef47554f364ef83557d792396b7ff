@@ -1,5 +1,5 @@
-I"�<blockquote>
-  <p>生产环境中部署OpenStack基本的要求的是稳定，安全和可扩展性，使用Multihost方式部署的好处是保证了网络的高可用，服务器数量捉急，所以选择<a href="https://github.com/mseknibilel/OpenStack-Grizzly-Install-Guide">mseknibilel</a>的部署方式会比较纠结于控制节点和网络节点的资源浪费。所以本文档参考<a href="http://longgeek.com/2013/04/03/openstack-grizzly-quantum-multihost-deployment/">Longgeek</a>的这篇文章，只做控制节点和计算节点，1个控制节点配多个计算节点，Quantum部署在计算节点上。</p>
+I"�<blockquote>
+  <p>生产环境中部署OpenStack基本的要求的是稳定，安全和可扩展性，使用Multihost方式部署的好处是保证了网络的高可用，服务器数量捉急，所以选择<a href="https://github.com/mseknibilel/OpenStack-Grizzly-Install-Guide">mseknibilel</a>的部署方式会比较纠结于控制节点和网络节点的资源浪费。所以本文档参考<a href="https://longgeek.com/2013/04/03/openstack-grizzly-quantum-multihost-deployment/">Longgeek</a>的这篇文章，只做控制节点和计算节点，1个控制节点配多个计算节点，Quantum部署在计算节点上。</p>
 </blockquote>
 
 <h2 id="环境要求">环境要求</h2>
@@ -30,10 +30,10 @@ export ADMIN_TOKEN=ceit
 export OS_TENANT_NAME=admin
 export OS_USERNAME=admin
 export OS_PASSWORD=$ADMIN_PASSWORD
-export OS_AUTH_URL="http://${YS_CON_MANAGE_IP}:5000/v2.0/"   
+export OS_AUTH_URL="https://${YS_CON_MANAGE_IP}:5000/v2.0/"   
 export OS_REGION_NAME=RegionOne
 export SERVICE_TOKEN=${ADMIN_TOKEN}
-export SERVICE_ENDPOINT=http://${YS_CON_MANAGE_IP}:35357/v2.0/
+export SERVICE_ENDPOINT=https://${YS_CON_MANAGE_IP}:35357/v2.0/
 </code></pre></div></div>
 
 <h3 id="网络设置">网络设置</h3>
@@ -63,8 +63,8 @@ _EOF_
 <p>添加Ubuntu Grizzly源，并升级</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt; /etc/apt/sources.list.d/grizzly.list &lt;&lt; _EOF_
-deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/grizzly main
-deb  http://ubuntu-cloud.archive.canonical.com/ubuntu precise-proposed/grizzly main
+deb https://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/grizzly main
+deb  https://ubuntu-cloud.archive.canonical.com/ubuntu precise-proposed/grizzly main
 _EOF_
 apt-get update
 apt-get -y upgrade --force-yes
@@ -146,7 +146,7 @@ keystone-manage db_sync
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ADMIN_PASSWORD=${ADMIN_PASSWORD:-password}
 SERVICE_PASSWORD=${ADMIN_PASSWORD:-password}
 export SERVICE_TOKEN=$ADMIN_TOKEN
-export SERVICE_ENDPOINT="http://${YS_CON_SERVICE_ENDPOINT_IP}:35357/v2.0"
+export SERVICE_ENDPOINT="https://${YS_CON_SERVICE_ENDPOINT_IP}:35357/v2.0"
 SERVICE_TENANT_NAME=${SERVICE_TENANT_NAME:-service}
 KEYSTONE_REGION=RegionOne
 KEYSTONE_IP=$YS_CON_SERVICE_ENDPOINT_IP
@@ -203,18 +203,18 @@ QUANTUM_ID=$(keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT servic
 <p>第三部分：</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ "$KEYSTONE_WLAN_IP" != '' ];then
-    keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$KEYSTONE_ID --publicurl http://"$KEYSTONE_WLAN_IP":5000/v2.0 --adminurl http://"$KEYSTONE_WLAN_IP":35357/v2.0 --internalurl http://"$KEYSTONE_WLAN_IP":5000/v2.0
+    keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$KEYSTONE_ID --publicurl https://"$KEYSTONE_WLAN_IP":5000/v2.0 --adminurl https://"$KEYSTONE_WLAN_IP":35357/v2.0 --internalurl https://"$KEYSTONE_WLAN_IP":5000/v2.0
 fi
-keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$KEYSTONE_ID --publicurl http://"$KEYSTONE_IP":5000/v2.0 --adminurl http://"$KEYSTONE_IP":35357/v2.0 --internalurl http://"$KEYSTONE_IP":5000/v2.0
-keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$COMPUTE_ID --publicurl http://"$COMPUTE_IP":8774/v2/\$\(tenant_id\)s --adminurl http://"$COMPUTE_IP":8774/v2/\$\(tenant_id\)s --internalurl http://"$COMPUTE_IP":8774/v2/\$\(tenant_id\)s
-keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$CINDER_ID --publicurl http://"$VOLUME_IP":8776/v1/\$\(tenant_id\)s --adminurl http://"$VOLUME_IP":8776/v1/\$\(tenant_id\)s --internalurl http://"$VOLUME_IP":8776/v1/\$\(tenant_id\)s
-keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$GLANCE_ID --publicurl http://"$GLANCE_IP":9292/v2 --adminurl http://"$GLANCE_IP":9292/v2 --internalurl http://"$GLANCE_IP":9292/v2
+keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$KEYSTONE_ID --publicurl https://"$KEYSTONE_IP":5000/v2.0 --adminurl https://"$KEYSTONE_IP":35357/v2.0 --internalurl https://"$KEYSTONE_IP":5000/v2.0
+keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$COMPUTE_ID --publicurl https://"$COMPUTE_IP":8774/v2/\$\(tenant_id\)s --adminurl https://"$COMPUTE_IP":8774/v2/\$\(tenant_id\)s --internalurl https://"$COMPUTE_IP":8774/v2/\$\(tenant_id\)s
+keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$CINDER_ID --publicurl https://"$VOLUME_IP":8776/v1/\$\(tenant_id\)s --adminurl https://"$VOLUME_IP":8776/v1/\$\(tenant_id\)s --internalurl https://"$VOLUME_IP":8776/v1/\$\(tenant_id\)s
+keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$GLANCE_ID --publicurl https://"$GLANCE_IP":9292/v2 --adminurl https://"$GLANCE_IP":9292/v2 --internalurl https://"$GLANCE_IP":9292/v2
 if [ "$SWIFT_WLAN_IP" != '' ];then
-    keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$SWIFT_ID --publicurl http://"$SWIFT_WLAN_IP":8080/v1/AUTH_\$\(tenant_id\)s --adminurl http://"$SWIFT_WLAN_IP":8080/v1 --internalurl http://"$SWIFT_WLAN_IP":8080/v1/AUTH_\$\(tenant_id\)s
+    keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$SWIFT_ID --publicurl https://"$SWIFT_WLAN_IP":8080/v1/AUTH_\$\(tenant_id\)s --adminurl https://"$SWIFT_WLAN_IP":8080/v1 --internalurl https://"$SWIFT_WLAN_IP":8080/v1/AUTH_\$\(tenant_id\)s
 fi
-keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$SWIFT_ID --publicurl http://"$SWIFT_IP":8080/v1/AUTH_\$\(tenant_id\)s --adminurl http://"$SWIFT_IP":8080/v1 --internalurl http://"$SWIFT_IP":8080/v1/AUTH_\$\(tenant_id\)s
-keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$EC2_ID --publicurl http://"$EC2_IP":8773/services/Cloud --adminurl http://"$EC2_IP":8773/services/Admin --internalurl http://"$EC2_IP":8773/services/Cloud
-keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$QUANTUM_ID --publicurl http://"$QUANTUM_IP":9696/ --adminurl http://"$QUANTUM_IP":9696/ --internalurl http://"$QUANTUM_IP":9696/
+keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$SWIFT_ID --publicurl https://"$SWIFT_IP":8080/v1/AUTH_\$\(tenant_id\)s --adminurl https://"$SWIFT_IP":8080/v1 --internalurl https://"$SWIFT_IP":8080/v1/AUTH_\$\(tenant_id\)s
+keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$EC2_ID --publicurl https://"$EC2_IP":8773/services/Cloud --adminurl https://"$EC2_IP":8773/services/Admin --internalurl https://"$EC2_IP":8773/services/Cloud
+keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --region $KEYSTONE_REGION --service-id=$QUANTUM_ID --publicurl https://"$QUANTUM_IP":9696/ --adminurl https://"$QUANTUM_IP":9696/ --internalurl https://"$QUANTUM_IP":9696/
 </code></pre></div></div>
 
 <p>导入环境变量</p>
@@ -223,10 +223,10 @@ keystone --token $SERVICE_TOKEN --endpoint $SERVICE_ENDPOINT endpoint-create --r
 export OS_TENANT_NAME=admin
 export OS_USERNAME=admin
 export OS_PASSWORD=$ADMIN_PASSWORD
-export OS_AUTH_URL="http://${YS_CON_MANAGE_IP}:5000/v2.0/"   
+export OS_AUTH_URL="https://${YS_CON_MANAGE_IP}:5000/v2.0/"   
 export OS_REGION_NAME=RegionOne
 export SERVICE_TOKEN=${ADMIN_TOKEN}
-export SERVICE_ENDPOINT=http://${YS_CON_MANAGE_IP}:35357/v2.0/
+export SERVICE_ENDPOINT=https://${YS_CON_MANAGE_IP}:35357/v2.0/
 _EOF_
 
 echo 'source /root/export.sh' &gt;&gt; /root/.bashrc
@@ -542,18 +542,18 @@ image_service = nova.image.glance.GlanceImageService
 glance_api_servers = ${YS_CON_MANAGE_IP}:9292
 # NETWORK
 network_api_class = nova.network.quantumv2.api.API
-quantum_url = http://${YS_CON_MANAGE_IP}:9696
+quantum_url = https://${YS_CON_MANAGE_IP}:9696
 quantum_auth_strategy = keystone
 quantum_admin_tenant_name = service
 quantum_admin_username = quantum
 quantum_admin_password = ${ADMIN_PASSWORD}
-quantum_admin_auth_url = http://${YS_CON_MANAGE_IP}:35357/v2.0
+quantum_admin_auth_url = https://${YS_CON_MANAGE_IP}:35357/v2.0
 service_quantum_metadata_proxy = True
 libvirt_vif_driver = nova.virt.libvirt.vif.LibvirtHybridOVSBridgeDriver
 linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
 firewall_driver = nova.virt.libvirt.firewall.IptablesFirewallDriver
 # NOVNC CONSOLE
-novncproxy_base_url = http://${YS_CON_EXT_IP}:6080/vnc_auto.html
+novncproxy_base_url = https://${YS_CON_EXT_IP}:6080/vnc_auto.html
 # Change vncserver_proxyclient_address and vncserver_listen to match each compute host
 vncserver_proxyclient_address = ${YS_CON_EXT_IP}
 vncserver_listen = 0.0.0.0
@@ -598,7 +598,7 @@ cd /etc/init.d/; for i in $( ls nova-* ); do sudo /etc/init.d/$i restart; done
 </code></pre></div></div>
 
 <h3 id="安装完成">安装完成</h3>
-<p>现在可以通过浏览器 http://YS_CON_EXT_IP/horizon 使用 admin:ADMIN_PASSWORD 来登录界面。</p>
+<p>现在可以通过浏览器 https://YS_CON_EXT_IP/horizon 使用 admin:ADMIN_PASSWORD 来登录界面。</p>
 
 <h2 id="所有计算节点">所有计算节点</h2>
 
@@ -653,8 +653,8 @@ _EOF_
 <p>添加Ubuntu Grizzly源，并升级</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt; /etc/apt/sources.list.d/grizzly.list &lt;&lt; _EOF_
-deb http://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/grizzly main
-deb  http://ubuntu-cloud.archive.canonical.com/ubuntu precise-proposed/grizzly main
+deb https://ubuntu-cloud.archive.canonical.com/ubuntu precise-updates/grizzly main
+deb  https://ubuntu-cloud.archive.canonical.com/ubuntu precise-proposed/grizzly main
 _EOF_
 apt-get update
 apt-get -y upgrade --force-yes
@@ -832,7 +832,7 @@ signing_dir = /var/cache/quantum
 admin_tenant_name = service
 admin_user = quantum
 admin_password = ${ADMIN_PASSWORD}
-auth_url = http://${YS_CON_MANAGE_IP}:35357/v2.0
+auth_url = https://${YS_CON_MANAGE_IP}:35357/v2.0
 l3_agent_manager = quantum.agent.l3_agent.L3NATAgentWithStateReport
 root_helper = sudo quantum-rootwrap /etc/quantum/rootwrap.conf
 interface_driver = quantum.agent.linux.interface.OVSInterfaceDriver
@@ -851,7 +851,7 @@ signing_dir = /var/cache/quantum
 admin_tenant_name = service
 admin_user = quantum
 admin_password = ${ADMIN_PASSWORD}
-auth_url = http://${YS_CON_MANAGE_IP}:35357/v2.0
+auth_url = https://${YS_CON_MANAGE_IP}:35357/v2.0
 dhcp_agent_manager = quantum.agent.dhcp_agent.DhcpAgentWithStateReport
 root_helper = sudo quantum-rootwrap /etc/quantum/rootwrap.conf
 state_path = /var/lib/quantum
@@ -867,7 +867,7 @@ _EOF_
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt; /etc/quantum/metadata_agent.ini &lt;&lt; _EOF_
 [DEFAULT]
 debug = True
-auth_url = http://${YS_CON_MANAGE_IP}:35357/v2.0
+auth_url = https://${YS_CON_MANAGE_IP}:35357/v2.0
 auth_region = RegionOne
 admin_tenant_name = service
 admin_user = quantum
@@ -951,18 +951,18 @@ image_service = nova.image.glance.GlanceImageService
 glance_api_servers = ${YS_CON_MANAGE_IP}:9292
 # NETWORK
 network_api_class = nova.network.quantumv2.api.API
-quantum_url = http://${YS_CON_MANAGE_IP}:9696
+quantum_url = https://${YS_CON_MANAGE_IP}:9696
 quantum_auth_strategy = keystone
 quantum_admin_tenant_name = service
 quantum_admin_username = quantum
 quantum_admin_password = ${ADMIN_PASSWORD}
-quantum_admin_auth_url = http://${YS_CON_MANAGE_IP}:35357/v2.0
+quantum_admin_auth_url = https://${YS_CON_MANAGE_IP}:35357/v2.0
 service_quantum_metadata_proxy = True
 libvirt_vif_driver = nova.virt.libvirt.vif.LibvirtHybridOVSBridgeDriver
 linuxnet_interface_driver = nova.network.linux_net.LinuxOVSInterfaceDriver
 firewall_driver = nova.virt.libvirt.firewall.IptablesFirewallDriver
 # NOVNC CONSOLE
-novncproxy_base_url = http://${YS_CON_EXT_IP}:6080/vnc_auto.html
+novncproxy_base_url = https://${YS_CON_EXT_IP}:6080/vnc_auto.html
 # Change vncserver_proxyclient_address and vncserver_listen to match each compute host
 vncserver_proxyclient_address = ${YS_COM_EXT_IP}
 vncserver_listen = 0.0.0.0
@@ -1055,7 +1055,7 @@ quantum l3-agent-router-add $l3_agent_ID router_proj_one
 export OS_TENANT_NAME=project_one
 export OS_USERNAME=user_one
 export OS_PASSWORD=user_one
-export OS_AUTH_URL="http://59.65.233.231:5000/v2.0/"
+export OS_AUTH_URL="https://59.65.233.231:5000/v2.0/"
 
 source creds_proj_one
 </code></pre></div></div>
@@ -1097,7 +1097,7 @@ nova --no-cache secgroup-add-rule default tcp 22 22 0.0.0.0/0
 
 <h2 id="修改bug">修改bug</h2>
 
-<p>quantum里面有一个bug，这个环境重启以后nova会无法启动，参考<a href="http://blog.sina.com.cn/s/blog_6de3aa8a0101lnar.html">aass</a>修改源码可以解决</p>
+<p>quantum里面有一个bug，这个环境重启以后nova会无法启动，参考<a href="https://blog.sina.com.cn/s/blog_6de3aa8a0101lnar.html">aass</a>修改源码可以解决</p>
 
 <p>修改计算节点/usr/share/pyshared/nova/virt/libvirt/vif.py第360行所在函数</p>
 

@@ -8,7 +8,7 @@
 
 <p><strong>Wiki地址：</strong> https://wiki.openstack.org/wiki/Ceilometer
 <strong>代码地址：</strong> https://github.com/openstack/ceilometer
-<strong>文档地址：</strong> http://docs.openstack.org/developer/ceilometer/</p>
+<strong>文档地址：</strong> https://docs.openstack.org/developer/ceilometer/</p>
 
 <h3 id="社区现状">社区现状</h3>
 
@@ -25,7 +25,7 @@ Move to core for H</p>
 
 <h3 id="ceilometer架构介绍">Ceilometer架构介绍</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-ceilometer-architecture.png" alt="Ceilometer架构介绍" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-ceilometer-architecture.png" alt="Ceilometer架构介绍" /></p>
 
 <h3 id="ceilometer项目主要由agentcollectordatastoreapi和消息队列组成">Ceilometer项目主要由Agent，Collector，DataStore，API和消息队列组成。</h3>
 
@@ -34,7 +34,7 @@ Move to core for H</p>
 <p>Agent的主要职责是周期性的从它管理的Plugin中轮询，触发查询，Plugin中有具体获取数据的逻辑。Ceilometer中的Agent分为Central Agent和Compute Agent。
 Central Agent负责管理除了Compute（Nova）之外所有的Plugin，例如Swift，Cinder的Plugin。这些Plugin通过RPC调用相关服务的API并获取数据，然后将数据publish到Message Queue。Central Agent作为一个中心的数据采集调度器，之需要部署一个即可。
 Compute Agent负责Compute节点的数据采集，在每一个Compute节点都需要部署一个Compute Agent。它一方主要负责周期性的采集Compute相关的数据并发布到MQ。
-目前所规划的监控指标：http://docs.openstack.org/developer/ceilometer/measurements.html</p>
+目前所规划的监控指标：https://docs.openstack.org/developer/ceilometer/measurements.html</p>
 
 <h4 id="plugin">Plugin</h4>
 
@@ -61,5 +61,5 @@ Compute Agent负责Compute节点的数据采集，在每一个Compute节点都�
 
 <p>负责为其它项目提供数据，例如计费、面板等。</p>
 
-<p><a href="http://www.cnblogs.com/alexyang8/archive/2013/02/18/2915981.html">原文地址</a></p>
+<p><a href="https://www.cnblogs.com/alexyang8/archive/2013/02/18/2915981.html">原文地址</a></p>
 :ET

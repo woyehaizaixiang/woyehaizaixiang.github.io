@@ -2,7 +2,7 @@
   <p>GitHub流是一个轻量级，基于分支的工作流，它使得小组和项目的部署变得标准化。这个向导解释了GitHub流是如何&amp;为什么工作的。</p>
 </blockquote>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-github-flow.png" alt="github-flow" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-github-flow.png" alt="github-flow" /></p>
 
 <h2 id="创建一个分支">创建一个分支</h2>
 <p>当你工作在一个项目中，你可能会在任何时间产生不同的想法和特性计划–这些都是准备完成的，或者其他不准备完成的。分支的存在可以帮助你管理工作流。</p>
@@ -41,6 +41,6 @@
 
 <p>通过在Pull Request的文字中包含某些关键字，你可以关联代码和issues。当你的Pull Request被合并，相关的issues同样会被关闭。比如，输入<code class="highlighter-rouge">Closes #32</code>将会关闭库中的32号issue。想要获得更多信息，点<a href="https://help.github.com/articles/closing-issues-via-commit-messages">这里</a>。</p>
 
-<p>原文链接：<a href="http://guides.github.com/overviews/flow/">http://guides.github.com/overviews/flow/</a></p>
+<p>原文链接：<a href="https://guides.github.com/overviews/flow/">https://guides.github.com/overviews/flow/</a></p>
 
 :ET

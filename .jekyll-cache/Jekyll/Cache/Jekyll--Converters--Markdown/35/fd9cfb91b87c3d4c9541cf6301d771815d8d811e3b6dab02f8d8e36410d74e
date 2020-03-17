@@ -87,9 +87,9 @@ notification_driver=ceilometer.compute.nova_notifier
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keystone endpoint-create --region RegionOne \
                          --service_id $CEILOMETER_SERVICE \
-                         --publicurl "http://$SERVICE_HOST:8777/" \
-                         --adminurl "http://$SERVICE_HOST:8777/" \
-                         --internalurl "http://$SERVICE_HOST:8777/"
+                         --publicurl "https://$SERVICE_HOST:8777/" \
+                         --adminurl "https://$SERVICE_HOST:8777/" \
+                         --internalurl "https://$SERVICE_HOST:8777/"
 </code></pre></div></div>
 
 <h3 id="ceilometer配置-1">Ceilometer配置</h3>
@@ -104,7 +104,7 @@ database_connection=mongodb://localhost:27017/ceilometer
 os_username=$ADMIN_USERNAME
 os_tenant_name=$TENANT_NAME
 os_password=$ADMIN_PASSWORD
-os_auth_url=http://${CONTROLLER_HOS}:5000/v2.0/
+os_auth_url=https://${CONTROLLER_HOS}:5000/v2.0/
 </code></pre></div></div>
 
 <h2 id="重启服务">重启服务</h2>

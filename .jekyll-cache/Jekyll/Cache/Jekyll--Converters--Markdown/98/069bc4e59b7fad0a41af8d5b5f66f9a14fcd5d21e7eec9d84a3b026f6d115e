@@ -1,5 +1,5 @@
 I"<<h3 id="1stevedore作用">1.stevedore作用</h3>
-<p>Python导入动态代码很容易，例如通过在运行时导入扩展插件来扩展你的应用。许多应用通过<code class="highlighter-rouge">__import__</code>或importlib实现了这个功能。<a href="http://stevedore.readthedocs.org/en/latest/index.html">stevedore</a>的功能就是管理扩展的，但是它的实现方式是借助steuptools的entry points（我的<a href="/2013/06/07/learn-python-setuptools-in-detail.html">上一篇</a>有讲entry points功能）。</p>
+<p>Python导入动态代码很容易，例如通过在运行时导入扩展插件来扩展你的应用。许多应用通过<code class="highlighter-rouge">__import__</code>或importlib实现了这个功能。<a href="https://stevedore.readthedocs.org/en/latest/index.html">stevedore</a>的功能就是管理扩展的，但是它的实现方式是借助steuptools的entry points（我的<a href="/2013/06/07/learn-python-setuptools-in-detail.html">上一篇</a>有讲entry points功能）。</p>
 
 <h3 id="2创建一个插件">2.创建一个插件</h3>
 <p>这里以一个格式转换的例子来学习：</p>
@@ -166,5 +166,5 @@ if __name__ == '__main__':
 <p>这里ExtensionManger的参数只需要namespace，因为它将使用这个entry point组中的所有插件，并且通过mgr.map()来为每一个plugin传递参数</p>
 
 <h4 id="其他">其他</h4>
-<p>除了上面提到的几种方式外，还有<a href="http://stevedore.readthedocs.org/en/latest/managers.html">其他</a>几种可以使用，具体可以自己研究了~</p>
+<p>除了上面提到的几种方式外，还有<a href="https://stevedore.readthedocs.org/en/latest/managers.html">其他</a>几种可以使用，具体可以自己研究了~</p>
 :ET

@@ -7,13 +7,13 @@
 
 <p>每个项目开始的方向是很重要的，良好的开始可以避免之后的各种问题。下面要说的三个工具，就是现有应用开发的一个良好开端。</p>
 
-<h3 id="laravel"><a href="http://laravel.com/">Laravel</a></h3>
+<h3 id="laravel"><a href="https://laravel.com/">Laravel</a></h3>
 <p>Laravel是一个非常新的PHP框架，借鉴了很多前辈的优秀特性，以PHP5为起点，引入了<a href="https://getcomposer.org/">Composer</a>作为包管理工具，号称为WEB艺术家创造的PHP框架。</p>
 
-<h3 id="grunt"><a href="http://gruntjs.com/">Grunt</a></h3>
+<h3 id="grunt"><a href="https://gruntjs.com/">Grunt</a></h3>
 <p>基于JavaScript的自动化构建工具，可以将重复的任务，例如压缩（minification），编译，单元测试，linting等自动化。</p>
 
-<h3 id="bower"><a href="http://bower.io/">Bower</a></h3>
+<h3 id="bower"><a href="https://bower.io/">Bower</a></h3>
 <p>Web前端开发的包管理工具，解决前端框架间的依赖关系，方便模块化和重用。</p>
 
 <h2 id="优势">优势</h2>
@@ -283,7 +283,7 @@ Thumbs.db
 
 <p>上面则只将<code class="highlighter-rouge">bootstrap/fonts</code>中的文件拷贝到<code class="highlighter-rouge">public/assets/fonts</code>中。</p>
 
-<p>对于上述的这些插件，可以在<a href="http://gruntjs.com/plugins">这里</a>找到，也有详细的用法。</p>
+<p>对于上述的这些插件，可以在<a href="https://gruntjs.com/plugins">这里</a>找到，也有详细的用法。</p>
 
 <h2 id="总结">总结</h2>
 <p>每个人都有自己的喜好，我的这种配置可能只抛个砖，希望有更好的方式分享。最后在总结一下这三剑客：</p>
@@ -309,7 +309,7 @@ grunt
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://www.terrymatula.com/development/2013/how-i-use-bower-and-grunt-with-my-laravel-projects/">How I use Bower and Grunt with my Laravel projects</a></li>
-  <li><a href="http://blog.elenakolevska.com/using-grunt-with-laravel-and-bootstrap/">Using Grunt + Bower with Laravel and Bootstrap</a></li>
+  <li><a href="https://www.terrymatula.com/development/2013/how-i-use-bower-and-grunt-with-my-laravel-projects/">How I use Bower and Grunt with my Laravel projects</a></li>
+  <li><a href="https://blog.elenakolevska.com/using-grunt-with-laravel-and-bootstrap/">Using Grunt + Bower with Laravel and Bootstrap</a></li>
 </ol>
 :ET

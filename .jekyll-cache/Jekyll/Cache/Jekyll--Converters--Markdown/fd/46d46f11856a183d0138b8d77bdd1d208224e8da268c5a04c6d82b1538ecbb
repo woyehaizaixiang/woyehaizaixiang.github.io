@@ -1,4 +1,4 @@
-I"�<h2 id="常用指令">常用指令</h2>
+I"�<h2 id="常用指令">常用指令</h2>
 
 <h3 id="文本内容搜索">文本内容搜索</h3>
 
@@ -72,7 +72,7 @@ uname -a
 
 <h3 id="下载整个网站">下载整个网站</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget --random-wait -r -p -e robots=off -U mozilla https://www.example.com
 </code></pre></div></div>
 
 <h3 id="后台运行一段不中止的程序并可随时查看它的状态">后台运行一段不中止的程序，并可随时查看它的状态</h3>

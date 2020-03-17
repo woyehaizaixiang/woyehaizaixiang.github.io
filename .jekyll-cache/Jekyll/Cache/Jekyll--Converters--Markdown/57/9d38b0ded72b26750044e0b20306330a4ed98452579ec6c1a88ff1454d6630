@@ -1,4 +1,4 @@
-I"�<h2 id="创建windows镜像">创建windows镜像</h2>
+I"�<h2 id="创建windows镜像">创建windows镜像</h2>
 
 <h3 id="创建一个img文件">创建一个img文件</h3>
 
@@ -7,8 +7,8 @@
 
 <h3 id="下载virtio驱动">下载virtio驱动</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://alt.fedoraproject.org/pub/alt/virtio-win/archives/virtio-win-0.1-59/virtio-win-0.1-59.iso
-wget http://www.linuxwind.org/download/virtio-win-1.1.16.vfd
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://alt.fedoraproject.org/pub/alt/virtio-win/archives/virtio-win-0.1-59/virtio-win-0.1-59.iso
+wget https://www.linuxwind.org/download/virtio-win-1.1.16.vfd
 </code></pre></div></div>
 
 <h3 id="启动安装程序">启动安装程序</h3>
@@ -49,7 +49,7 @@ wget http://www.linuxwind.org/download/virtio-win-1.1.16.vfd
 </code></pre></div></div>
 
 <h2 id="上传windows镜像">上传windows镜像</h2>
-<p>openstack的命令以<a href="http://docs.openstack.org/trunk/openstack-compute/admin/content/creating-a-windows-image.html">最新文档</a>为标准，网上博客难免有过时的</p>
+<p>openstack的命令以<a href="https://docs.openstack.org/trunk/openstack-compute/admin/content/creating-a-windows-image.html">最新文档</a>为标准，网上博客难免有过时的</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>glance image-create --name="win7" --is-public=true --container-format=ovf --disk-format=qcow2 &lt; win7.qcow2
 </code></pre></div></div>

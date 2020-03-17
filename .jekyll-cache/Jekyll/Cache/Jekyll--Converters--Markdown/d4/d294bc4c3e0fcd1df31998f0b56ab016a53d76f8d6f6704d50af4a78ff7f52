@@ -1,4 +1,4 @@
-I"�<h3 id="代码高亮方式选择">代码高亮方式选择</h3>
+I"�<h3 id="代码高亮方式选择">代码高亮方式选择</h3>
 
 <h4 id="1小片段">1.小片段</h4>
 
@@ -6,7 +6,7 @@
 
 <h4 id="2pygments渲染">2.Pygments渲染</h4>
 
-<p>Jekyll通过<a href="http://pygments.org/">Pygments</a>可以直接处理代码高亮</p>
+<p>Jekyll通过<a href="https://pygments.org/">Pygments</a>可以直接处理代码高亮</p>
 
 <p>在Github Pages的<a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">文档</a>里，也提到了这个方式，但是总觉得这样有点不是很舒服，打破了markdown的格式</p>
 
@@ -41,5 +41,5 @@
 <p>这里导入了css和js后，就可以直接用markdown的tab的方式来导入代码段了</p>
 
 <h4 id="3更换主题">3.更换主题</h4>
-<p>默认主题不是很好看，只要更换prettify.css即可更换样式，可以到<a href="http://google-code-prettify.googlecode.com/svn/trunk/styles/index.html">这里</a>下载自己喜欢的主题css即可</p>
+<p>默认主题不是很好看，只要更换prettify.css即可更换样式，可以到<a href="https://google-code-prettify.googlecode.com/svn/trunk/styles/index.html">这里</a>下载自己喜欢的主题css即可</p>
 :ET

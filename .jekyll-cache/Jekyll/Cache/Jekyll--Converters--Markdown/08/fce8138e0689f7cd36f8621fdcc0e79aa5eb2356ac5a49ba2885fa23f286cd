@@ -16,7 +16,7 @@ git config --global http.sslVerify false
 <h2 id="设置apt-get代理">设置apt-get代理</h2>
 <p>上面的方法也可以直接使apt代理，如果不想设置环境变量，可以使用下面命令</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get -o Acquire::http::proxy="http://127.0.0.1:8087/" update
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get -o Acquire::https::proxy="https://127.0.0.1:8087/" update
 </code></pre></div></div>
 
 :ET

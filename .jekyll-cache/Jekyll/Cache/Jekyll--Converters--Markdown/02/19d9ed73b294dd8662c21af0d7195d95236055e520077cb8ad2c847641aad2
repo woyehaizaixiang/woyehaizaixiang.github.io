@@ -37,7 +37,7 @@
 <h2 id="apache">Apache</h2>
 
 <h3 id="概述">概述</h3>
-<p>Apache HTTP Server是Apache软件基金会的一个开放源代码的网页服务器，可以在大多数计算机操作系统中运行，由于其跨平台和安全性。被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩充，将Perl／Python等解释器编译到服务器中。    – <a href="http://zh.wikipedia.org/wiki/Apache_HTTP_Server">维基百科</a></p>
+<p>Apache HTTP Server是Apache软件基金会的一个开放源代码的网页服务器，可以在大多数计算机操作系统中运行，由于其跨平台和安全性。被广泛使用，是最流行的Web服务器端软件之一。它快速、可靠并且可通过简单的API扩充，将Perl／Python等解释器编译到服务器中。    – <a href="https://zh.wikipedia.org/wiki/Apache_HTTP_Server">维基百科</a></p>
 
 <h3 id="apache组件">Apache组件</h3>
 <p>Apache是基于模块化设计的，它的核心代码并不多，大多数的功能都被分散到各个模块中，各个模块在系统启动的时候按需载入。</p>
@@ -137,7 +137,7 @@
 
 <p>Apache处理http请求的生命周期:</p>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-apache-http-handle.jpg" alt="Apache处理http请求的生命周期" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-apache-http-handle.jpg" alt="Apache处理http请求的生命周期" /></p>
 
 <ol>
   <li>Post-Read-Request阶段:在正常请求处理流程中，这是模块可以插入钩子的第一个阶段。对于那些想很早进入处理请求的模块来说，这个阶段可以被利用。</li>
@@ -156,7 +156,7 @@
 <h2 id="nginx">Nginx</h2>
 
 <h3 id="概述-1">概述</h3>
-<p>Nginx（发音同engine x）是一款由俄罗斯程序员Igor Sysoev所开发轻量级的网页服务器、反向代理服务器以及电子邮件（IMAP/POP3）代理服务器。起初是供俄国大型的门户网站及搜索引擎Rambler（俄语：Рамблер）使用。  – <a href="http://zh.wikipedia.org/wiki/Nginx">维基百科</a></p>
+<p>Nginx（发音同engine x）是一款由俄罗斯程序员Igor Sysoev所开发轻量级的网页服务器、反向代理服务器以及电子邮件（IMAP/POP3）代理服务器。起初是供俄国大型的门户网站及搜索引擎Rambler（俄语：Рамблер）使用。  – <a href="https://zh.wikipedia.org/wiki/Nginx">维基百科</a></p>
 
 <h3 id="nginx的模块与工作原理">Nginx的模块与工作原理</h3>
 <p>Nginx由内核和模块组成，其中，内核的设计非常微小和简洁，完成的工作也非常简单，仅仅通过查找配置文件将客户端请求映射到一个location block（location是Nginx配置中的一个指令，用于URL匹配），而在这个location中所配置的每个指令将会启动不同的模块去完成相应的工作。</p>
@@ -201,7 +201,7 @@ based conf           |                    |
 
 <h3 id="nginx架构及工作流程">Nginx架构及工作流程</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-nginx-architecture.png" alt="Nginx架构" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-nginx-architecture.png" alt="Nginx架构" /></p>
 
 <p>上图是Nginx的架构，这个架构类似于Apache的Worker工作状态，Nginx的每一个Worker进程都管理着大量的线程，真正处理请求的是Worker之下的线程。</p>
 
@@ -289,10 +289,10 @@ based conf           |                    |
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://blog.csdn.net/hguisu/article/details/7395181">Apache运行机制剖析</a></li>
-  <li><a href="http://qing.blog.sina.com.cn/tj/69004f5933000xlt.html">Apache处理http请求的生命周期</a></li>
-  <li><a href="http://tengine.taobao.org/book/chapter_02.html">Nginx平台初探</a></li>
-  <li><a href="http://liuxun.org/blog/nginx-jia-gou-zong-lan/">Nginx架构综述</a></li>
-  <li><a href="http://blog.csdn.net/hguisu/article/details/7403622">Apache, nginx, lighttpd性能比较</a></li>
+  <li><a href="https://blog.csdn.net/hguisu/article/details/7395181">Apache运行机制剖析</a></li>
+  <li><a href="https://qing.blog.sina.com.cn/tj/69004f5933000xlt.html">Apache处理http请求的生命周期</a></li>
+  <li><a href="https://tengine.taobao.org/book/chapter_02.html">Nginx平台初探</a></li>
+  <li><a href="https://liuxun.org/blog/nginx-jia-gou-zong-lan/">Nginx架构综述</a></li>
+  <li><a href="https://blog.csdn.net/hguisu/article/details/7403622">Apache, nginx, lighttpd性能比较</a></li>
 </ol>
 :ET

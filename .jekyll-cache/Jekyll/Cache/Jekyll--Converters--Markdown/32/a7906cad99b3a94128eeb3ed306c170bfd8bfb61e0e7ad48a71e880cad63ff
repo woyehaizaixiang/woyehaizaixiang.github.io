@@ -155,8 +155,8 @@
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://php-problems.blogspot.com/2013/07/adding-new-classes-or-library-to.html">Adding new classes or library to laravel 4</a></li>
-  <li><a href="http://stackoverflow.com/questions/17584810/how-to-autoload-libraries-in-laravel-4">How to autoload ‘libraries’ in laravel 4?</a></li>
-  <li><a href="http://stackoverflow.com/questions/17088917/what-are-the-best-practices-and-best-places-for-laravel-4-helpers-or-basic-funct">What are the best practices and best places for laravel 4 helpers or basic functions?</a></li>
+  <li><a href="https://php-problems.blogspot.com/2013/07/adding-new-classes-or-library-to.html">Adding new classes or library to laravel 4</a></li>
+  <li><a href="https://stackoverflow.com/questions/17584810/how-to-autoload-libraries-in-laravel-4">How to autoload ‘libraries’ in laravel 4?</a></li>
+  <li><a href="https://stackoverflow.com/questions/17088917/what-are-the-best-practices-and-best-places-for-laravel-4-helpers-or-basic-funct">What are the best practices and best places for laravel 4 helpers or basic functions?</a></li>
 </ol>
 :ET

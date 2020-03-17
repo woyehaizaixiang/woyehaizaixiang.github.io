@@ -1,4 +1,4 @@
-I"�<p><a href="http://docs.openstack.org/developer/ceilometer/glossary.html#id3">原文档</a></p>
+I"�<p><a hrefhttps:p://docs.openstack.org/developer/ceilometer/glossary.html#id3">原文档</a></p>
 
 <h3 id="agent">agent</h3>
 <p>代理，运行在OpenStack架构中用来测量和发送监控结果到收集器的服务。</p>
@@ -6,7 +6,7 @@
 <h3 id="api-server">API server</h3>
 <p>Ceilometer的HTTP REST API服务</p>
 
-<h3 id="ceilometer"><a href="http://en.wikipedia.org/wiki/Ceilometer">ceilometer</a></h3>
+<h3 id="ceilometer"><a href="https://en.wikipedia.org/wiki/Ceilometer">ceilometer</a></h3>
 <p>本项目名称，来源于云高计/云幂测量仪，测量云底的高度的仪器</p>
 
 <h3 id="central-agent">central agent</h3>
@@ -30,7 +30,7 @@
   <li>Delta: 增量，随着时间的改变而增加的值(如带宽变化)</li>
 </ul>
 
-<h3 id="non-repudiable"><a href="http://en.wikipedia.org/wiki/Non-repudiation">non-repudiable</a></h3>
+<h3 id="non-repudiable"><a href="https://en.wikipedia.org/wiki/Non-repudiation">non-repudiable</a></h3>
 <p>“不可拒绝”</p>
 
 <h3 id="project">project</h3>

@@ -1,22 +1,22 @@
-I"�<h2 id="常用资源">常用资源</h2>
+I"�<h2 id="常用资源">常用资源</h2>
 
 <h3 id="常用扩展">常用扩展</h3>
 
 <ol>
-  <li><a href="http://www.phpdoc.org">phpDocumentor</a></li>
+  <li><a href="https://www.phpdoc.org">phpDocumentor</a></li>
   <li><a href="https://phpunit.de">PHPUnit</a></li>
   <li><a href="https://github.com/guzzle/guzzle">Guzzle</a></li>
 </ol>
 
 <h3 id="好文">好文</h3>
 <ol>
-  <li><a href="http://wulijun.github.io/php-the-right-way/">PHP之道</a></li>
-  <li><a href="http://blog.csdn.net/fangaoxin/article/details/6952954">Cookie/Session机制详解</a></li>
+  <li><a href="https://wulijun.github.io/php-the-right-way/">PHP之道</a></li>
+  <li><a href="https://blog.csdn.net/fangaoxin/article/details/6952954">Cookie/Session机制详解</a></li>
 </ol>
 
 <h3 id="优秀的类库">优秀的类库</h3>
 <ol>
-  <li><a href="http://jingwentian.com/t-145">PHP中文分词: 自动打标签功能</a></li>
+  <li><a href="https://jingwentian.com/t-145">PHP中文分词: 自动打标签功能</a></li>
 </ol>
 
 <h3 id="判断是否为空">判断是否为空</h3>

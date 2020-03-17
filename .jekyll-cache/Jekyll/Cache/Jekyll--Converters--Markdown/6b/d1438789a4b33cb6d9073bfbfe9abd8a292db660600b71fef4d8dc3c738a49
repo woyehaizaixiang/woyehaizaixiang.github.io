@@ -137,8 +137,8 @@
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://coolshell.cn/articles/652.html">MySQL: InnoDB 还是 MyISAM?</a></li>
-  <li><a href="http://www.ixdba.net/article/2f/2092.html">mysql存储引擎：InnoDB和MyISAM的区别与优劣</a></li>
-  <li><a href="http://www.uml.org.cn/sjjm/201108293.asp">MySQL大数据量快速插入方法和语句优化</a></li>
+  <li><a href="https://coolshell.cn/articles/652.html">MySQL: InnoDB 还是 MyISAM?</a></li>
+  <li><a href="https://www.ixdba.net/article/2f/2092.html">mysql存储引擎：InnoDB和MyISAM的区别与优劣</a></li>
+  <li><a href="https://www.uml.org.cn/sjjm/201108293.asp">MySQL大数据量快速插入方法和语句优化</a></li>
 </ol>
 :ET

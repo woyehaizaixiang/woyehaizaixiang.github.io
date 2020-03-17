@@ -1,4 +1,4 @@
-I"�6<blockquote>
+I"�6<blockquote>
   <p>Laravel官网教程中，并没有提到用它来写CLI应用，即守护进程或者可执行脚本。但是它却提供了更加便捷的队列(Queue)功能。</p>
 </blockquote>
 
@@ -26,7 +26,7 @@
 <p>利用Supervisor可以便捷的创建基于<code class="highlighter-rouge">queue:work</code>的异步队列并行处理。</p>
 
 <h2 id="supervisor">Supervisor</h2>
-<p><a href="http://supervisord.org/index.html">Supervisor</a>是一个进程控制系统，由python编写，它提供了大量的功能来实现对进程的管理。</p>
+<p><a href="https://supervisord.org/index.html">Supervisor</a>是一个进程控制系统，由python编写，它提供了大量的功能来实现对进程的管理。</p>
 
 <ol>
   <li>程序的多进程启动，可以配置同时启动的进程数，而不需要一个个启动</li>
@@ -47,7 +47,7 @@
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>; Sample supervisor config file.
 ;
 ; For more information on the config file, please see:
-; http://supervisord.org/configuration.html
+; https://supervisord.org/configuration.html
 ;
 ; Note: shell expansion ("~" or "$HOME") is not supported.  Environment
 ; variables can be expanded using this syntax: "%(ENV_HOME)s".
@@ -90,7 +90,7 @@ supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
  
 [supervisorctl]
 serverurl=unix:///tmp/supervisor.sock ; use a unix:// URL  for a unix socket
-;serverurl=http://127.0.0.1:9001 ; use an http:// url to specify an inet socket
+;serverurl=https://127.0.0.1:9001 ; use an https:// url to specify an inet socket
 ;username=chris              ; 如果设置应该与http_username相同
 ;password=123                ; 如果设置应该与http_password相同
 ;prompt=mysupervisor         ; 命令行提示符，默认"supervisor"
@@ -209,9 +209,9 @@ stderr_logfile_maxbytes = 10MB
 
 <h2 id="参考">参考</h2>
 <ol>
-  <li><a href="http://laravel.io/forum/02-09-2014-run-multiple-queue-jobs-the-same-time-with-beanstalk-and-supervisor">Run multiple queue jobs the same time, with Beanstalk and Supervisor??</a></li>
-  <li><a href="http://supervisord.org/configuration.html#program-x-section-example">superivisord configuration</a></li>
+  <li><a href="https://laravel.io/forum/02-09-2014-run-multiple-queue-jobs-the-same-time-with-beanstalk-and-supervisor">Run multiple queue jobs the same time, with Beanstalk and Supervisor??</a></li>
+  <li><a href="https://supervisord.org/configuration.html#program-x-section-example">superivisord configuration</a></li>
   <li><a href="https://github.com/laravel/framework/issues/579">queue:listen not working</a></li>
-  <li><a href="http://www.iitshare.com/supervisord-manage-process.html">使用supervisord来管理process</a></li>
+  <li><a href="https://www.iitshare.com/supervisord-manage-process.html">使用supervisord来管理process</a></li>
 </ol>
 :ET

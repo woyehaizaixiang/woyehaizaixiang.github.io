@@ -40,7 +40,7 @@
 </code></pre></div></div>
 
 <h2 id="上传ubuntu镜像">上传Ubuntu镜像</h2>
-<p>openstack的命令以<a href="http://docs.openstack.org/trunk/openstack-compute/admin/content/creating-a-windows-image.html">最新文档</a>为标准，网上博客难免有过时的</p>
+<p>openstack的命令以<a href="https://docs.openstack.org/trunk/openstack-compute/admin/content/creating-a-windows-image.html">最新文档</a>为标准，网上博客难免有过时的</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>glance image-create --name="ubuntu" --is-public=true --container-format=ovf --disk-format=qcow2 &lt; ubuntu.qcow2
 </code></pre></div></div>

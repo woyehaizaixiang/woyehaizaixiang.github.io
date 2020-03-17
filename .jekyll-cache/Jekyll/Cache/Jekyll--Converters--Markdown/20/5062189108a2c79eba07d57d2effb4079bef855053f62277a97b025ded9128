@@ -18,7 +18,7 @@ apt-get install git                #安装git
 </code></pre></div></div>
 
 <h3 id="利用devstack安装配置openstack">利用devstack安装配置OpenStack</h3>
-<p>参考<a href="http://devstack.org">devstack官网</a></p>
+<p>参考<a href="https://devstack.org">devstack官网</a></p>
 <h4 id="下载devstack">下载devstack</h4>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/openstack-dev/devstack.git
@@ -96,11 +96,11 @@ su stack
 export OS_TENANT_NAME=demo
 export OS_USERNAME=demo
 export OS_PASSWORD=123qwe
-export OS_AUTH_URL=http://localhost:5000/v2.0/
-export SERVICE_ENDPOINT=http://localhost:35357/v2.0
+export OS_AUTH_URL=https://localhost:5000/v2.0/
+export SERVICE_ENDPOINT=https://localhost:35357/v2.0
 </code></pre></div></div>
 
 <h4 id="使用openstack创建虚拟机">使用OpenStack创建虚拟机</h4>
 
-<p>安装完成后创建虚拟机一切都正常，如果想要分配floating_ip，在安全组部分开放tcp和icmp端口，方法可以参考<a href="http://docs.openstack.org/trunk/openstack-compute/admin/content/enabling-ping-and-ssh-on-vms.html">这里</a></p>
+<p>安装完成后创建虚拟机一切都正常，如果想要分配floating_ip，在安全组部分开放tcp和icmp端口，方法可以参考<a href="https://docs.openstack.org/trunk/openstack-compute/admin/content/enabling-ping-and-ssh-on-vms.html">这里</a></p>
 :ET

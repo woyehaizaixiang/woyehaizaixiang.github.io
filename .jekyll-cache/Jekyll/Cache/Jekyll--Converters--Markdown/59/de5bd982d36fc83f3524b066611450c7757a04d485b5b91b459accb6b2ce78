@@ -2,11 +2,11 @@
 <p>Collector顾名思义是负责数据收集的，它负责搜集来自OpenStack其他组件（如Nova,Glance,Cinder等）的Notification信息，以及从Compute Agent和Central Agent发送来的数据，然后将这些数据存储在数据库中。</p>
 
 <h3 id="pubsubhubbub">PubSubHubbub</h3>
-<p><a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>是Google推出的一个基于Web-hook方式的解决方案，它其实是RSS的改进。它具体要解决的是RSS效率低和压力大的问题，有一个<a href="http://www.slideshare.net/devseed/go-real-time-with-pubsubhubbub-and-feeds">Go real time with pubsubhubbub and feeds</a>讲的挺清楚</p>
+<p><a href="https://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>是Google推出的一个基于Web-hook方式的解决方案，它其实是RSS的改进。它具体要解决的是RSS效率低和压力大的问题，有一个<a href="https://www.slideshare.net/devseed/go-real-time-with-pubsubhubbub-and-feeds">Go real time with pubsubhubbub and feeds</a>讲的挺清楚</p>
 
-<p><a href="http://timyang.net/web/pubsubhubbub/">Tim</a>的这篇博客也讲了它的机制，其中有这个图：</p>
+<p><a href="https://timyang.net/web/pubsubhubbub/">Tim</a>的这篇博客也讲了它的机制，其中有这个图：</p>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-pubsubhubbub.png" alt="PubSubHubbub" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-pubsubhubbub.png" alt="PubSubHubbub" /></p>
 
 <p>一个PubSubHubbub的大致流程如下：</p>
 

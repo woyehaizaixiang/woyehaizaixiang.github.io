@@ -1,6 +1,6 @@
-I"�<p>从下面部分可以大致了解一下各个工具的由来和区别，推荐<a href="http://www.ituring.com.cn/article/19090">Python打包工具</a>这篇文章，来自图灵社区的一篇翻译文，很详细的解释了Python打包工具的发展。</p>
+I"�<p>从下面部分可以大致了解一下各个工具的由来和区别，推荐<a hrefhttps:p://www.ituring.com.cn/article/19090">Python打包工具</a>这篇文章，来自图灵社区的一篇翻译文，很详细的解释了Python打包工具的发展。</p>
 
-<p>下面部分转载自:<a href="http://blog.yangyubo.com/2012/07/27/python-packaging/">Yang Yubo’s blog</a></p>
+<p>下面部分转载自:<a href="https://blog.yangyubo.com/2012/07/27/python-packaging/">Yang Yubo’s blog</a></p>
 
 <hr />
 <p>当前的包管理工具链是 easy_install/pip + distribute/setuptools + distutils, 显得较为混乱。</p>
@@ -37,19 +37,19 @@ easy_install [PACKAGE_NAME] 自动从 PyPI 查找/下载/安装指定的包;</p>
 <p>这是一个臃肿的安装、部署系统, 在 Zope 社区运用教广, 功能强大/繁复但使用场景有限, 除非确有需要, 不值得投入太多的精力去研究, pip + virtualenv + fabric 的工具链组合更为简单、灵活.</p>
 
 <h3 id="参考">参考</h3>
-<p><a href="http://stackoverflow.com/questions/3220404/why-use-pip-over-easy-install">Why use pip over easy_install?</a></p>
+<p><a href="https://stackoverflow.com/questions/3220404/why-use-pip-over-easy-install">Why use pip over easy_install?</a></p>
 
-<p><a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-and-setuptools">Differences between distribute, distutils and setuptools?</a></p>
+<p><a href="https://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-and-setuptools">Differences between distribute, distutils and setuptools?</a></p>
 
-<p><a href="http://guide.python-distribute.org/introduction.html#current-state-of-packaging">Current State of Packaging</a></p>
+<p><a href="https://guide.python-distribute.org/introduction.html#current-state-of-packaging">Current State of Packaging</a></p>
 
-<p><a href="http://guide.python-distribute.org/future.html">Future of Packaging</a></p>
+<p><a href="https://guide.python-distribute.org/future.html">Future of Packaging</a></p>
 
-<p><a href="http://tarekziade.wordpress.com/2010/03/03/the-fate-of-distutils-pycon-summit-packaging-sprint-detailed-report/">The fate of Distutils – Pycon Summit + Packaging Sprint detailed report</a></p>
+<p><a href="https://tarekziade.wordpress.com/2010/03/03/the-fate-of-distutils-pycon-summit-packaging-sprint-detailed-report/">The fate of Distutils – Pycon Summit + Packaging Sprint detailed report</a></p>
 
-<p><a href="http://wokslog.wordpress.com/2011/06/04/distutils-diff/">A Quick Diff between Distutils and Distutils2</a></p>
+<p><a href="https://wokslog.wordpress.com/2011/06/04/distutils-diff/">A Quick Diff between Distutils and Distutils2</a></p>
 
-<p><a href="http://tarekziade.wordpress.com/2011/08/19/5-tips-for-packaging-your-python-projects/">5 tips for packaging your Python projects</a></p>
+<p><a href="https://tarekziade.wordpress.com/2011/08/19/5-tips-for-packaging-your-python-projects/">5 tips for packaging your Python projects</a></p>
 
 <hr />
 :ET

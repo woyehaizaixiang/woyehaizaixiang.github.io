@@ -1,5 +1,5 @@
 I""%<blockquote>
-  <p>以前开发php时，一直在使用<a href="http://sae.sina.com.cn" title="sae">sae</a>的平台和服务，非常的喜欢。现在在整openstack，所以改用python做一些东西，为了不来回切换两个语言，我决定学习学习django，方便做一些自己的东西。关于sae下python的使用，<a href="http://appstack.sinaapp.com/static/doc/release/testing/index.html" title="sae官方文档">sae官方文档</a>写的非常全面，我这里只是记录自己的一个学习过程</p>
+  <p>以前开发php时，一直在使用<a href="https://sae.sina.com.cn" title="sae">sae</a>的平台和服务，非常的喜欢。现在在整openstack，所以改用python做一些东西，为了不来回切换两个语言，我决定学习学习django，方便做一些自己的东西。关于sae下python的使用，<a href="https://appstack.sinaapp.com/static/doc/release/testing/index.html" title="sae官方文档">sae官方文档</a>写的非常全面，我这里只是记录自己的一个学习过程</p>
 </blockquote>
 
 <h2 id="搭建本地开发环境">搭建本地开发环境</h2>

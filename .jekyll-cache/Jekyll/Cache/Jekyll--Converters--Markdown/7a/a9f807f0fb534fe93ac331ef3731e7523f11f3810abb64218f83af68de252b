@@ -1,15 +1,15 @@
-I"��<blockquote>
+I"��<blockquote>
   <p>由于工作中需要写一个比较复杂的类库，这个类库需要很高的扩展性、维护性及复用性。为了麻烦现在简单未来，使用设计模式思想来优化类库可以使工作事半功倍，在这里记录一下各种设计模式，总结一下知识，顺便也可以做为自己日后的参考。</p>
 </blockquote>
 
 <h2 id="设计模式design-patterns">设计模式（Design Patterns）</h2>
 
 <blockquote>
-  <p>设计模式（Design pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。   –<a href="http://baike.baidu.com/view/66964.htm">百度百科</a></p>
+  <p>设计模式（Design pattern）是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。   –<a href="https://baike.baidu.com/view/66964.htm">百度百科</a></p>
 </blockquote>
 
 <blockquote>
-  <p>In software engineering, a design pattern is a general reusable solution to a commonly occurring problem within a given context in software design.   –<a href="http://en.wikipedia.org/wiki/Software_design_pattern">Wikipedia</a></p>
+  <p>In software engineering, a design pattern is a general reusable solution to a commonly occurring problem within a given context in software design.   –<a href="https://en.wikipedia.org/wiki/Software_design_pattern">Wikipedia</a></p>
 </blockquote>
 
 <p>在软件开发过程中，一个功能的实现方式多种多样，不同方法的可扩展性、可维护性以及复用性都是不一样的。随着一个人对自己项目代码的要求增加，他会逐渐思考和实践出自己的一套方法或者思想，这种方法或思想决定了他设计出的架构或者编写出的代码的质量优劣。设计模式就属于这样一种经验的积累，是由大量优秀的工程师或者架构师总结和提炼的精华，学习好设计模式等于让我们站在了巨人的肩膀上，从一个高的起点出发，可以避免走很多弯路。</p>
@@ -22,7 +22,7 @@
 <p>在《设计模式：可复用面向对象软件的基础》(Design Patterns: Elements of Reusable Object-Oriented Software) 这本书中，作者把设计模式分了三大类：</p>
 
 <h4 id="创建型模式creational-patterns">创建型模式（Creational patterns）</h4>
-<p><a href="http://en.wikipedia.org/wiki/Creational_pattern">创建型模式</a>是为了解决创建对象时候遇到的问题。因为基本的对象创建方式可能会导致设计上的问题，或增加设计的复杂度。创建型模式有两个主导思想：一是将系统使用的具体类封装起来，二是隐藏这些具体类的实例创建和结合方式。</p>
+<p><a href="https://en.wikipedia.org/wiki/Creational_pattern">创建型模式</a>是为了解决创建对象时候遇到的问题。因为基本的对象创建方式可能会导致设计上的问题，或增加设计的复杂度。创建型模式有两个主导思想：一是将系统使用的具体类封装起来，二是隐藏这些具体类的实例创建和结合方式。</p>
 
 <p>最常见的五种创建型模式如下：</p>
 
@@ -35,7 +35,7 @@
 </ul>
 
 <h4 id="结构型模式structural-pattern">结构型模式（Structural pattern）</h4>
-<p><a href="http://en.wikipedia.org/wiki/Structural_pattern">结构型模式</a>是通过定义一个简单的方法来实现和了解实体间关系，从而简化设计。</p>
+<p><a href="https://en.wikipedia.org/wiki/Structural_pattern">结构型模式</a>是通过定义一个简单的方法来实现和了解实体间关系，从而简化设计。</p>
 
 <ul>
   <li>适配器模式（Adapter pattern）</li>
@@ -48,7 +48,7 @@
 </ul>
 
 <h4 id="行为型模式behavioral-pattern">行为型模式（Behavioral pattern）</h4>
-<p><a href="http://en.wikipedia.org/wiki/Behavioral_pattern">行为型模式</a>用来识别对象之间的常用交流模式并加以实现，使得交流变得更加灵活。</p>
+<p><a href="https://en.wikipedia.org/wiki/Behavioral_pattern">行为型模式</a>用来识别对象之间的常用交流模式并加以实现，使得交流变得更加灵活。</p>
 
 <ul>
   <li>策略模式（Strategy pattern）</li>
@@ -67,12 +67,12 @@
 <h3 id="关系">关系</h3>
 <p>这里有一张各个模式关系图，可以在了解各个模式以后梳理一下</p>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-design-patterns.jpg" alt="设计模式" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-design-patterns.jpg" alt="设计模式" /></p>
 
 <h3 id="参考">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Software_design_pattern">Wikipedia: Software design pattern</a></li>
-  <li><a href="http://baike.baidu.com/view/66964.htm">百度百科：设计模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Software_design_pattern">Wikipedia: Software design pattern</a></li>
+  <li><a href="https://baike.baidu.com/view/66964.htm">百度百科：设计模式</a></li>
 </ol>
 
 <h2 id="建造者模式builder-pattern">建造者模式（Builder pattern）</h2>
@@ -95,7 +95,7 @@
 </ul>
 
 <h3 id="类图">类图</h3>
-<p><img src="http://imgs.woyehaizaixiang.org/tech-builder-pattern-uml.png" alt="builder pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-builder-pattern-uml.png" alt="builder pattern" /></p>
 
 <h3 id="实例">实例</h3>
 
@@ -145,9 +145,9 @@
 
 <h3 id="参考-1">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Builder_pattern">Wikipedia: Bulider pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F">Wikipedia: 生成器模式</a></li>
-  <li><a href="http://www.phppan.com/2010/05/php-design-pattern-2-builder/">PHP设计模式笔记：使用PHP实现建造者模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Builder_pattern">Wikipedia: Bulider pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F">Wikipedia: 生成器模式</a></li>
+  <li><a href="https://www.phppan.com/2010/05/php-design-pattern-2-builder/">PHP设计模式笔记：使用PHP实现建造者模式</a></li>
 </ol>
 
 <h2 id="单例模式singleton-pattern">单例模式（Singleton pattern）</h2>
@@ -168,7 +168,7 @@
 </ul>
 
 <h3 id="类图-1">类图</h3>
-<p><img src="http://imgs.woyehaizaixiang.org/tech-singleton-pattern-uml.png" alt="singleton pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-singleton-pattern-uml.png" alt="singleton pattern" /></p>
 
 <h3 id="实例-1">实例</h3>
 
@@ -211,9 +211,9 @@
 
 <h3 id="参考-2">参考</h3>
 <ol>
-  <li><a href="http://zh.wikipedia.org/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">Wikipedia: 单例模式</a></li>
-  <li><a href="http://en.wikipedia.org/wiki/Singleton_pattern">Wikipedia: Singleton pattern</a></li>
-  <li><a href="http://www.phppan.com/2010/06/php-design-pattern-6-singleton/">PHP设计模式笔记：使用PHP实现单例模式</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">Wikipedia: 单例模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Singleton_pattern">Wikipedia: Singleton pattern</a></li>
+  <li><a href="https://www.phppan.com/2010/06/php-design-pattern-6-singleton/">PHP设计模式笔记：使用PHP实现单例模式</a></li>
 </ol>
 
 <h2 id="适配器模式adapter-pattern">适配器模式（Adapter pattern）</h2>
@@ -252,10 +252,10 @@
 <h3 id="类图-2">类图</h3>
 
 <h4 id="类适配器">类适配器</h4>
-<p><img src="http://imgs.woyehaizaixiang.org/tech-class-adapter-pattern-uml.jpg" alt="class adapter pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-class-adapter-pattern-uml.jpg" alt="class adapter pattern" /></p>
 
 <h4 id="对象适配器">对象适配器</h4>
-<p><img src="http://imgs.woyehaizaixiang.org/tech-object-adapter-pattern-uml.jpg" alt="object adapter pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-object-adapter-pattern-uml.jpg" alt="object adapter pattern" /></p>
 
 <h3 id="实例-2">实例</h3>
 
@@ -317,9 +317,9 @@
 
 <h3 id="参考-3">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Adapter_pattern">Wikipedia: Adapter pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F">Wikipedia: 适配器模式</a></li>
-  <li><a href="http://www.phppan.com/2010/07/php-design-pattern-10-adapter/">PHP设计模式笔记：使用PHP实现适配器模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Adapter_pattern">Wikipedia: Adapter pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F">Wikipedia: 适配器模式</a></li>
+  <li><a href="https://www.phppan.com/2010/07/php-design-pattern-10-adapter/">PHP设计模式笔记：使用PHP实现适配器模式</a></li>
 </ol>
 
 <h2 id="桥接模式bridge-pattern">桥接模式（Bridge pattern）</h2>
@@ -344,7 +344,7 @@
 
 <h3 id="类图-3">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-bridge-pattern-uml.jpg" alt="bridge pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-bridge-pattern-uml.jpg" alt="bridge pattern" /></p>
 
 <h3 id="实例-3">实例</h3>
 
@@ -393,9 +393,9 @@
 
 <h3 id="参考-4">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Bridge_pattern">Wikipedia: Bridge pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E6%A9%8B%E6%8E%A5%E6%A8%A1%E5%BC%8F">Wikipedia: 桥接模式</a></li>
-  <li><a href="http://www.phppan.com/2010/06/php-design-pattern-5-bridge/">PHP设计模式笔记：使用PHP实现桥接模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Bridge_pattern">Wikipedia: Bridge pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E6%A9%8B%E6%8E%A5%E6%A8%A1%E5%BC%8F">Wikipedia: 桥接模式</a></li>
+  <li><a href="https://www.phppan.com/2010/06/php-design-pattern-5-bridge/">PHP设计模式笔记：使用PHP实现桥接模式</a></li>
 </ol>
 
 <h2 id="合成模式composite-pattern">合成模式（Composite pattern）</h2>
@@ -422,11 +422,11 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h4 id="安全式合成模式">安全式合成模式</h4>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-safe-composite-pattern-uml.jpg" alt="safe composite pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-safe-composite-pattern-uml.jpg" alt="safe composite pattern" /></p>
 
 <h4 id="透明式合成模式">透明式合成模式</h4>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-transparent-composite-pattern-uml.jpg" alt="transparent composite pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-transparent-composite-pattern-uml.jpg" alt="transparent composite pattern" /></p>
 
 <h3 id="实例-4">实例</h3>
 
@@ -564,8 +564,8 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-5">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Composite_pattern">Wikipedia: Composite pattern</a></li>
-  <li><a href="http://www.phppan.com/2010/08/php-design-pattern-14-composite/">PHP设计模式笔记：使用PHP实现合成模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Composite_pattern">Wikipedia: Composite pattern</a></li>
+  <li><a href="https://www.phppan.com/2010/08/php-design-pattern-14-composite/">PHP设计模式笔记：使用PHP实现合成模式</a></li>
 </ol>
 
 <h2 id="装饰器模式decorator-pattern">装饰器模式（Decorator pattern）</h2>
@@ -591,7 +591,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-5">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-decorator-pattern-uml.jpg" alt="decorator pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-decorator-pattern-uml.jpg" alt="decorator pattern" /></p>
 
 <h3 id="实例-5">实例</h3>
 
@@ -661,9 +661,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-6">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Decorator_pattern">Wikipedia: Decorator pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E4%BF%AE%E9%A5%B0%E6%A8%A1%E5%BC%8F">Wikipedia: 修饰模式</a></li>
-  <li><a href="http://www.phppan.com/2010/06/php-design-pattern-4-decorator/">PHP设计模式笔记：使用PHP实现装饰模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Decorator_pattern">Wikipedia: Decorator pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E4%BF%AE%E9%A5%B0%E6%A8%A1%E5%BC%8F">Wikipedia: 修饰模式</a></li>
+  <li><a href="https://www.phppan.com/2010/06/php-design-pattern-4-decorator/">PHP设计模式笔记：使用PHP实现装饰模式</a></li>
 </ol>
 
 <h2 id="门面模式facade-pattern">门面模式（Facade pattern）</h2>
@@ -698,7 +698,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-6">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-facade-pattern-uml.jpg" alt="facade pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-facade-pattern-uml.jpg" alt="facade pattern" /></p>
 
 <h3 id="实例-6">实例</h3>
 
@@ -790,9 +790,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-7">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Facade_pattern">Wikipedia: Facade pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E5%A4%96%E8%A7%80%E6%A8%A1%E5%BC%8F">Wikipedia: 外观模式</a></li>
-  <li><a href="http://www.phppan.com/2010/06/php-design-pattern-7-facade/">PHP设计模式笔记：使用PHP实现门面模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Facade_pattern">Wikipedia: Facade pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E5%A4%96%E8%A7%80%E6%A8%A1%E5%BC%8F">Wikipedia: 外观模式</a></li>
+  <li><a href="https://www.phppan.com/2010/06/php-design-pattern-7-facade/">PHP设计模式笔记：使用PHP实现门面模式</a></li>
 </ol>
 
 <h2 id="享元模式flyweight-pattern">享元模式（Flyweight Pattern）</h2>
@@ -820,7 +820,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-7">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-flyweight-pattern-uml.jpg" alt="flyweight pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-flyweight-pattern-uml.jpg" alt="flyweight pattern" /></p>
 
 <h3 id="实例-7">实例</h3>
 
@@ -890,9 +890,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-8">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Flyweight_pattern">Wikipedia: Flyweight pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F">Wikipedia: 享元模式</a></li>
-  <li><a href="http://www.phppan.com/2010/08/php-design-pattern-13-flyweight/">PHP设计模式笔记：使用PHP实现享元模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Flyweight_pattern">Wikipedia: Flyweight pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F">Wikipedia: 享元模式</a></li>
+  <li><a href="https://www.phppan.com/2010/08/php-design-pattern-13-flyweight/">PHP设计模式笔记：使用PHP实现享元模式</a></li>
 </ol>
 
 <h2 id="观察者模式observer-pattern">观察者模式（Observer pattern）</h2>
@@ -919,7 +919,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-8">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-observer-pattern-uml.jpg" alt="observer pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-observer-pattern-uml.jpg" alt="observer pattern" /></p>
 
 <h3 id="实例-8">实例</h3>
 
@@ -998,9 +998,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-9">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Observer_pattern">Wikipedia: Observer pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F">Wikipedia: 观察者模式</a></li>
-  <li><a href="http://www.phppan.com/2010/09/php-design-pattern-17-observer/">PHP设计模式笔记：使用PHP实现观察者模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Observer_pattern">Wikipedia: Observer pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F">Wikipedia: 观察者模式</a></li>
+  <li><a href="https://www.phppan.com/2010/09/php-design-pattern-17-observer/">PHP设计模式笔记：使用PHP实现观察者模式</a></li>
 </ol>
 
 <h2 id="原型模式prototype-pattern">原型模式（Prototype pattern）</h2>
@@ -1023,7 +1023,7 @@ Composite变化的是一个对象的结构和组成。</p>
 </ul>
 
 <h3 id="类图-9">类图</h3>
-<p><img src="http://imgs.woyehaizaixiang.org/tech-prototype-pattern-uml.jpg" alt="prototype pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-prototype-pattern-uml.jpg" alt="prototype pattern" /></p>
 
 <h3 id="实例-9">实例</h3>
 
@@ -1063,9 +1063,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-10">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Prototype_pattern">Wikipedia: Prototype pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F">Wikipedia: 原型模式</a></li>
-  <li><a href="http://www.phppan.com/2010/06/php-design-pattern-8-prototype/">PHP设计模式笔记：使用PHP实现原型模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Prototype_pattern">Wikipedia: Prototype pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F">Wikipedia: 原型模式</a></li>
+  <li><a href="https://www.phppan.com/2010/06/php-design-pattern-8-prototype/">PHP设计模式笔记：使用PHP实现原型模式</a></li>
 </ol>
 
 <h2 id="代理模式proxy-pattern">代理模式（Proxy pattern）</h2>
@@ -1089,7 +1089,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-10">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-proxy-pattern-uml.png" alt="proxy pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-proxy-pattern-uml.png" alt="proxy pattern" /></p>
 
 <h3 id="实例-10">实例</h3>
 
@@ -1127,9 +1127,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-11">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Proxy_pattern">Wikipedia: Proxy pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F">Wikipedia: 代理模式</a></li>
-  <li><a href="http://www.phppan.com/2011/10/php-design-pattern-proxy-and-reflection/">代理模式(Proxy)和PHP的反射功能</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Proxy_pattern">Wikipedia: Proxy pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F">Wikipedia: 代理模式</a></li>
+  <li><a href="https://www.phppan.com/2011/10/php-design-pattern-proxy-and-reflection/">代理模式(Proxy)和PHP的反射功能</a></li>
 </ol>
 
 <h2 id="策略模式strategy-pattern">策略模式（Strategy pattern）</h2>
@@ -1154,7 +1154,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-11">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-strategy-pattern-uml.jpg" alt="strategy pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-strategy-pattern-uml.jpg" alt="strategy pattern" /></p>
 
 <h3 id="实例-11">实例</h3>
 
@@ -1220,9 +1220,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-12">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Strategy_pattern">Wikipedia: Strategy pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">Wikipedia: 策略模式</a></li>
-  <li><a href="http://www.phppan.com/2010/07/php-design-pattern-12-strategy/">PHP设计模式笔记：使用PHP实现策略模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Strategy_pattern">Wikipedia: Strategy pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">Wikipedia: 策略模式</a></li>
+  <li><a href="https://www.phppan.com/2010/07/php-design-pattern-12-strategy/">PHP设计模式笔记：使用PHP实现策略模式</a></li>
 </ol>
 
 <h2 id="命令模式command-pattern">命令模式（Command pattern）</h2>
@@ -1252,7 +1252,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-12">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-command-pattern-uml.jpg" alt="command pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-command-pattern-uml.jpg" alt="command pattern" /></p>
 
 <h3 id="实例-12">实例</h3>
 
@@ -1315,9 +1315,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-13">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Command_pattern">Wikipedia: Command pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">Wikipedia: 命令模式</a></li>
-  <li><a href="http://www.phppan.com/2010/08/php-design-pattern-15-comman/">PHP设计模式笔记：使用PHP实现命令模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Command_pattern">Wikipedia: Command pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F">Wikipedia: 命令模式</a></li>
+  <li><a href="https://www.phppan.com/2010/08/php-design-pattern-15-comman/">PHP设计模式笔记：使用PHP实现命令模式</a></li>
 </ol>
 
 <h2 id="解释器模式interpreter-pattern">解释器模式（Interpreter pattern）</h2>
@@ -1325,7 +1325,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-13">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-interpreter-pattern-uml.jpg" alt="interpreter pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-interpreter-pattern-uml.jpg" alt="interpreter pattern" /></p>
 
 <h3 id="实例-13">实例</h3>
 
@@ -1381,8 +1381,8 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-14">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Strategy_pattern">Wikipedia: Strategy pattern</a></li>
-  <li><a href="http://www.jb51.net/article/27484.htm">php设计模式 Interpreter(解释器模式)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Strategy_pattern">Wikipedia: Strategy pattern</a></li>
+  <li><a href="https://www.jb51.net/article/27484.htm">php设计模式 Interpreter(解释器模式)</a></li>
 </ol>
 
 <h2 id="迭代器模式iterator-pattern">迭代器模式（Iterator pattern）</h2>
@@ -1435,8 +1435,8 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-15">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Iterator_pattern">Wikipedia: Iterator pattern</a></li>
-  <li><a href="http://www.phppan.com/2010/04/php-iterator-and-yii-cmapiterator/">PHP中迭代器的简单实现及Yii框架中的迭代器实现</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Iterator_pattern">Wikipedia: Iterator pattern</a></li>
+  <li><a href="https://www.phppan.com/2010/04/php-iterator-and-yii-cmapiterator/">PHP中迭代器的简单实现及Yii框架中的迭代器实现</a></li>
 </ol>
 
 <h2 id="中介者模式mediator-pattern">中介者模式（Mediator pattern）</h2>
@@ -1504,7 +1504,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-16">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Mediator_pattern">Wikipedia: Mediator pattern</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Mediator_pattern">Wikipedia: Mediator pattern</a></li>
 </ol>
 
 <h2 id="备忘录模式memento-pattern">备忘录模式（Memento pattern）</h2>
@@ -1527,7 +1527,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-14">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-memento-pattern-uml.jpg" alt="memento pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-memento-pattern-uml.jpg" alt="memento pattern" /></p>
 
 <h3 id="实例-16">实例</h3>
 
@@ -1607,8 +1607,8 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-17">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Memento_pattern">Wikipedia: Memento pattern</a></li>
-  <li><a href="http://www.phppan.com/2010/10/php-design-pattern-18-memento/">PHP设计模式笔记：使用PHP实现备忘录模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Memento_pattern">Wikipedia: Memento pattern</a></li>
+  <li><a href="https://www.phppan.com/2010/10/php-design-pattern-18-memento/">PHP设计模式笔记：使用PHP实现备忘录模式</a></li>
 </ol>
 
 <h2 id="访问者模式visitor-pattern">访问者模式（Visitor pattern）</h2>
@@ -1635,7 +1635,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-15">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-visitor-pattern-uml.jpg" alt="visitor pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-visitor-pattern-uml.jpg" alt="visitor pattern" /></p>
 
 <h3 id="实例-17">实例</h3>
 
@@ -1734,9 +1734,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-18">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Visitor_pattern">Wikipedia: Visitor pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F">Wikipedia: 访问者模式</a></li>
-  <li><a href="http://www.phppan.com/2010/05/php-design-pattern-1-visitor/">PHP设计模式笔记：使用PHP实现访问者模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Visitor_pattern">Wikipedia: Visitor pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F">Wikipedia: 访问者模式</a></li>
+  <li><a href="https://www.phppan.com/2010/05/php-design-pattern-1-visitor/">PHP设计模式笔记：使用PHP实现访问者模式</a></li>
 </ol>
 
 <h2 id="策略模式strategy-pattern-1">策略模式（Strategy pattern）</h2>
@@ -1759,7 +1759,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-16">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-state-pattern-uml.jpg" alt="state pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-state-pattern-uml.jpg" alt="state pattern" /></p>
 
 <h3 id="实例-18">实例</h3>
 
@@ -1833,8 +1833,8 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-19">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/State_pattern">Wikipedia: State pattern</a></li>
-  <li><a href="http://www.phppan.com/2010/07/php-design-pattern-11-state/">PHP设计模式笔记：使用PHP实现状态模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/State_pattern">Wikipedia: State pattern</a></li>
+  <li><a href="https://www.phppan.com/2010/07/php-design-pattern-11-state/">PHP设计模式笔记：使用PHP实现状态模式</a></li>
 </ol>
 
 <h2 id="抽象工厂模式abstract-factory-pattern">抽象工厂模式（Abstract Factory pattern）</h2>
@@ -1863,7 +1863,7 @@ Composite变化的是一个对象的结构和组成。</p>
 </ul>
 
 <h3 id="类图-17">类图</h3>
-<p><img src="http://imgs.woyehaizaixiang.org/tech-abstract-pattern-uml.png" alt="abstract pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-abstract-pattern-uml.png" alt="abstract pattern" /></p>
 
 <h3 id="实例-19">实例</h3>
 
@@ -1907,9 +1907,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-20">参考</h3>
 <ol>
-  <li><a href="http://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">Wikipedia: 抽象工厂</a></li>
-  <li><a href="http://en.wikipedia.org/wiki/Abstract_factory_pattern">Wikipedia: Abstract factory pattern</a></li>
-  <li><a href="http://www.phppan.com/2010/05/php-design-pattern-3-abstract-factory/">PHP设计模式笔记：使用PHP实现抽象工厂模式</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">Wikipedia: 抽象工厂</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Abstract_factory_pattern">Wikipedia: Abstract factory pattern</a></li>
+  <li><a href="https://www.phppan.com/2010/05/php-design-pattern-3-abstract-factory/">PHP设计模式笔记：使用PHP实现抽象工厂模式</a></li>
 </ol>
 
 <h2 id="工厂方法模式factory-method-pattern">工厂方法模式（Factory method pattern）</h2>
@@ -1937,7 +1937,7 @@ Composite变化的是一个对象的结构和组成。</p>
 </ul>
 
 <h3 id="类图-18">类图</h3>
-<p><img src="http://imgs.woyehaizaixiang.org/tech-factory-method-uml.png" alt="factory method" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-factory-method-uml.png" alt="factory method" /></p>
 
 <h3 id="实例-20">实例</h3>
 
@@ -1983,9 +1983,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-21">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Factory_method_pattern">Wikipedia: Factory method pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F">Wikipedia: 工厂方法模式</a></li>
-  <li><a href="http://www.phppan.com/2010/07/php-design-pattern-9-factory-method/">PHP设计模式笔记：使用PHP实现工厂模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Factory_method_pattern">Wikipedia: Factory method pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F">Wikipedia: 工厂方法模式</a></li>
+  <li><a href="https://www.phppan.com/2010/07/php-design-pattern-9-factory-method/">PHP设计模式笔记：使用PHP实现工厂模式</a></li>
 </ol>
 
 <h2 id="模板方法模式template-method-pattern">模板方法模式（Template method pattern）</h2>
@@ -2013,7 +2013,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="类图-19">类图</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-template-method-pattern-uml.jpg" alt="template method pattern" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-template-method-pattern-uml.jpg" alt="template method pattern" /></p>
 
 <h3 id="实例-21">实例</h3>
 
@@ -2040,9 +2040,9 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-22">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Template_method_pattern">Wikipedia: Template method pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F">Wikipedia: 模板方法模式</a></li>
-  <li><a href="http://www.phppan.com/2010/09/php-design-pattern-16-template-method/">PHP设计模式笔记：使用PHP实现模板方法模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Template_method_pattern">Wikipedia: Template method pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F">Wikipedia: 模板方法模式</a></li>
+  <li><a href="https://www.phppan.com/2010/09/php-design-pattern-16-template-method/">PHP设计模式笔记：使用PHP实现模板方法模式</a></li>
 </ol>
 
 <h2 id="责任链模式chain-of-responsibility-pattern">责任链模式（Chain of responsibility pattern）</h2>
@@ -2095,7 +2095,7 @@ Composite变化的是一个对象的结构和组成。</p>
 
 <h3 id="参考-23">参考</h3>
 <ol>
-  <li><a href="http://en.wikipedia.org/wiki/Chain_of_responsibility_pattern">Wikipedia: Chain-of-responsibility pattern</a></li>
-  <li><a href="http://zh.wikipedia.org/wiki/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F">Wikipedia: 责任链模式</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Chain_of_responsibility_pattern">Wikipedia: Chain-of-responsibility pattern</a></li>
+  <li><a href="https://zh.wikipedia.org/wiki/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F">Wikipedia: 责任链模式</a></li>
 </ol>
 :ET

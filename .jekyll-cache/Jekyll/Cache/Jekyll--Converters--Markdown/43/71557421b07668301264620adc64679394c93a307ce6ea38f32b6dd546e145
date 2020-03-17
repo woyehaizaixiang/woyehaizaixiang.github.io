@@ -1,4 +1,4 @@
-I"�/<p>回国之后为了正常上网，还是得部署一个 VPN 自用。之前写过<a href="/2013/12/11/deploy-pptp-vpn-in-ubuntu.html">在ubuntu下搭建pptp vpn服务器</a>，本来准备直接拿来用的，结果发现 MacOS Sierra 竟然不支持 PPTP 了 T_T 只好重新选择一个方式，这篇主要讲如何部署 L2TP VPN 在 Ubuntu 下，以及如何通过 Mac 连接上去。</p>
+I"�/<p>回国之后为了正常上网，还是得部署一个 VPN 自用。之前写过<a href="/2013/12/11/deploy-pptp-vpn-in-ubuntu.html">在ubuntu下搭建pptp vpn服务器</a>，本来准备直接拿来用的，结果发现 MacOS Sierra 竟然不支持 PPTP 了 T_T 只好重新选择一个方式，这篇主要讲如何部署 L2TP VPN 在 Ubuntu 下，以及如何通过 Mac 连接上去。</p>
 
 <h2 id="服务端">服务端</h2>
 
@@ -234,6 +234,6 @@ test          l2tpd   test            *
 
 <h2 id="参考">参考</h2>
 
-<p><a href="http://tacy.github.io/blog/2014/12/24/L2tp-ipsec-in-linode/">l2tp ipsec in linode</a></p>
+<p><a href="https://tacy.github.io/blog/2014/12/24/L2tp-ipsec-in-linode/">l2tp ipsec in linode</a></p>
 
 :ET

@@ -1,4 +1,4 @@
-I"�?<blockquote>
+I"�?<blockquote>
   <p>之前本来想展开写的，后来发现Jekyll官网的教程已经非常完善了就没有多写，所以只有<a href="/2013/04/23/deploy-jeklly-blog.html">这篇</a>。
 但是过了这么久，发现很多人还是不清楚怎么搭建，所以这里打算详细写一下，并且把自己对图片的解决方案以及主题的创建步骤也一并写下。</p>
 
@@ -50,7 +50,7 @@
 
 </code></pre></div></div>
 
-<p>这个目录结构是我自己设定的，也可以有不同的目录结构，看<a href="http://jekyllrb.com/docs/structure/">官网</a>。</p>
+<p>这个目录结构是我自己设定的，也可以有不同的目录结构，看<a href="https://jekyllrb.com/docs/structure/">官网</a>。</p>
 
 <p>接下来我主要解释这里面每一个目录的功能。</p>
 
@@ -173,7 +173,7 @@ layout: base
 <span class="nt">&lt;/html&gt;</span>
 </code></pre></div></div>
 
-<p>这个文件就更像一个HTML文件了，用PHP或者Python写过web应用的人看到<code class="highlighter-rouge">{\% %}</code>这样的标签应该不陌生，这不就是模板标签嘛。其实Jekyll也是借用了一下模板系统的，官网说明在<a href="http://jekyllrb.com/docs/templates/">这里</a>，看到开头第一句讲的它用了<a href="http://docs.shopify.com/themes/liquid-basics">Liquid</a>了吧。如果Jekyll的文档不能满足你的话，可以去Liquid那里查查。</p>
+<p>这个文件就更像一个HTML文件了，用PHP或者Python写过web应用的人看到<code class="highlighter-rouge">{\% %}</code>这样的标签应该不陌生，这不就是模板标签嘛。其实Jekyll也是借用了一下模板系统的，官网说明在<a href="https://jekyllrb.com/docs/templates/">这里</a>，看到开头第一句讲的它用了<a href="https://docs.shopify.com/themes/liquid-basics">Liquid</a>了吧。如果Jekyll的文档不能满足你的话，可以去Liquid那里查查。</p>
 
 <p>我解释一下<code class="highlighter-rouge">base.html</code>中几个标签的功能。</p>
 
@@ -210,7 +210,7 @@ title: 首页
 
 <p>这里又使用了一些新标签——<code class="highlighter-rouge">{\{ }\}</code>，这个标签就是用来书写变量的，通过在配置处配置变量，或者使用系统的自定义变量，可以轻松改变页面内的一些元素或者内容。</p>
 
-<p>系统变量查询可以去<a href="http://jekyllrb.com/docs/variables/">这里</a></p>
+<p>系统变量查询可以去<a href="https://jekyllrb.com/docs/variables/">这里</a></p>
 
 <p>其实整个主题书写就是这么简单，如果有不清楚的可以再看看官网的文档。动一动手就非常明白了。</p>
 
@@ -218,7 +218,7 @@ title: 首页
 <p>很多人感觉用Jekyll最不方便的就是插入图片了，其实我也是这么觉得的。所以只能自己去想些办法。</p>
 
 <h3 id="图片统一存放">图片统一存放</h3>
-<p>图片我都放在了<code class="highlighter-rouge">/public/upload</code>下，所以我在插入图片的时候只要用<code class="highlighter-rouge">![xxx](http://7u2ho6.com1.z0.glb.clouddn.com/xxx)</code>就可以了。</p>
+<p>图片我都放在了<code class="highlighter-rouge">/public/upload</code>下，所以我在插入图片的时候只要用<code class="highlighter-rouge">![xxx](https://7u2ho6.com1.z0.glb.clouddn.com/xxx)</code>就可以了。</p>
 
 <h3 id="方便的图片导入">方便的图片导入</h3>
 <p>导入图片的方式是我将<code class="highlighter-rouge">upload</code>文件夹做了个软连接，放到mac的dock上就行了，有图片要用的时候直接往里面一拖。</p>
@@ -226,7 +226,7 @@ title: 首页
 <h3 id="方便的截图">方便的截图</h3>
 <p>很多时候图片都是现截取的，比如用QQ的截图工具，或者系统的截图工具，但是他们截取完都存放在了<code class="highlighter-rouge">user/Pictures</code>里面，来回移动太累了。我这里介绍一个Mac下的一个工具——Trickster，看图</p>
 
-<p><img src="http://imgs.woyehaizaixiang.org/tech-trickster-move-picture.png" alt="移动图片" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/tech-trickster-move-picture.png" alt="移动图片" /></p>
 
 <p>这个工具可以看到刚刚修改过的图片，而且还有一个收藏的文件夹，我每次截取完图以后，从左边往右边一拖，然后在markdown中就可以继续书写了。一点都不耗时。</p>
 
@@ -236,7 +236,7 @@ title: 首页
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll serve
 </code></pre></div></div>
 
-<p>然后访问<code class="highlighter-rouge">http://localhost:4000</code>就OK了，安装Jekyll的方式自行谷歌吧…</p>
+<p>然后访问<code class="highlighter-rouge">https://localhost:4000</code>就OK了，安装Jekyll的方式自行谷歌吧…</p>
 
 <p>自己预览过没有问题以后，就提交到服务端吧，Git三步走</p>
 

@@ -1,5 +1,5 @@
-I"�<h2 id="wsgiweb-server-gateway-interface">WSGI(Web Server Gateway Interface)</h2>
-<p>WSGI是WEB服务网关接口的缩写，是为Python语言定义的Web服务器和Web应用程序之间一种简单而通用的接口。它没有具体的实现，更像是一个标准协议，具体可以去<a href="http://www.python.org/dev/peps/pep-0333/">PEP333</a>了解。</p>
+I"�<h2 id="wsgiweb-server-gateway-interface">WSGI(Web Server Gateway Interface)</h2>
+<p>WSGI是WEB服务网关接口的缩写，是为Python语言定义的Web服务器和Web应用程序之间一种简单而通用的接口。它没有具体的实现，更像是一个标准协议，具体可以去<a href="https://www.python.org/dev/peps/pep-0333/">PEP333</a>了解。</p>
 
 <p>简单说来，它是一个连接用户应用和Web服务器的桥梁，有点类似Apache的CGI。</p>
 

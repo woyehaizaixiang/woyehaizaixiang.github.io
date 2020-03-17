@@ -5,11 +5,11 @@
 <h4 id="alfred常用workflow">Alfred常用Workflow</h4>
 
 <ul>
-  <li><a href="http://kapeli.com/dash">Dash</a></li>
+  <li><a href="https://kapeli.com/dash">Dash</a></li>
   <li><a href="https://github.com/liberize/alfred-dict-workflow">Dict - Lookup Word</a></li>
-  <li><a href="http://www.alfredforum.com/topic/917-reminders/">Reminders</a></li>
-  <li><a href="http://support.alfredapp.com/evernote">Evernote</a></li>
-  <li><a href="http://www.alfredforum.com/topic/1009-notes/">Notes</a></li>
+  <li><a href="https://www.alfredforum.com/topic/917-reminders/">Reminders</a></li>
+  <li><a href="https://support.alfredapp.com/evernote">Evernote</a></li>
+  <li><a href="https://www.alfredforum.com/topic/1009-notes/">Notes</a></li>
 </ul>
 
 <h2 id="常用命令">常用命令</h2>
@@ -64,7 +64,7 @@ killall Dock
 
 <h3 id="设置iterm中option为altmeta键">设置iterm中option为alt(meta)键</h3>
 
-<p><img src="http://imgs.woyehaizaixiang.org/resource-set-meta-to-alt.png" alt="option-to-meta" /></p>
+<p><img src="https://imgs.woyehaizaixiang.org/resource-set-meta-to-alt.png" alt="option-to-meta" /></p>
 
 <h3 id="删除dropbox冲突文件">删除dropbox冲突文件</h3>
 

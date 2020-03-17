@@ -1,4 +1,4 @@
-I"o<h2 id="ipython简介"><a href="http://ipython.org/">IPython</a>简介</h2>
+I"o<h2 id="ipython简介"><a href="https://ipython.org/">IPython</a>简介</h2>
 
 <p>IPython最大的特性是它的交互式翻译器。这个系统允许我们以最快的速度测试自己的想法，而不是创建一个文件然后编译执行。</p>
 
@@ -9,11 +9,11 @@
   <li>一个交互式的并行计算架构</li>
 </ul>
 
-<p>参考：<a href="http://ipython.org/ipython-doc/stable/overview.html">IPython Introduction</a></p>
+<p>参考：<a href="https://ipython.org/ipython-doc/stable/overview.html">IPython Introduction</a></p>
 
 <h2 id="安装ipython">安装IPython</h2>
 
-<p>ubuntu下直接apt-get install ipython即可，其他可以参考<a href="http://ipython.org/ipython-doc/stable/install/install.html">install ipython</a></p>
+<p>ubuntu下直接apt-get install ipython即可，其他可以参考<a href="https://ipython.org/ipython-doc/stable/install/install.html">install ipython</a></p>
 
 <h2 id="使用ipython">使用IPython</h2>
 

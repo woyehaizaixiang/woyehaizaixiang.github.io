@@ -82,7 +82,7 @@
     "architecture": "",
     "os_type": "",
     "reservation_id": "",
-    "image_ref_url": "http:\/\/192.168.0.6:8774\/676730085ab84296a9b4a7d68ee76078\/images\/da04e6dd-4cc7-4594-87d8-60927c07c396"
+    "image_ref_url": "https:\/\/192.168.0.6:8774\/676730085ab84296a9b4a7d68ee76078\/images\/da04e6dd-4cc7-4594-87d8-60927c07c396"
   },
   "source": "openstack",
   "counter_unit": "request",
@@ -104,7 +104,7 @@
 </ul>
 
 <h3 id="计量内容">计量内容</h3>
-<p>在<a href="http://docs.openstack.org/developer/ceilometer/measurements.html">文档</a>中讲了计量值和其单位</p>
+<p>在<a href="https://docs.openstack.org/developer/ceilometer/measurements.html">文档</a>中讲了计量值和其单位</p>
 
 <p>首先是计量类型：</p>
 

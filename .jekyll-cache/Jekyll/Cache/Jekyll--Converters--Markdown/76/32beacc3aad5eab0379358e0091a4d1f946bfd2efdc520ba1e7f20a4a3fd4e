@@ -1,4 +1,4 @@
-I"�<p>有的时候我们需要一些弹出窗来作为临时信息显示，在js代码中直接使用</p>
+I"�<p>有的时候我们需要一些弹出窗来作为临时信息显示，在js代码中直接使用</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>window.open(url,“_blank”,option);
 </code></pre></div></div>
@@ -21,7 +21,7 @@ test2();
 }
 function test2(){
 if(is_finished){
-window.open(“http://www.baidu.com”,“_blank”);
+window.open(“https://www.baidu.com”,“_blank”);
 }else{
 setTimeout(test2,1000);
 }
@@ -36,7 +36,7 @@ setTimeout(test2,1000);
 function test(){
 var frame=window.open(“about:blank”,“_blank”);
 $.get(“/”,function(){
-frame.location=“http://www.baidu.com”;
+frame.location=“https://www.baidu.com”;
 });
 }
 &lt;/script&gt;
