@@ -1,0 +1,44 @@
+I"�<p>有的时候我们需要一些弹出窗来作为临时信息显示，在js代码中直接使用</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>window.open(url,“_blank”,option);
+</code></pre></div></div>
+
+<p>即可实现跳转，而且还可以传递一些参数。</p>
+
+<p>但是有个问题是，很多浏览器不支持代码触发上述代码，这个问题在平常使用中显得很不方便，尤其是我们经常用ajax返回值来触发一个新页面。</p>
+
+<p>为了防止被屏蔽，可以有两种方式解决。
+1、在用户点击事件中增加监听程序</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;button onclick=“test()”&gt;点击&lt;/button&gt;
+&lt;script type=“text/javascript”&gt;
+var is_finished=false;
+function test(){
+$.get(“/”,function(){
+is_finished=true;
+});
+test2();
+}
+function test2(){
+if(is_finished){
+window.open(“http://www.baidu.com”,“_blank”);
+}else{
+setTimeout(test2,1000);
+}
+}
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>2、在点击后先打开空白页，之后再修改地址</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;button onclick=“test()”&gt;点击&lt;/button&gt;
+&lt;script type=“text/javascript”&gt;
+function test(){
+var frame=window.open(“about:blank”,“_blank”);
+$.get(“/”,function(){
+frame.location=“http://www.baidu.com”;
+});
+}
+&lt;/script&gt;
+</code></pre></div></div>
+:ET

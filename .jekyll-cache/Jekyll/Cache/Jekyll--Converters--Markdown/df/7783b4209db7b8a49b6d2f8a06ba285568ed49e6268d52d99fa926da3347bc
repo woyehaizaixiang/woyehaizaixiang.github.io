@@ -1,0 +1,65 @@
+I"o<h2 id="ipython简介"><a href="http://ipython.org/">IPython</a>简介</h2>
+
+<p>IPython最大的特性是它的交互式翻译器。这个系统允许我们以最快的速度测试自己的想法，而不是创建一个文件然后编译执行。</p>
+
+<p>IPython的目标是创建一个交互式计算和探索式计算的全面环境。为了支持这个目标，IPython有两个重要组件：</p>
+
+<ul>
+  <li>一个增强的交互式python shell</li>
+  <li>一个交互式的并行计算架构</li>
+</ul>
+
+<p>参考：<a href="http://ipython.org/ipython-doc/stable/overview.html">IPython Introduction</a></p>
+
+<h2 id="安装ipython">安装IPython</h2>
+
+<p>ubuntu下直接apt-get install ipython即可，其他可以参考<a href="http://ipython.org/ipython-doc/stable/install/install.html">install ipython</a></p>
+
+<h2 id="使用ipython">使用IPython</h2>
+
+<h3 id="自动补全">自动补全</h3>
+<p>使用<code class="highlighter-rouge">tab</code>可以直接对已打出的对象或变量进行补全</p>
+
+<h3 id="魔术关键字">魔术关键字</h3>
+<p>魔术关键字以<code class="highlighter-rouge">%</code>开头，如果<code class="highlighter-rouge">automagic</code>打开了，则不用输入<code class="highlighter-rouge">%</code>,否则需要，使用<code class="highlighter-rouge">automagic</code>可以切换状态</p>
+
+<ul>
+  <li><code class="highlighter-rouge">env</code> 显示环境变量</li>
+  <li><code class="highlighter-rouge">ed</code>或<code class="highlighter-rouge">edit</code> 编辑一个文件并执行</li>
+  <li><code class="highlighter-rouge">ed -x filename</code> 编辑文件不执行</li>
+  <li><code class="highlighter-rouge">edit 3:10</code> 编辑3:10行的指令并执行</li>
+  <li><code class="highlighter-rouge">hist</code> 显示历史纪录，可以用-n增加行号</li>
+  <li><code class="highlighter-rouge">hist 3:10</code> 显示3-10行的历史纪录</li>
+  <li><code class="highlighter-rouge">bg function</code> 把function函数放到后台执行</li>
+  <li><code class="highlighter-rouge">pwd</code> 当前目录</li>
+  <li><code class="highlighter-rouge">pycat filename</code> 语法高亮显示一个文件</li>
+  <li><code class="highlighter-rouge">macro name 1:10</code> 把1:10行的代码设为name宏</li>
+  <li><code class="highlighter-rouge">save filename 1:10</code> 把1:10行代码保存到文件中</li>
+  <li><code class="highlighter-rouge">time statement</code> 计算一段代码执行时间</li>
+  <li><code class="highlighter-rouge">timeit statement</code> 自动选择重复和循环次数计算一段代码执行时间</li>
+  <li><code class="highlighter-rouge">run filename</code> 执行一个文件，如果希望防止执行的，需要增加<code class="highlighter-rouge">if __name__ == "__main__":</code></li>
+  <li><code class="highlighter-rouge">autoindent</code> 如果启用，粘贴的时候会自动缩进代码</li>
+  <li><code class="highlighter-rouge">reset</code> 重置所有变量</li>
+</ul>
+
+<h3 id="bash命令">Bash命令</h3>
+<p>使用<code class="highlighter-rouge">!</code>做前缀可以执行shell命令，还可以用<code class="highlighter-rouge">$</code>来转换python变量，如下</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for i in range(10):
+  s = "dir%s" % i
+  !mkdir $s
+
+for i in !ls:
+  print i
+</code></pre></div></div>
+
+<p>另外，如果普通的shell命令有<code class="highlighter-rouge">$</code>的话，必须增加两个<code class="highlighter-rouge">$$</code>，如果原来是<code class="highlighter-rouge">echo $PATH</code>，需要写成<code class="highlighter-rouge">!echo $$PATH</code></p>
+
+<h3 id="打印对象属性">打印对象属性</h3>
+<p>使用<code class="highlighter-rouge">dir</code>可以将对象属性打印出来，如</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os
+dir(os)
+</code></pre></div></div>
+
+:ET

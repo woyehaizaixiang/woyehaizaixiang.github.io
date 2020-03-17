@@ -1,0 +1,82 @@
+I"�<blockquote>
+  <p>之前我在用SAE的Storage作为博客图床，但是令我非常不爽的是没有一个很好的上传和获得公共链接的方法。现在总算用Dropzone和七牛把这个问题解决了，下面是我上传图片和获得URL的操作，方法再往下看。</p>
+</blockquote>
+
+<p><img src="http://imgs.yansu.org/tool-qiniu-workflow.gif" alt="七牛操作流" /></p>
+
+<h2 id="设置七牛帐号">设置七牛帐号</h2>
+
+<blockquote>
+  <p><a href="http://www.qiniu.com">七牛</a>是国内口碑不错的一个云存储为主的公司。它的特点应该就在图片存储上，有非常方便的上传SDK和图片处理流，用来作为博客图床非常合适，而且价格不贵，每月有免费的10G流量。</p>
+</blockquote>
+
+<ol>
+  <li>
+    <p>去七牛注册帐号</p>
+
+    <p>刚刚创建的帐号是测试帐号，完成个人认证就可以成为标准帐号，获得10G的存储空间和各10G的上传下载流量。</p>
+
+    <p><img src="http://imgs.yansu.org/tool-qiniu-normal-account.png" alt="标准帐号" /></p>
+  </li>
+  <li>
+    <p>创建一个空间</p>
+
+    <p>创建空间也比较容易，记得选择公开空间。</p>
+
+    <p><img src="http://imgs.yansu.org/tool-qiniu-create-bucket.png" alt="创建空间" /></p>
+  </li>
+</ol>
+
+<h2 id="设置dropzone">设置Dropzone</h2>
+
+<blockquote>
+  <p><a href="https://aptonic.com/dropzone3/">Dropzone</a>是我很早就非常喜欢的一个软件。它通过拖拽的方式，增强了文件的处理流程。一直懒得给它开发插件，没想到七牛的SDK如此好用，所以今天折腾了一下搞定了。</p>
+</blockquote>
+
+<ol>
+  <li>
+    <p>下载软件</p>
+
+    <p>这个软件可以在App Store上直接购买，但是买到的是功能受限的，它不能操作外部文件。不过没有关系，再从官网上下载非沙箱版本，然后覆盖掉Application文件夹下的即可。</p>
+  </li>
+  <li>
+    <p>安装Qiniu插件</p>
+
+    <p><del>我把这个插件放到了<a href="https://github.com/suyan/scripts/tree/master/Dropzone%20Action">Github</a>上，戳<a href="https://github.com/suyan/scripts/blob/master/Dropzone%20Action/Qiniu.dzbundle.zip?raw=true">这里</a>下载。</del>
+ 这个插件已经上传到了官方网站的非官方插件处，可以直接戳<a href="https://aptonic.com/actions/install.php?bundle_name=Qiniu">这里</a>下载。</p>
+  </li>
+  <li>
+    <p>安装插件</p>
+
+    <p>下载后的是一个zip包，把这个包解压以后双击安装即可。</p>
+  </li>
+  <li>
+    <p>启用插件</p>
+
+    <p>从增加列表中选择我们安装好的七牛插件。</p>
+
+    <p><img src="http://imgs.yansu.org/tool-use-bundle.png" alt="启用插件" /></p>
+
+    <p>然后填写配置：</p>
+
+    <ul>
+      <li>server: 七牛上的空间名</li>
+      <li>username: 七牛的access_key</li>
+      <li>password: 七牛的secret_key</li>
+      <li>remote path(可选): 本地同步图片的目录，如果你希望本地也存一份图片，选一个地址即可</li>
+      <li>root url: 七牛的公共链接根目录</li>
+    </ul>
+
+    <p><img src="http://imgs.yansu.org/tool-qiniu-access-key.png" alt="access key" /></p>
+
+    <p><img src="http://imgs.yansu.org/tool-qiniu-root-url.png" alt="root url" /></p>
+  </li>
+</ol>
+
+<h2 id="其他建议">其他建议</h2>
+
+<p>利用Dropzone还有很多可利用的技巧，例如增加一个ImageOptim应用来压缩图片，然后再进行上传。</p>
+
+<p>对于临时图片，可以直接上传到Imgur获得链接。</p>
+
+:ET

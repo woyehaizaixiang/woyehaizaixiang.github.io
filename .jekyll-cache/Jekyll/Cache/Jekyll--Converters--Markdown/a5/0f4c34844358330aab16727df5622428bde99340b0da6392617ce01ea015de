@@ -1,0 +1,131 @@
+I"�<blockquote>
+  <p>最近弄了digitalocean的vps，研究了一下搭建一个vpn自己用，因为有些系统代理goagent还是搞不定。但是事实证明digitalocean线路还是很不稳，基本上没啥帮助=0=</p>
+</blockquote>
+
+<h2 id="pptp配置">pptp配置</h2>
+
+<h3 id="安装pptp">安装pptp</h3>
+<p>用ubuntu就是安装东西快</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get -y update
+sudo apt-get -y install pptpd
+</code></pre></div></div>
+
+<h3 id="修改配置脚本">修改配置脚本</h3>
+<p>配置一下dns</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt;/etc/ppp/options.pptpd &lt;&lt;END
+name pptpd
+refuse-pap
+refuse-chap
+refuse-mschap
+require-mschap-v2
+require-mppe-128
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+proxyarp
+lock
+nobsdcomp 
+novj
+novjccomp
+nologfd
+END
+</code></pre></div></div>
+
+<p>说明</p>
+
+<ul>
+  <li>name pptpd（pptpd服务名，可以随便填写。）</li>
+  <li>refuse-pap（拒绝pap身份认证模式。）</li>
+  <li>refuse-chap（拒绝chap身份认证模式。）</li>
+  <li>refuse-mschap（拒绝mschap身份认证模式。）</li>
+  <li>require-mschap-v2（在端点进行连接握手时需要使用微软的 mschap-v2 进行自身验证。）</li>
+  <li>require-mppe-128（MPPE 模块使用 128 位加密。）</li>
+  <li>ms-dns 8.8.8.8 (ppp 为 Windows 客户端提供 DNS 服务器 IP 地址。)</li>
+  <li>proxyarp (建立 ARP 代理键值。)</li>
+  <li>nodefaultroute（不替换默认路由）</li>
+  <li>debug（开启调试模式，相关信息记录在 /var/logs/message 中。）</li>
+  <li>lock（锁定客户端 PTY 设备文件。）</li>
+  <li>nobsdcomp (禁用 BSD 压缩模式。)</li>
+</ul>
+
+<p>还有ip</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt; /etc/pptpd.conf &lt;&lt;END
+option /etc/ppp/options.pptpd
+logwtmp
+localip 192.168.2.1
+remoteip 192.168.2.10-100
+END
+</code></pre></div></div>
+
+<h2 id="增加路由转发">增加路由转发</h2>
+<h3 id="ipv4转发">ipv4转发</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt;&gt; /etc/sysctl.conf &lt;&lt;END
+net.ipv4.ip_forward=1
+END
+sysctl -p
+</code></pre></div></div>
+
+<h3 id="修改iptables">修改iptables</h3>
+
+<p>备份当前iptables</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iptables-save &gt; /etc/iptables.down.rules
+</code></pre></div></div>
+
+<p>修改iptable NAT转发</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iptables -t nat -A POSTROUTING -s 192.168.2.0/24 -o eth0 -j MASQUERADE
+</code></pre></div></div>
+
+<p>设置MTU</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iptables -I FORWARD -s 192.168.2.0/24 -p tcp --syn -i ppp+ -j TCPMSS --set-mss 1300
+</code></pre></div></div>
+
+<p>保存新iptables</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iptables-save &gt; /etc/iptables.up.rules
+</code></pre></div></div>
+
+<p>重启后继续有效</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt;&gt;/etc/ppp/pptpd-options&lt;&lt;EOF
+pre-up iptables-restore &lt; /etc/iptables.up.rules
+post-down iptables-restore &lt; /etc/iptables.down.rules
+EOF
+</code></pre></div></div>
+
+<h3 id="增加用户">增加用户</h3>
+
+<p>增加帐号密码都是test的用户</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat &gt;/etc/ppp/chap-secrets &lt;&lt;END
+test pptpd test *
+END
+</code></pre></div></div>
+
+<h3 id="重启服务">重启服务</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/init.d/pptpd restart
+netstat -lntp
+</code></pre></div></div>
+
+<h2 id="自动脚本">自动脚本</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget -c https://github.com/suyan/scripts/raw/master/Setup/pptp.sh
+</code></pre></div></div>
+
+<h2 id="问题">问题</h2>
+
+<h3 id="logwtmpso-版本问题">logwtmp.so 版本问题</h3>
+
+<p>如果链接中断，并且出现下面问题：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Plugin /usr/lib/pptpd/pptpd-logwtmp.so is for pppd version 2.4.5, this is 2.4.6
+</code></pre></div></div>
+
+<p>在 <code class="highlighter-rouge">/etc/pptpd.conf</code> 文件中把 <code class="highlighter-rouge">logwtmp</code> 删掉就好了。</p>
+:ET

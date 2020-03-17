@@ -1,0 +1,98 @@
+I"<h2 id="常用软件">常用软件</h2>
+
+<h3 id="alfred">Alfred</h3>
+
+<h4 id="alfred常用workflow">Alfred常用Workflow</h4>
+
+<ul>
+  <li><a href="http://kapeli.com/dash">Dash</a></li>
+  <li><a href="https://github.com/liberize/alfred-dict-workflow">Dict - Lookup Word</a></li>
+  <li><a href="http://www.alfredforum.com/topic/917-reminders/">Reminders</a></li>
+  <li><a href="http://support.alfredapp.com/evernote">Evernote</a></li>
+  <li><a href="http://www.alfredforum.com/topic/1009-notes/">Notes</a></li>
+</ul>
+
+<h2 id="常用命令">常用命令</h2>
+
+<h3 id="开启关闭dashboard">开启关闭dashboard</h3>
+
+<p>关闭</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defaults write com.apple.dashboard mcx-disabled -boolean YES
+killall Dock
+</code></pre></div></div>
+
+<p>开启</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defaults write com.apple.dashboard mcx-disabled -boolean NO
+killall Dock
+</code></pre></div></div>
+
+<h3 id="剪贴板操作">剪贴板操作</h3>
+<p>写入剪切板</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo 'test' &gt; pbcopy
+cat testfile &gt; pbcopy
+</code></pre></div></div>
+
+<p>读取剪贴板</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pbpaste &gt; testfile
+pbpaste | cat
+</code></pre></div></div>
+
+<h3 id="开启关闭hidpi">开启关闭Hidpi</h3>
+<p>开启</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool YES
+</code></pre></div></div>
+
+<p>关闭</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo defaults delete /Library/Preferences/com.apple.windowserver DisplayResolutionDisabled ### Finder 标题栏显示完整路径
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
+</code></pre></div></div>
+
+<h3 id="修改dock隐藏和出现时间">修改Dock隐藏和出现时间</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>defaults write com.apple.dock autohide-delay <span class="nt">-int</span> 0
+defaults write com.apple.dock autohide-time-modifier <span class="nt">-float</span> 0.4
+killall Dock
+</code></pre></div></div>
+
+<h3 id="设置iterm中option为altmeta键">设置iterm中option为alt(meta)键</h3>
+
+<p><img src="http://imgs.yansu.org/resource-set-meta-to-alt.png" alt="option-to-meta" /></p>
+
+<h3 id="删除dropbox冲突文件">删除dropbox冲突文件</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -type f -name "* conflicted *" -exec rm -f {} \;
+</code></pre></div></div>
+
+<h3 id="清空launchpad删除掉">清空Launchpad（删除掉）</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sqlite3 ~/Library/Application\ Support/Dock/*.db 'DELETE FROM apps;' &amp;&amp; killall Dock
+</code></pre></div></div>
+
+<h3 id="重置launchpad">重置Launchpad</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm -f ~/Library/Application\ Support/Dock/*.db &amp;&amp; killall Dock
+</code></pre></div></div>
+
+<h3 id="修改finder中文件夹显示语言">修改Finder中文件夹显示语言</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 以Desktop为例
+touch ~/Desktop/.localized
+chmod 600 ~/Desktop/.localized
+</code></pre></div></div>
+
+<h2 id="常用快捷键">常用快捷键</h2>
+
+<h3 id="chrome">Chrome</h3>
+
+<ul>
+  <li>切换用户 <code class="highlighter-rouge">Command + shift + M</code></li>
+</ul>
+:ET

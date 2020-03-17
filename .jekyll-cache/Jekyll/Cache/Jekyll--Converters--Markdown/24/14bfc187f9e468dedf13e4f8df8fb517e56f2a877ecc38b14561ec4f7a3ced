@@ -1,0 +1,32 @@
+I"�<h3 id="1安装组件">1.安装组件</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install gettext
+</code></pre></div></div>
+
+<h3 id="2重新生成po文件">2.重新生成po文件</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/local/lib/python2.7/dist-packages/horizon/
+</code></pre></div></div>
+
+<p>使用django自带</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>django-admin.py makemessages -l zh_CN
+django-admin.py compilemessages  
+</code></pre></div></div>
+
+<p>手动在zn_CN文件夹中生成</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -type f \( -name '*.py' \)  -print &gt; list
+xgettext --files-from=list -d django -o django.po --from-code=UTF-8
+msgfmt --statistics --verbose -o django.mo django.po 
+</code></pre></div></div>
+
+<h3 id="3修改po文件">3.修改po文件</h3>
+<p>修改<code class="highlighter-rouge">/usr/local/lib/python2.7/dist-packages/horizon/local/zh_CN/LN_MESSAGES/django.po</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msgid "Welcome to my site."
+msgstr "欢迎光临"
+</code></pre></div></div>
+
+<p>其中msgid 是要转换的字符串，存在于程序源码中，所以不要更改。msgstr是基于特定语言的对msgid 的解释，初始为空，开发者需要对msgstr做相应更改</p>
+:ET

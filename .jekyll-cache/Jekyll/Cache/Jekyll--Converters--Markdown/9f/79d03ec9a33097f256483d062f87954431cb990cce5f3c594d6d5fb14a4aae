@@ -1,0 +1,159 @@
+I"r"<h2 id="库管理">库管理</h2>
+
+<h3 id="克隆库">克隆库</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/php/php-src.git
+git clone <span class="nt">--depth</span><span class="o">=</span>1 https://github.com/php/php-src.git <span class="c"># 只抓取最近的一次 commit</span>
+</code></pre></div></div>
+
+<h2 id="历史管理">历史管理</h2>
+
+<h3 id="查看历史">查看历史</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git log <span class="nt">--pretty</span><span class="o">=</span>oneline filename <span class="c"># 一行显示</span>
+git show xxxx <span class="c"># 查看某次修改</span>
+</code></pre></div></div>
+
+<h3 id="标签功能">标签功能</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git tag <span class="c"># 显示所有标签</span>
+git tag <span class="nt">-l</span> <span class="s1">'v1.4.2.*'</span> <span class="c"># 显示 1.4.2 开头标签</span>
+git tag v1.3 <span class="c"># 简单打标签</span>
+git tag <span class="nt">-a</span> v1.2 9fceb02 <span class="c"># 后期加注标签</span>
+git tag <span class="nt">-a</span> v1.4 <span class="nt">-m</span> <span class="s1">'my version 1.4'</span> <span class="c"># 增加标签并注释， -a 为 annotated 缩写</span>
+git show v1.4 <span class="c"># 看某一标签详情</span>
+git push origin v1.5 <span class="c"># 分享某个标签</span>
+git push origin <span class="nt">--tags</span> <span class="c"># 分享所有标签</span>
+</code></pre></div></div>
+
+<h3 id="回滚操作">回滚操作</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset 9fceb02 <span class="c"># 保留修改</span>
+git reset 9fceb02 <span class="nt">--hard</span> <span class="c"># 删除之后的修改</span>
+</code></pre></div></div>
+
+<h3 id="取消文件的修改">取消文件的修改</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout <span class="nt">--</span> a.php <span class="c">#  取消单个文件</span>
+git checkout <span class="nt">--</span> <span class="c"># 取消所有文件的修改</span>
+</code></pre></div></div>
+
+<h3 id="删除文件">删除文件</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git <span class="nb">rm </span>a.php  <span class="c"># 直接删除文件</span>
+git <span class="nb">rm</span> <span class="nt">--cached</span> a.php <span class="c"># 删除文件暂存状态</span>
+</code></pre></div></div>
+
+<h3 id="移动文件">移动文件</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git <span class="nb">mv </span>a.php ./test/a.php
+</code></pre></div></div>
+
+<h3 id="查看文件修改">查看文件修改</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git diff          <span class="c"># 查看未暂存的文件更新</span>
+git diff <span class="nt">--cached</span> <span class="c"># 查看已暂存文件的更新</span>
+</code></pre></div></div>
+
+<h3 id="暂存和恢复当前staging">暂存和恢复当前staging</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git stash <span class="c"># 暂存当前分支的修改</span>
+git stash apply <span class="c"># 恢复最近一次暂存</span>
+git stash list <span class="c"># 查看暂存内容</span>
+git stash apply stash@<span class="o">{</span>2<span class="o">}</span> <span class="c"># 指定恢复某次暂存内容</span>
+git stash drop stash@<span class="o">{</span>0<span class="o">}</span> <span class="c"># 删除某次暂存内容</span>
+</code></pre></div></div>
+
+<h3 id="修改-commit-历史纪录">修改 commit 历史纪录</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> 0580eab8
+</code></pre></div></div>
+
+<h2 id="分支管理">分支管理</h2>
+
+<h3 id="创建分支">创建分支</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch develop <span class="c"># 只创建分支</span>
+git checkout <span class="nt">-b</span> master develop <span class="c"># 创建并切换到 develop 分支</span>
+</code></pre></div></div>
+
+<h3 id="合并分支">合并分支</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master <span class="c"># 切换到 master 分支</span>
+git merge <span class="nt">--no-ff</span> develop <span class="c"># 把 develop 合并到 master 分支，no-ff 选项的作用是保留原分支记录</span>
+git rebase develop <span class="c"># rebase 当前分支到 develop</span>
+git branch <span class="nt">-d</span> develop <span class="c"># 删除 develop 分支</span>
+git rebase origin master <span class="c"># 和远程 master 分支 rebase</span>
+</code></pre></div></div>
+
+<h3 id="克隆远程分支">克隆远程分支</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch <span class="nt">-r</span> <span class="c"># 显示所有分支，包含远程分支</span>
+git checkout origin/android
+</code></pre></div></div>
+
+<h3 id="修复develop上的合并错误">修复develop上的合并错误</h3>
+
+<ol>
+  <li>将merge前的commit创建一个分之，保留merge后代码</li>
+  <li>将develop <code class="highlighter-rouge">reset --force</code>到merge前，然后<code class="highlighter-rouge">push --force</code></li>
+  <li>在分支中rebase develop</li>
+  <li>将分支push到服务器上重新merge</li>
+</ol>
+
+<h3 id="强制更新到远程分支最新版本">强制更新到远程分支最新版本</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset <span class="nt">--hard</span> origin/master
+git submodule update <span class="nt">--remote</span> <span class="nt">-f</span>
+</code></pre></div></div>
+
+<h3 id="删除已经-merge-的分支">删除已经 merge 的分支</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git branch <span class="nt">--merged</span> | egrep <span class="nt">-v</span> <span class="s2">"(^</span><span class="se">\*</span><span class="s2">|master|dev)"</span> | xargs git branch <span class="nt">-d</span>
+</code></pre></div></div>
+
+<h2 id="submodule使用">Submodule使用</h2>
+
+<h3 id="克隆带submodule的库">克隆带submodule的库</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone <span class="nt">--recursive</span> https://github.com/chaconinc/MainProject
+</code></pre></div></div>
+
+<h3 id="clone主库后再去clone-submodule">clone主库后再去clone submodule</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/chaconinc/MainProject
+git submodule init
+git submodule update
+</code></pre></div></div>
+
+<h2 id="git设置">Git设置</h2>
+
+<p>Git的全局设置在<code class="highlighter-rouge">~/.gitconfig</code>中，单独设置在<code class="highlighter-rouge">project/.git/config</code>下。</p>
+
+<p>忽略设置全局在<code class="highlighter-rouge">~/.gitignore_global</code>中，单独设置在<code class="highlighter-rouge">project/.gitignore</code>下。</p>
+
+<h3 id="设置-commit-的用户和邮箱">设置 commit 的用户和邮箱</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config user.name <span class="s2">"xx"</span>
+git config user.email <span class="s2">"xx@xx.com"</span>
+</code></pre></div></div>
+
+<p>或者直接修改config文件</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>user]
+    name <span class="o">=</span> xxx
+    email <span class="o">=</span> xxx@xxx.com
+</code></pre></div></div>
+
+<h3 id="查看设置项">查看设置项</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--list</span>
+</code></pre></div></div>
+
+<h3 id="设置git终端颜色">设置git终端颜色</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config <span class="nt">--global</span> color.diff auto
+git config <span class="nt">--global</span> color.status auto
+git config <span class="nt">--global</span> color.branch auto
+</code></pre></div></div>
+:ET

@@ -1,0 +1,315 @@
+I")n<blockquote>
+  <p>每个开发者都应该有自己的工具箱</p>
+</blockquote>
+
+<h2 id="为什么这么选择">为什么这么选择？</h2>
+<p>如今开源盛行，从后端的各个类库，到如今前端的jQuery插件，前端框架等，越来越多优秀的组件可以被我们选择应用在现有的项目中。随着开源组件的更新迭代，它们互相之间的依赖也越来越复杂。旧的框架对于新的变化总是显得难以适从，就算为了新的特性改变旧的框架，也会显的略显牵强。于是就会有新的框架和工具，在这个时候凸现出来。</p>
+
+<p>每个项目开始的方向是很重要的，良好的开始可以避免之后的各种问题。下面要说的三个工具，就是现有应用开发的一个良好开端。</p>
+
+<h3 id="laravel"><a href="http://laravel.com/">Laravel</a></h3>
+<p>Laravel是一个非常新的PHP框架，借鉴了很多前辈的优秀特性，以PHP5为起点，引入了<a href="https://getcomposer.org/">Composer</a>作为包管理工具，号称为WEB艺术家创造的PHP框架。</p>
+
+<h3 id="grunt"><a href="http://gruntjs.com/">Grunt</a></h3>
+<p>基于JavaScript的自动化构建工具，可以将重复的任务，例如压缩（minification），编译，单元测试，linting等自动化。</p>
+
+<h3 id="bower"><a href="http://bower.io/">Bower</a></h3>
+<p>Web前端开发的包管理工具，解决前端框架间的依赖关系，方便模块化和重用。</p>
+
+<h2 id="优势">优势</h2>
+
+<ol>
+  <li>使用Laravel可以更好的利用最新版PHP的优势，排除了一些历史问题。</li>
+  <li>利用Composer可以极大减少”轮子”的数量，优秀的包可以去<a href="https://packagist.org/">Packagist</a>找到，这些包几乎都利用Github来托管，利用Github的issue和request可以辅助提高包的质量。</li>
+  <li>Bower可以帮助统一管理开源前端库，如Bootstrap和jQuery等，同样这些包也在Github上托管。</li>
+  <li>Grunt帮助粘合前后端的开源组件，将合并编译压缩等工作自动化。</li>
+</ol>
+
+<h2 id="安装使用">安装使用</h2>
+
+<h3 id="前提">前提</h3>
+<p>有些需要提前安装的组件这里不在赘述，请自行Google。</p>
+
+<ul>
+  <li>Composer</li>
+  <li>Node &amp; npm</li>
+  <li>Grunt</li>
+  <li>Bower</li>
+</ul>
+
+<h3 id="laravel-1">Laravel</h3>
+<p>有了Composer后安装一个Laravel项目非常容易</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>composer create-project laravel/laravel myproject
+</code></pre></div></div>
+
+<p>安装完成后在<code class="highlighter-rouge">myproject</code>目录下就生成了laravel的框架结构，入口文件在<code class="highlighter-rouge">public</code>中。在<code class="highlighter-rouge">myproject</code>根目录下，有一个<code class="highlighter-rouge">composer.json</code>文件，这个文件看起来是这样的：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+    <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">laravel/laravel</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">The Laravel Framework.</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">keywords</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">framework</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">laravel</span><span class="dl">"</span><span class="p">],</span>
+    <span class="dl">"</span><span class="s2">license</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">MIT</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">require</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">"</span><span class="s2">laravel/framework</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">4.1.*</span><span class="dl">"</span>
+    <span class="p">},</span>
+    <span class="c1">//...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这个文件可以控制项目的一些依赖关系，我们需要一些组件的时候直接在<code class="highlighter-rouge">require</code>下添加即可，<code class="highlighter-rouge">composer</code>会帮我们去查找这个组件所需的依赖包。</p>
+
+<p>接着为了安装前端框架，我们先来创建几个公共目录，在<code class="highlighter-rouge">public</code>下，创建类似的目录</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+|-- assets
+|   |-- css
+|   |-- fonts
+|   `-- js
+|-- favicon.ico
+|-- index.php
+|-- packages
+`-- robots.txt
+</code></pre></div></div>
+
+<p>这里只有<code class="highlighter-rouge">assets</code>目录是我新创建的</p>
+
+<h3 id="bower-1">Bower</h3>
+<p>准备好后端框架以后，可以安装前端框架了，例如<code class="highlighter-rouge">Bootstrap</code>。利用<code class="highlighter-rouge">Bower</code>安装的前端库是其整个工程，并不是我们需要的个别文件，所以可以讲它们先放在一个位置，之后利用<code class="highlighter-rouge">Grunt</code>来统一处理。</p>
+
+<p>首先配置一下安装路径，在<code class="highlighter-rouge">myproject</code>根目录下配置文件<code class="highlighter-rouge">.bowerrc</code>为</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">directory</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">public/assets/bower</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这个文件告诉bower，将下载的包都安装到<code class="highlighter-rouge">public/assets/bower</code>下。</p>
+
+<p>接着在根目录创建一个<code class="highlighter-rouge">bower</code>的配置文件<code class="highlighter-rouge">bower.json</code>为</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">myproject</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>接着添加前端库</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bower install bootstrap -S
+</code></pre></div></div>
+
+<p>这个命令将会利用配置文件管理整个库依赖，这个时候再看一下配置文件，bower已经帮助我们自动安装好了<code class="highlighter-rouge">Bootstrap</code>依赖的包–<code class="highlighter-rouge">jQuery</code>，同时修改了配置文件</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">myproject</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">dependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">bootstrap</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~3.1.1</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>在看一下目标目录，<code class="highlighter-rouge">public/assets</code>下，生成了一个bower目录，其中包含了<code class="highlighter-rouge">Bootstrap</code>和<code class="highlighter-rouge">jQuery</code>。</p>
+
+<h3 id="grunt-1">Grunt</h3>
+<p>根据上面的步骤，我们很方便的建立了后端框架和前端框架，但是前端框架在使用的时候直接用<code class="highlighter-rouge">bower</code>下的文件并不是非常方便，而且还可能会涉及到一些库的合并压缩等步骤。这些问题都可以交给<code class="highlighter-rouge">Grunt</code>去做.</p>
+
+<p>首先在<code class="highlighter-rouge">myproject</code>根目录下利用<code class="highlighter-rouge">npm init</code>初始化一个配置文件。根据提示一步一步填写即可，最后生成的配置文件<code class="highlighter-rouge">package.json</code>应该如下所示：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">myproject</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0.0.1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">main</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Gruntfile.js</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">echo </span><span class="se">\"</span><span class="s2">Error: no test specified</span><span class="se">\"</span><span class="s2"> &amp;&amp; exit 1</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">license</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ISC</span><span class="dl">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>有不一样的地方不用担心，尽管修改即可。</p>
+
+<p>接着我们要安装一些Grunt的插件，帮助我们更好的完成所需功能。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm install grunt --save-dev
+npm install grunt-contrib-concat --save-dev
+npm install grunt-contrib-less --save-dev
+npm install grunt-contrib-uglify --save-dev
+npm install grunt-contrib-watch --save-dev
+npm install grunt-contrib-copy --save-dev
+npm install grunt-contrib-cssmin --save-dev
+</code></pre></div></div>
+
+<p>这里的每个插件我会在下面的配置中介绍。上面命令中的<code class="highlighter-rouge">--save-dev</code>选项的作用是将安装的这些包放入配置文件依赖项中，方便以后安装。下面是安装后的配置文件：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">myproject</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">version</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">0.0.1</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">description</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">main</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Gruntfile.js</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">scripts</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">test</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">echo </span><span class="se">\"</span><span class="s2">Error: no test specified</span><span class="se">\"</span><span class="s2"> &amp;&amp; exit 1</span><span class="dl">"</span>
+  <span class="p">},</span>
+  <span class="dl">"</span><span class="s2">author</span><span class="dl">"</span><span class="p">:</span> <span class="dl">""</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">license</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ISC</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">devDependencies</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">grunt</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~0.4.3</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">grunt-contrib-concat</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~0.3.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">grunt-contrib-less</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~0.10.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">grunt-contrib-uglify</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~0.4.0</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">grunt-contrib-watch</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~0.5.3</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">grunt-contrib-cssmin</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~0.9.0</span><span class="dl">"</span>
+    <span class="dl">"</span><span class="s2">grunt-contrib-copy</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">~0.5.0</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>注意在安装后有了一个<code class="highlighter-rouge">node_modules</code>目录，这个是node项目依赖包的位置，我们一般都在本地进行文件的合并和压缩，所以可以将这个包保留在本地。另外对于<code class="highlighter-rouge">bower</code>生成的目录，在<code class="highlighter-rouge">Grunt</code>处理过以后也是可以不上传到正式环境中的。所以修改<code class="highlighter-rouge">.gitignore</code>文件，将这两个文件夹排除出去：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/bootstrap/compiled.php
+/vendor
+composer.phar
+composer.lock
+.env.local.php
+.env.php
+.DS_Store
+Thumbs.db
+/public/assets/bower
+/node_modules
+</code></pre></div></div>
+
+<p>接下来就要进行<code class="highlighter-rouge">Grunt</code>的配置项编写了，我会在配置中加入注释帮助理解。还记得我们刚刚建立的<code class="highlighter-rouge">package.json</code>配置文件中的入口文件吗？这个文件还不存在，所以我们需要手动建立，在<code class="highlighter-rouge">myproject</code>下创建<code class="highlighter-rouge">Gruntfile.js</code>的文件，内容如下：</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">grunt</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//配置项</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">initConfig</span><span class="p">({</span>
+    <span class="c1">//concat插件配置，用来合并多个文件</span>
+    <span class="na">concat</span><span class="p">:</span> <span class="p">{</span>
+      <span class="c1">//文件间的分隔符</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">separator</span><span class="p">:</span> <span class="dl">'</span><span class="s1">;</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">},</span>
+      <span class="c1">//app是一个任务名，可以随意命名</span>
+      <span class="na">app</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1">//将进行的合并项</span>
+        <span class="na">src</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">'</span><span class="s1">./public/assets/bower/jquery/dist/jquery.js</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">./public/assets/bower/bootstrap/dist/js/bootstrap.js</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="c1">//合并后放置在</span>
+        <span class="na">dest</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./public/assets/js/javascript.js</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="c1">//css合并压缩</span>
+    <span class="na">cssmin</span><span class="p">:</span> <span class="p">{</span>
+      <span class="c1">//任务名</span>
+      <span class="na">app</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">src</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">'</span><span class="s1">./public/assets/bower/bootstrap/dist/css/bootstrap.css</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">./public/assets/css/base.css</span><span class="dl">'</span>
+        <span class="p">],</span>
+        <span class="na">dest</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./public/assets/css/stylesheet.css</span><span class="dl">'</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="c1">//js压缩</span>
+    <span class="na">uglify</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">mangle</span><span class="p">:</span> <span class="kc">false</span> <span class="c1">//是否混合变量，如果需求的话置为true</span>
+      <span class="p">},</span>
+      <span class="na">app</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">files</span><span class="p">:</span> <span class="p">{</span>
+          <span class="dl">'</span><span class="s1">./public/assets/js/javascript.js</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./public/assets/js/javascript.js</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="c1">//移动文件</span>
+    <span class="na">copy</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">app</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">files</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="na">expand</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">flatten</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+            <span class="na">cwd</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./public/assets/bower/bootstrap/fonts/</span><span class="dl">'</span><span class="p">,</span>
+            <span class="na">src</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">**</span><span class="dl">'</span><span class="p">],</span> 
+            <span class="na">dest</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./public/assets/fonts/</span><span class="dl">'</span><span class="p">,</span> 
+            <span class="na">filter</span><span class="p">:</span> <span class="dl">'</span><span class="s1">isFile</span><span class="dl">'</span>
+          <span class="p">},</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="c1">//监听文件变化，如果文件变化，将重新进行任务</span>
+    <span class="na">watch</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">app</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">files</span><span class="p">:</span> <span class="p">[</span>
+          <span class="dl">'</span><span class="s1">./public/assets/bower/jquery/dist/jquery.js</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">./public/assets/bower/bootstrap/dist/js/bootstrap.js</span><span class="dl">'</span><span class="p">,</span>
+          <span class="dl">'</span><span class="s1">./public/assets/bower/bootstrap/dist/css/bootstrap.css</span><span class="dl">'</span><span class="p">,</span>
+        <span class="p">],</span>   
+        <span class="c1">//文件变化后执行哪些任务</span>
+        <span class="na">tasks</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">concat:app</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">uglify:app</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">cssmin:app</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">copy:app</span><span class="dl">'</span><span class="p">],</span>
+        <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">livereload</span><span class="p">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">//导入所需的插件</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="dl">'</span><span class="s1">grunt-contrib-concat</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="dl">'</span><span class="s1">grunt-contrib-watch</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="dl">'</span><span class="s1">grunt-contrib-less</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="dl">'</span><span class="s1">grunt-contrib-uglify</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="dl">'</span><span class="s1">grunt-contrib-copy</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">loadNpmTasks</span><span class="p">(</span><span class="dl">'</span><span class="s1">grunt-contrib-cssmin</span><span class="dl">'</span><span class="p">);</span>
+
+  <span class="c1">//注册两个任务</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="dl">'</span><span class="s1">watch</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">watch</span><span class="dl">'</span><span class="p">]);</span>
+  <span class="nx">grunt</span><span class="p">.</span><span class="nx">registerTask</span><span class="p">(</span><span class="dl">'</span><span class="s1">default</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="dl">'</span><span class="s1">concat:app</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">uglify:app</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">cssmin:app</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">copy:app</span><span class="dl">'</span><span class="p">]);</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>我们看到，最后注册了两个任务，这两个任务可以从终端中执行，例如：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grunt watch
+</code></pre></div></div>
+
+<p>可以开启文件监听，当文件变化时执行watch中设定的任务。</p>
+
+<p>如果直接执行<code class="highlighter-rouge">grunt</code>，则会执行<code class="highlighter-rouge">default</code>中设定的任务。我们也可以具体指定执行某一单一任务，如</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grunt copy:app
+</code></pre></div></div>
+
+<p>上面则只将<code class="highlighter-rouge">bootstrap/fonts</code>中的文件拷贝到<code class="highlighter-rouge">public/assets/fonts</code>中。</p>
+
+<p>对于上述的这些插件，可以在<a href="http://gruntjs.com/plugins">这里</a>找到，也有详细的用法。</p>
+
+<h2 id="总结">总结</h2>
+<p>每个人都有自己的喜好，我的这种配置可能只抛个砖，希望有更好的方式分享。最后在总结一下这三剑客：</p>
+
+<ul>
+  <li>Laravel利用了最新PHP特性，引入了Composer包管理，解决后端库之间的依赖</li>
+  <li>Bower帮助安装和解决前端框架和库的依赖关系</li>
+  <li>Grunt帮助粘合前后端的开源组件，并且完成合并和压缩等重复性工作。</li>
+</ul>
+
+<p>下面两篇参考文章各有特色，如果希望了解一下可以点击链接去看。</p>
+
+<p>我在<a href="https://github.com/suyan/Laravel-Bower-Grunt">Github</a>上建立了这篇博客中所讲的目录结构，想要快速建立一个可使用的工程，只需要以下几部：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/suyan/Laravel-Bower-Grunt.git
+composer install
+bower update
+npm install
+grunt
+</code></pre></div></div>
+
+<p>Enjoy it!</p>
+
+<h2 id="参考">参考</h2>
+<ol>
+  <li><a href="http://www.terrymatula.com/development/2013/how-i-use-bower-and-grunt-with-my-laravel-projects/">How I use Bower and Grunt with my Laravel projects</a></li>
+  <li><a href="http://blog.elenakolevska.com/using-grunt-with-laravel-and-bootstrap/">Using Grunt + Bower with Laravel and Bootstrap</a></li>
+</ol>
+:ET

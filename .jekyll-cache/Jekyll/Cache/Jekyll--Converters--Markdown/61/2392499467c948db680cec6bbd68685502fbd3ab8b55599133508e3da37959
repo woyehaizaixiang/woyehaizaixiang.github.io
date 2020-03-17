@@ -1,0 +1,17 @@
+I"@<h2 id="安装zsh">安装Zsh</h2>
+<p>我在mac下，使用<code class="highlighter-rouge">port install zsh</code>就好了，因为mac自带的Zsh比较老，然后使用<code class="highlighter-rouge">chsh -s /opt/local/bin/zsh</code>搞定</p>
+
+<h2 id="安装zsh配置文件">安装Zsh配置文件</h2>
+<p>克隆配置</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git://github.com/sjl/oh-my-zsh.git ~/.oh-my-zsh
+</code></pre></div></div>
+
+<p>移动到根目录</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+</code></pre></div></div>
+
+<h2 id="使用zsh">使用Zsh</h2>
+<p><a href="http://lostjs.com/2012/09/27/zsh/">使用Zsh的九个理由</a>写了Zsh最令人激动的理由</p>
+:ET

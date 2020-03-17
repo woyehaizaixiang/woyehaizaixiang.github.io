@@ -1,0 +1,62 @@
+I"�<h2 id="官方资源">官方资源</h2>
+
+<ul>
+  <li><a href="http://jquery.com/">官方首页</a></li>
+  <li><a href="http://plugins.jquery.com/">官方插件</a></li>
+</ul>
+
+<h2 id="下拉框扩展">下拉框扩展</h2>
+
+<ul>
+  <li>
+    <p><a href="http://ivaynberg.github.io/select2/">Select 2</a></p>
+
+    <p>功能强大的下拉列表插件，基本包含了所有可能的需求……</p>
+  </li>
+  <li>
+    <p><a href="http://kotowicz.net/jquery-option-tree/demo/demo.html">OptionTree</a></p>
+
+    <p>联动下拉列表插件，可以动态生成下拉列表，而且支持ajax获取数据</p>
+  </li>
+</ul>
+
+<h2 id="常用代码">常用代码</h2>
+
+<h3 id="禁用a的链接">禁用a的链接</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>href="return false;"或href="javascript;"
+$().live('click',function(e){
+  e.preventDefault();
+  });
+</code></pre></div></div>
+
+<h3 id="清空file的内容">清空file的内容</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var cfile = $('#id').clone();
+$('#id').replaceWith(cfile);
+</code></pre></div></div>
+
+<h3 id="jqueryformjs-和-jqueryvalidatejs配合使用">jquery.form.js 和 jquery.validate.js配合使用</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>这两个脚本搭配在表单验证和提交是非常的好用,顺便增加了对bootstrap表单的支持
+$("#page_form").validate({
+  highlight: function(element) {
+    $(element).closest('.control-group').removeClass('success').addClass('error');
+  },
+  success: function(element) {
+    element.text('OK!').addClass('valid').closest('.control-group').removeClass('error').addClass('success');
+  },
+  submitHandler:function(form) {
+    $(form).ajaxSubmit(options);
+}});
+</code></pre></div></div>
+
+<h3 id="选择父节点">选择父节点</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>使用$(this)来将dom对象转为jquery对象
+$(this).parents('tr');
+</code></pre></div></div>
+
+<h3 id="多重操作">多重操作</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$(this).parents('tr').remove();
+因为jquery函数返回jquery节点
+</code></pre></div></div>
+:ET

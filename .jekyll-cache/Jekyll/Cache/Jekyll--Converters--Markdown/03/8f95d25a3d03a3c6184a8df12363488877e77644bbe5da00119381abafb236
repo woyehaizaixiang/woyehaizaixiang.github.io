@@ -1,0 +1,464 @@
+I"�<<h2 id="docker-基本概念">Docker 基本概念</h2>
+
+<h3 id="镜像-image">镜像 Image</h3>
+
+<p>镜像是一些打包好的已有的环境，可以被用来启动和创建容器，本身不能被直接修改。</p>
+
+<h3 id="容器-container">容器 Container</h3>
+
+<p>容器是镜像的实例化，是可以修改的，但是都是临时修改。</p>
+
+<h3 id="容器启动过程">容器启动过程</h3>
+
+<ol>
+  <li>检查本地是否存在指定的镜像，不存在就从公有仓库下载</li>
+  <li>利用镜像创建并启动一个容器</li>
+  <li>分配一个文件系统，并在只读的镜像层外面挂载一层可读写层</li>
+  <li>从宿主主机配置的网桥接口中桥接一个虚拟接口到容器中去</li>
+  <li>从地址池配置一个 ip 地址给容器</li>
+  <li>执行用户指定的应用程序</li>
+  <li>执行完毕后容器被终止</li>
+</ol>
+
+<h2 id="docker-常用命令">Docker 常用命令</h2>
+
+<h3 id="image-操作">Image 操作</h3>
+
+<h4 id="基本操作">基本操作</h4>
+
+<ul>
+  <li>显示本地所有镜像</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker images
+</code></pre></div></div>
+
+<ul>
+  <li>搜索一个image</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker search image_name
+</code></pre></div></div>
+
+<ul>
+  <li>下载image</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull image_name
+</code></pre></div></div>
+
+<ul>
+  <li>删除镜像</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rmi image_name
+</code></pre></div></div>
+
+<ul>
+  <li>显示镜像历史</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker history image_name
+</code></pre></div></div>
+
+<h4 id="制作镜像">制作镜像</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build -t image_name DockerfilePath
+</code></pre></div></div>
+
+<p>这里DockerfilePath是Context上下文目录，在创建的时候会全部上传到Docker Server端，所以这个目录不要太大</p>
+
+<h4 id="迁移镜像">迁移镜像</h4>
+
+<ul>
+  <li>保存镜像到文件</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker save image_name -o file.tar
+</code></pre></div></div>
+
+<ul>
+  <li>加载一个tar包的镜像</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker load -i file.tar
+</code></pre></div></div>
+
+<h3 id="container-操作">Container 操作</h3>
+
+<h4 id="显示相关">显示相关</h4>
+
+<ul>
+  <li>查看运行中的容器</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+
+# 一行显示全部容器
+docker ps | less -S
+
+# 最近一次启动
+docker ps -l
+
+# 列出所有容器
+docker ps -a
+</code></pre></div></div>
+
+<ul>
+  <li>显示一个运行的容器里面的进程信息</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker top cid
+</code></pre></div></div>
+
+<ul>
+  <li>显示容器详细信息</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker inspect cid
+</code></pre></div></div>
+
+<ul>
+  <li>查看容器日志</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker logs cid
+
+# 实时查看日志输出
+docker logs -f cid
+</code></pre></div></div>
+
+<ul>
+  <li>查看容器更改</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker diff cid
+</code></pre></div></div>
+
+<ul>
+  <li>查看容器root用户密码</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker logs cid 2&gt;&amp;1 | grep '^User: ' | tail -n1
+</code></pre></div></div>
+
+<h4 id="运行相关">运行相关</h4>
+
+<ul>
+  <li>启动容器并执行一个命令（交互）</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># -t 终端
+# -i 交互操作
+docker run -it ubuntu /bin/bash
+
+# 运行一个hello word然后就自动关闭
+docker run image_name echo "hello word"
+
+# 命名并启动容器
+docker run --name test ubuntu
+
+# 后台运行一个容器
+docker run -d -it ubuntu
+
+# 映射端口
+docker run -p 8080:8080 ubuntu
+
+# 挂载volumn
+docker run -v ./test:/var/www
+
+# container 内 root 拥有真正root权限
+docker run --privileged=false
+
+# 启动完镜像后自动删除
+docker run -it --rm ubuntu bash
+</code></pre></div></div>
+
+<ul>
+  <li>附着到正在运行的容器, 附着完以后退出会导致容器也终止</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker attach cid
+</code></pre></div></div>
+
+<ul>
+  <li>进入正在运行的 container 并且执行</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -it 839a6cfc9496 /bin/bash
+</code></pre></div></div>
+
+<ul>
+  <li>在容器中运行一段程序</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ubuntu apt-get update
+</code></pre></div></div>
+
+<ul>
+  <li>拷贝文件出来</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker cp cid:/container_path to_path  
+</code></pre></div></div>
+
+<h4 id="修改容器">修改容器</h4>
+
+<p>image相当于类，container相当于实例，不过可以动态给实例安装新软件，然后把这个container用commit命令固化成一个image</p>
+
+<ul>
+  <li>提交一个commit</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker commit cid new_image_name
+</code></pre></div></div>
+
+<ul>
+  <li>删除容器</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rm cid
+
+# 强制删除
+docker rm -f cid
+
+# 删除所有容器
+docker rm `docker ps -a -q`
+</code></pre></div></div>
+
+<ul>
+  <li>状态修改</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker start/stop/kill/restart cid
+</code></pre></div></div>
+
+<ul>
+  <li>更改名字</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker rename old new
+</code></pre></div></div>
+
+<h4 id="链接容器">链接容器</h4>
+
+<p>sonar容器连接到mysql容器，并将mysql容器重命名为db。这样，sonar容器就可以使用db的相关的环境变量了。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -it --name sonar -d -link mysql:db tpires/sonar-server
+</code></pre></div></div>
+
+<h3 id="仓库操作">仓库操作</h3>
+
+<ul>
+  <li>登录到docker仓库</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker login
+</code></pre></div></div>
+
+<ul>
+  <li>上传镜像</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker push new_image_name
+</code></pre></div></div>
+
+<h2 id="dockerfile-常用命令">Dockerfile 常用命令</h2>
+
+<p>有了 Dockerfile 可以自定义一些自己需要的镜像，在熟悉了 Docker 基本操作，然后使用过一些别人提供好的镜像以后，难免需要自己修改一部分。</p>
+
+<h3 id="from">FROM</h3>
+
+<p>指定基础镜像。例如：</p>
+
+<ul>
+  <li>ubuntu</li>
+  <li>nginx</li>
+  <li>redis</li>
+  <li>…</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM nginx
+</code></pre></div></div>
+
+<h3 id="run">RUN</h3>
+
+<p>执行一些命令</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html
+</code></pre></div></div>
+
+<p>每个RUN命令都会在容器中建立一层，所以尽量合并多个命令。例如</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN buildDeps='gcc libc6-dev make' \
+    &amp;&amp; apt-get update \
+    &amp;&amp; apt-get install -y $buildDeps \
+    ...
+</code></pre></div></div>
+
+<h3 id="copy">COPY</h3>
+
+<p>复制文件到指定目录 source -&gt; target</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>COPY ./package.json /usr/src/app
+</code></pre></div></div>
+
+<h3 id="cmd">CMD</h3>
+
+<p>容器的启动命令</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CMD ["nginx", "-g", "daemon off;"]
+</code></pre></div></div>
+
+<p>这个命令可以在启动时被覆盖。另外它也可以为 ENTRYPOINT 提供参数。</p>
+
+<blockquote>
+  <p>CMD 理论上只能执行一次，如果想要执行两个命令，需要使用 <code class="highlighter-rouge">&amp;</code> 来连接两个命令，或者使用一个bash文件。更为高级一点的方法是用supervisor来管理</p>
+</blockquote>
+
+<h3 id="entrypoint">ENTRYPOINT</h3>
+
+<p>ENTRYPOINT 和 CMD 有一部分重复工作，但是 ENTRYPOINT 可以让容器像软件一样执行。例如</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ENTRYPOINT /bin/echo
+</code></pre></div></div>
+
+<p>在容器启动时，之后增加的内容都属于这个命令的参数。</p>
+
+<h3 id="env">ENV</h3>
+
+<p>设置环境变量。</p>
+
+<p><code class="highlighter-rouge">ENV key value</code></p>
+
+<h3 id="arg">ARG</h3>
+
+<p>构建参数，在容器启动后不会存在。</p>
+
+<h3 id="volume">VOLUME</h3>
+
+<p>定义匿名卷，以免用户忘了挂载volumn，导致大量写入。这个 Volume 在容器启动前可以添加内容，但是并不是实际操作用户挂载的内容。在用户挂载完 volume 后，原来写在这里的内容会被复制到用户挂载的目录。</p>
+
+<blockquote>
+  <p>注意：在 VOLUME 命令之后对这个目录的所有操作，将被忽略。</p>
+</blockquote>
+
+<h3 id="expose">EXPOSE</h3>
+
+<p>申明端口，可以用来默认映射端口，以及容器间互通。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EXPOSE 22 80
+</code></pre></div></div>
+
+<h3 id="workdir">WORKDIR</h3>
+
+<p>指定工作目录。不仅是当前 docker 中的目录，同时也是运行容器时刚刚登录以后的目录。</p>
+
+<h3 id="user">USER</h3>
+
+<p>指定当前用户。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RUN groupadd -r redis &amp;&amp; useradd -r -g redis redis
+USER redis
+RUN [ "redis-server" ]
+</code></pre></div></div>
+
+<h3 id="healthcheck">HEALTHCHECK</h3>
+
+<p>健康检查</p>
+
+<h3 id="onbuild">ONBUILD</h3>
+
+<p>当此容器作为别的容器的基础容器时操作内容</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FROM node:slim
+RUN "mkdir /app"
+WORKDIR /app
+ONBUILD COPY ./package.json /app
+ONBUILD RUN [ "npm", "install" ]
+ONBUILD COPY . /app/
+CMD [ "npm", "start" ]
+</code></pre></div></div>
+
+<h2 id="docker-compose-常用指令">Docker-compose 常用指令</h2>
+
+<h3 id="depends_on">depends_on</h3>
+
+<p>这个不仅可以保证build的先后顺序，还可以省去links的设置</p>
+
+<h3 id="links">links</h3>
+
+<p>和docker run命令一致，主要原因是在每次新开启container的时候，port可能会变，所以有了这个设置可以保证每次都可以绑定到正确的值。</p>
+
+<h2 id="实例操作">实例操作</h2>
+
+<h3 id="创建一个lamp的项目">创建一个LAMP的项目</h3>
+
+<p>首先是目录结构</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── README.md
+├── apache
+│   └── virtualhost.conf
+├── docker-compose.yml
+├── mysql
+│   ├── Dockerfile
+│   └── my.cnf
+├── php
+│   ├── Dockerfile
+│   └── php.ini
+└── src
+    └── index.php
+</code></pre></div></div>
+
+<p>创建 docker-compose.yml</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mysql</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mysql</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">3306:3306"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">password</span>
+      <span class="na">MYSQL_DATABASE</span><span class="pi">:</span> <span class="s">phpdata</span>
+      <span class="na">MYSQL_USER</span><span class="pi">:</span> <span class="s">user</span>
+      <span class="na">MYSQL_PASSWORD</span><span class="pi">:</span> <span class="s">password</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">dbdata:/var/lib/mysql</span>
+  <span class="na">php</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">./php</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">8080:80'</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./src:/var/www/html</span>
+      <span class="pi">-</span> <span class="s">./apache:/etc/apache2/sites-enabled/</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mysql</span>
+  <span class="na">phpmyadmin</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">phpmyadmin/phpmyadmin</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s1">'</span><span class="s">8081:80'</span>
+    <span class="na">links</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mysql:db</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">PMA_USER</span><span class="pi">:</span> <span class="s">root</span>
+      <span class="na">PMA_PASSWORD</span><span class="pi">:</span> <span class="s">password</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">adminsessions:/sessions</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mysql</span>
+      <span class="pi">-</span> <span class="s">php</span>
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">dbdata</span><span class="pi">:</span>
+  <span class="na">adminsessions</span><span class="pi">:</span>
+</code></pre></div></div>
+
+<h2 id="问题记录">问题记录</h2>
+
+<h3 id="mysql-挂载-volume-后启动时显示无权限">Mysql 挂载 volume 后启动时显示无权限</h3>
+
+<p>设置mysql的启动模式 <code class="highlighter-rouge">privileged:true</code></p>
+
+<p>另外这个问题一般不会发生，我之前遇到主要原因是我把多个 volume 都映射到了一个上面，导致目录内部读写发生冲突。</p>
+
+:ET

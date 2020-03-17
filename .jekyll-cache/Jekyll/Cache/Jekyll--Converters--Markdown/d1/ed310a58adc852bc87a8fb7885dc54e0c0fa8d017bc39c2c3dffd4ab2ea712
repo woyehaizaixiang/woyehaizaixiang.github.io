@@ -1,0 +1,32 @@
+I"y<h2 id="进入调试模式">进入调试模式</h2>
+<p>Horizon在python的django框架上进行开发，所以可以利用django的manage.py来进行调试。</p>
+
+<p>方式：</p>
+
+<ul>
+  <li>关闭apache</li>
+  <li>进入Horizon目录</li>
+  <li>执行命令manage.py runserver 0.0.0.0:80</li>
+</ul>
+
+<p>这样修改的代码立刻就可以实现，不用每次都重启apache了</p>
+
+<h2 id="查看变量方式">查看变量方式</h2>
+<p>再没有使用调试模式时，可能需要使用</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import logging
+logging.info('xxx')
+</code></pre></div></div>
+
+<p>来打日志查看一些变量或者输出，这样显然是比较低效的。推荐的做法是开启调试模式，直接print变量，在终端中直接查看。</p>
+
+<p>另外也可以利用assert命令来查看，因为django本身提供了强大的错误输出界面，再想要查看变量的地方之后，增加</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assert False
+</code></pre></div></div>
+
+<p>即可输出trace错误界面，在界面中查看变量即可</p>
+
+<h2 id="经常查看文档">经常查看文档</h2>
+<p>OpenStack的文档越来越完善，在Horizon部分有详细的二次开发文档，具体可以查看<a href="http://docs.openstack.org/developer/horizon/">官方文档</a></p>
+:ET

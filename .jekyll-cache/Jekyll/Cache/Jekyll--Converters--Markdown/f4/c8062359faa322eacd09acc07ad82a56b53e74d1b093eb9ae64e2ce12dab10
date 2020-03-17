@@ -1,0 +1,142 @@
+I"|*<blockquote>
+  <p>这两个概念对于 Laravel 的使用者来说应该并不陌生，尤其是当你希望扩展或者替换 Laravel 核心库的时候，理解和合理使用它们可以极大提升 Laravel 的战斗力。这里以创建一个自己的 ServiceProvider 为例理解 Inversion of Control 和 Facade 在 Laravel 中的应用。</p>
+</blockquote>
+
+<h2 id="控制反转inversion-of-control">控制反转（Inversion of Control）</h2>
+
+<h3 id="什么是-ioc">什么是 IoC</h3>
+<blockquote>
+  <p>控制反转（Inversion of Control，缩写为IoC），是面向对象编程中的一种设计原则，可以用来减低计算机代码之间的耦合度。其中最常见的方式叫做依赖注入（Dependency Injection，简称DI），还有一种方式叫“依赖查找”（Dependency Lookup）。通过控制反转，对象在被创建的时候，由一个调控系统内所有对象的外界实体，将其所依赖的对象的引用传递给它。 — <a href="http://zh.wikipedia.org/wiki/控制反转">维基百科</a></p>
+</blockquote>
+
+<p>简单说来，就是一个类把自己的的控制权交给另外一个对象，类间的依赖由这个对象去解决。依赖注入属于依赖的显示申明，而依赖查找则是通过查找来解决依赖。</p>
+
+<h3 id="laravel-中的使用">Laravel 中的使用</h3>
+
+<p>注入一个类：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">App</span><span class="o">::</span><span class="na">bind</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="k">function</span><span class="p">(</span><span class="nv">$app</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">FooBar</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>这个例子的意思是创建一个别名为 <code class="highlighter-rouge">foo</code> 的类，使用时实际实例化的是 <code class="highlighter-rouge">FooBar</code>。</p>
+
+<p>使用这个类的方法是：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$value</span> <span class="o">=</span> <span class="nx">App</span><span class="o">::</span><span class="na">make</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">$value</code> 实际上是 <code class="highlighter-rouge">FooBar</code> 对象。</p>
+
+<p>如果希望使用单例模式来实例化类，那么使用：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">App</span><span class="o">::</span><span class="na">singleton</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">FooBar</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>这样的话每次实例化后的都是同一个对象。</p>
+
+<p>注入类的更多例子可以看 <a href="http://laravel.com/docs/4.2/ioc">Laravel 官网</a></p>
+
+<p>你可能会疑问上面的代码应该写在哪儿呢？答案是你希望他们在哪儿运行就写在哪儿。0 —— 0 知道写哪儿还用来看这种基础文章么！</p>
+
+<h2 id="服务提供器-service-providers">服务提供器 (Service Providers)</h2>
+<p>为了让依赖注入的代码不至于写乱，Laravel 搞了一个 <strong>服务提供器（Service Provider）</strong>的东西，它将这些依赖聚集在了一块，统一申明和管理，让依赖变得更加容易维护。</p>
+
+<h3 id="laravel-中的使用-1">Laravel 中的使用</h3>
+<p>定义一个服务提供器：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nn">Illuminate\Support\ServiceProvider</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">FooServiceProvider</span> <span class="k">extends</span> <span class="nx">ServiceProvider</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="k">function</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">Foo</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这个代码也不难理解，就是申明一个服务提供器，这个服务提供器有一个 <code class="highlighter-rouge">register</code> 的方法。这个方法实现了我们上面讲到的依赖注入。</p>
+
+<p>当我们执行下面代码：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">App</span><span class="o">::</span><span class="na">register</span><span class="p">(</span><span class="s1">'FooServiceProvider'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>我们就完成一个注入了。但是这个还是得手动写，所以怎么让 Laravel 自己来做这事儿呢？</p>
+
+<p>我们只要在 <code class="highlighter-rouge">app/config/app.php</code> 中的 <code class="highlighter-rouge">providers</code> 数组里面增加一行：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'providers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="err">…</span>
+       <span class="err">‘</span><span class="nx">FooServiceProvider</span><span class="err">’</span><span class="p">,</span>
+<span class="p">],</span>
+</code></pre></div></div>
+
+<p>这样我们就可以使用 <code class="highlighter-rouge">App::make(‘foo’)</code> 来实例化一个类了。</p>
+
+<p>你不禁要问了，这么写也太难看了吧？莫慌，有办法。</p>
+
+<h2 id="门面模式facade">门面模式（Facade）</h2>
+<p>为了让 Laravel 中的核心类使用起来更加方便，Laravel实现了门面模式。</p>
+
+<blockquote>
+  <p>外觀模式（Facade pattern），是軟件工程中常用的一種軟件設計模式，它為子系統中的一組接口提供一個統一的高層接口，使得子系統更容易使用。 — <a href="http://zh.wikipedia.org/wiki/外觀模式">维基百科</a></p>
+</blockquote>
+
+<h3 id="laravel-中的使用-2">Laravel 中的使用</h3>
+<p>我们使用的大部分核心类都是基于门面模式实现的。例如：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$value</span> <span class="o">=</span> <span class="nx">Cache</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">'key'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>这些静态调用实际上调用的并不是静态方法，而是通过 PHP 的魔术方法 <code class="highlighter-rouge">__callStatic()</code> 讲请求转到了相应的方法上。</p>
+
+<p>那么如何讲我们前面写的<strong>服务提供器</strong>也这样使用呢？方法很简单，只要这么写：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">use</span> <span class="nn">Illuminate\Support\Facades\Facade</span><span class="p">;</span>
+
+<span class="kd">class</span> <span class="nc">Foo</span> <span class="k">extends</span> <span class="nx">Facade</span> <span class="p">{</span>
+
+    <span class="k">protected</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getFacadeAccessor</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="err">‘</span><span class="nx">foo</span><span class="err">’</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这样我们就可以通过 <code class="highlighter-rouge">Foo::test()</code> 来调用我们之前真正的 <code class="highlighter-rouge">FooBar</code> 类的方法了。</p>
+
+<h2 id="别名alias">别名（Alias）</h2>
+<p>有时候我们可能将 <code class="highlighter-rouge">Facade</code> 放在我们扩展库中，它有比较深的命名空间，如：<code class="highlighter-rouge">\Library\MyClass\Foo</code>。这样导致使用起来并不方便。Laravel 可以用别名来替换掉这么长的名字。</p>
+
+<p>我们只要在 <code class="highlighter-rouge">app/config/app.php</code> 中 <code class="highlighter-rouge">aliases</code> 下增加一行即可：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s1">'aliases'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="err">…</span>
+    <span class="s1">'Foo'</span> <span class="o">=&gt;</span> <span class="err">‘</span><span class="nx">Library\MyClass\Foo</span><span class="err">’</span><span class="p">,</span>
+<span class="p">],</span>
+</code></pre></div></div>
+
+<p>这样它的使用就由 <code class="highlighter-rouge">\Library\MyClass\Foo::test()</code> 变成 <code class="highlighter-rouge">Foo::test()</code> 了。</p>
+
+<h2 id="总结">总结</h2>
+<p>所以有了<strong>控制反转（Inversion of Control）</strong>和<strong>门面模式（Facade）</strong>，实际还有 <strong>服务提供器（Service Providers）</strong>和<strong>别名（Alias）</strong>，我们创建自己的类库和扩展 Laravel 都会方便很多。</p>
+
+<p>这里总结一下创建自己类库的方法：</p>
+
+<ol>
+  <li>在 <code class="highlighter-rouge">app/library/MyFoo</code> 下创建类 <code class="highlighter-rouge">MyFoo.php</code></li>
+  <li>在 <code class="highlighter-rouge">app/library/MyFoo/providers</code> 下创建 <code class="highlighter-rouge">MyFooServiceProvider.php</code></li>
+  <li>在 <code class="highlighter-rouge">app/library/MyFoo/facades</code> 下创建 <code class="highlighter-rouge">MyFooFacade.php</code></li>
+  <li>在 <code class="highlighter-rouge">app/config/app.php</code> 中添加 <code class="highlighter-rouge">providers</code>  和 <code class="highlighter-rouge">aliases</code></li>
+</ol>
+
+:ET

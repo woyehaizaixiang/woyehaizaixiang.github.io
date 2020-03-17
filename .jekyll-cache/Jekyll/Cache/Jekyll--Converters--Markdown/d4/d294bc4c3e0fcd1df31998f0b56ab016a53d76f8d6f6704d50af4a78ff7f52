@@ -1,0 +1,45 @@
+I"�<h3 id="代码高亮方式选择">代码高亮方式选择</h3>
+
+<h4 id="1小片段">1.小片段</h4>
+
+<p>直接使用“ ` ”符号包含起来，或者使用一个tab直接利用markdown来做高亮</p>
+
+<h4 id="2pygments渲染">2.Pygments渲染</h4>
+
+<p>Jekyll通过<a href="http://pygments.org/">Pygments</a>可以直接处理代码高亮</p>
+
+<p>在Github Pages的<a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">文档</a>里，也提到了这个方式，但是总觉得这样有点不是很舒服，打破了markdown的格式</p>
+
+<h4 id="3gist嵌入方式">3.gist嵌入方式</h4>
+
+<p>这个<a href="https://gist.github.com/imathis/1027674">方式</a>使用了一个插件，而且gist也得管理，增大了开销……</p>
+
+<h4 id="4js和css处理">4.js和css处理</h4>
+
+<p>这个方式使用了<a href="https://code.google.com/p/google-code-prettify/">google-code-prettify</a>来渲染代码高亮，本身库并不是很大，使用方便，最后我也选择了这个</p>
+
+<h3 id="prettify使用">Prettify使用</h3>
+
+<h4 id="1下载代码">1.下载代码</h4>
+
+<p>直接到<a href="https://code.google.com/p/google-code-prettify/">google-code-prettify</a>官网下载代码，然后将它们放到项目下</p>
+
+<h4 id="2包含css和js">2.包含css和js</h4>
+
+<p>官网提到了可以直接包含run_prettify.js的方式，这个会导入远程库，我选择了自己导入，如下</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;link rel="stylesheet" href="/public/js/prettify/prettify.css"&gt;
+&lt;script src="/public/js/prettify/prettify.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+  $(function(){
+    $("pre").addClass("prettyprint linenums");
+    prettyPrint();
+  });
+&lt;/script&gt;
+</code></pre></div></div>
+
+<p>这里导入了css和js后，就可以直接用markdown的tab的方式来导入代码段了</p>
+
+<h4 id="3更换主题">3.更换主题</h4>
+<p>默认主题不是很好看，只要更换prettify.css即可更换样式，可以到<a href="http://google-code-prettify.googlecode.com/svn/trunk/styles/index.html">这里</a>下载自己喜欢的主题css即可</p>
+:ET

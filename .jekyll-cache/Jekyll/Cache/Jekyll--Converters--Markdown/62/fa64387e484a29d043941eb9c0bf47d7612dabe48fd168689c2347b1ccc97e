@@ -1,0 +1,45 @@
+I"�<h3 id="什么叫可变变量">什么叫可变变量</h3>
+
+<p>不知道大家在使用php的时候是否遇到这样一种情况，即想将一个变量的内容作为另一个变量的名称。在php中，这个需求可以通过可变变量（Variable variables）来实现。</p>
+
+<p>可变变量的一般形式为：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$var=“foo”;
+$$var=1;
+</code></pre></div></div>
+
+<p>在这里， 其实等同于向将var展开，然后再以它的值作为真正的变量名</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$foo=1;
+</code></pre></div></div>
+
+<h3 id="可变变量妙用">可变变量妙用</h3>
+<h4 id="类的动态实例化">类的动态实例化</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$var=“foo”;
+$a=new $foo;
+</code></pre></div></div>
+
+<h4 id="循环定义变量">循环定义变量</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for($i=0;$i&lt;10;$i++){
+${aa.$i}=“a”;
+}
+</code></pre></div></div>
+
+<h4 id="动态调用方法">动态调用方法</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class test_class{
+  var $func=‘display_UK’;
+  function display_UK(){
+    echo “Hello”;
+  }
+  function display_FR(){
+    echo “Bonjour”;
+  }
+  function display(){
+    $this-&gt;{$this-&gt;func}();
+  }
+}
+</code></pre></div></div>
+:ET

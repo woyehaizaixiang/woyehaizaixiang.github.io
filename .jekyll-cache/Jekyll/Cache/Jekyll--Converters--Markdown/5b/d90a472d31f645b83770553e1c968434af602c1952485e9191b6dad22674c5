@@ -1,0 +1,16 @@
+I"d<h2 id="数据接收和存储">数据接收和存储</h2>
+
+<p>数据接收使用</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>msg_type, report = socket.recv_multipart()
+</code></pre></div></div>
+
+<p>获得数据类型和内容，然后再使用</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>plugins[msg_type](app=app, db=db, data=data)
+</code></pre></div></div>
+
+<p>调用相应的函数，处理数据</p>
+
+<p>从MYSQL数据库中获得相应实例的uuid，作为cassandra的key，即每一row存储一个虚拟机数据</p>
+:ET

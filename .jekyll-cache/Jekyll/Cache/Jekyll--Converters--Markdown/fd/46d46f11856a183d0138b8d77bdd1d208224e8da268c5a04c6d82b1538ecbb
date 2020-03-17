@@ -1,0 +1,137 @@
+I"�<h2 id="常用指令">常用指令</h2>
+
+<h3 id="文本内容搜索">文本内容搜索</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep aaa * 
+</code></pre></div></div>
+
+<h3 id="文件夹操作">文件夹操作</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>查看文件夹大小   du -h --max-depth=1 /home/ys
+查看驱动器空间   df -h 
+</code></pre></div></div>
+
+<h3 id="压缩命令">压缩命令</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar zxvf aaa.tar.gz
+tar zcvf aaa.tar.gz aaa
+</code></pre></div></div>
+
+<h3 id="登陆到其他用户">登陆到其他用户</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>login
+</code></pre></div></div>
+
+<h3 id="查看端口的占用">查看端口的占用</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof -i:8087  查看8087端口的使用
+</code></pre></div></div>
+
+<h3 id="批量杀死进程">批量杀死进程</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps -aux|grep name|grep -v grep|cut -c 9-15|xargs kill -9
+</code></pre></div></div>
+
+<h3 id="查看当前时间">查看当前时间</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>date       时间
+date +%s   时间戳
+date -d "2010-07-20 10:25:30" +%s  指定时间时间戳
+date -d "@1279592730"    时间戳转时间
+date -d "1970-01-01 14781 days" "+%Y/%m/%d %H:%M:%S" 
+</code></pre></div></div>
+
+<h3 id="查看进程内存使用情况">查看进程内存使用情况</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>top -d 1 -p pid [,pid ...]
+pmap pid 
+ps aux|grep process_name
+查看/proc/process_id/文件夹下的status文件
+</code></pre></div></div>
+
+<h3 id="查看linux内核版本或发布版本">查看Linux内核版本或发布版本</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsb_release -a
+uname -a
+</code></pre></div></div>
+
+<h3 id="一句话实现一个http服务把当前文件夹作为根目录">一句话实现一个HTTP服务，把当前文件夹作为根目录</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python -m SimpleHTTPServer
+</code></pre></div></div>
+
+<h3 id="查看本地网络服务活动状态">查看本地网络服务活动状态</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof -i
+</code></pre></div></div>
+
+<h3 id="查看自己的外网ip">查看自己的外网ip</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl ifconfig.me
+</code></pre></div></div>
+
+<h3 id="下载整个网站">下载整个网站</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com
+</code></pre></div></div>
+
+<h3 id="后台运行一段不中止的程序并可随时查看它的状态">后台运行一段不中止的程序，并可随时查看它的状态</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>screen -d -m -S some_ name ping my_router
+</code></pre></div></div>
+
+<h3 id="查看进程执行的时间">查看进程执行的时间</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps -A -opid,stime,etime,args | grep python
+</code></pre></div></div>
+
+<h3 id="创建守护进程">创建守护进程</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nohup python /var/www/a.py &amp;
+</code></pre></div></div>
+
+<h3 id="查看当前文件夹下文件文件夹大小">查看当前文件夹下文件（文件夹）大小</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>du -h --max-depth=1 .
+</code></pre></div></div>
+
+<h3 id="查看所有磁盘大小">查看所有磁盘大小</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>df -h
+</code></pre></div></div>
+
+<h3 id="诊断网络">诊断网络</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mtr 
+ping
+traceroute
+dig
+</code></pre></div></div>
+
+<h3 id="列出本机监听的端口号">列出本机监听的端口号</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>netstat –tlnp
+netstat -anop
+</code></pre></div></div>
+
+<h3 id="在远程机器上运行一段脚本">在远程机器上运行一段脚本</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh user@server bash &lt; /path/to/local/script.sh
+</code></pre></div></div>
+
+<h3 id="端口扫描">端口扫描</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc -z -v -n 127.0.0.1 20-100
+</code></pre></div></div>
+
+<h3 id="负载测试30秒内向google发起20个并发连接">负载测试，30秒内向Google发起20个并发连接</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>siege -c20 www.google.co.uk -b -t30s
+</code></pre></div></div>
+
+<h3 id="封禁一个ip的访问">封禁一个ip的访问</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>iptables -I INPUT -s 211.1.0.0 -j DROP
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,40 @@
+I"<h3 id="创建">创建</h3>
+<p>点击菜单栏Tools ==&gt; New Snippet打开一个snippet模板文件</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">&lt;content&gt;&lt;![CDATA[  ]]]&gt;&lt;/content&gt;</code>部分是片段输入内容</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">&lt;tabTrigger&gt;p&lt;/tabTrigger&gt;</code>部分是触发此片段的字符，此处为<code class="highlighter-rouge">p</code>触发</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">&lt;scope&gt;text.html&lt;/scope&gt;</code>部分是此片段可用范围，此处为html文件中可用</p>
+  </li>
+</ul>
+
+<p>完整例子：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;snippet&gt;
+&lt;content&gt;&lt;![CDATA[
+&lt;p&gt;
+  $1
+&lt;/p&gt;
+]]&gt;&lt;/content&gt;
+&lt;tabTrigger&gt;p&lt;/tabTrigger&gt;
+&lt;scope&gt;text.html&lt;/scope&gt;
+&lt;/snippet&gt;  
+</code></pre></div></div>
+
+<h3 id="保存">保存</h3>
+
+<p>最后保存文件为.sublime-snippet格式，保存在用户配置目录下</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mac OS X:/Users/yourname/Library/Application Support/Sublime Text 2/Packages/User
+</code></pre></div></div>
+
+<p>另外，<code class="highlighter-rouge">&lt;scope&gt;source.css&lt;/scope&gt;</code>是css文件可用</p>
+
+<h3 id="参考">参考</h3>
+<p><a href="http://www.granneman.com/webdev/editors/sublime-text/top-features-of-sublime-text/quickly-insert-text-and-code-with-sublime-text-snippets/">参考</a></p>
+:ET

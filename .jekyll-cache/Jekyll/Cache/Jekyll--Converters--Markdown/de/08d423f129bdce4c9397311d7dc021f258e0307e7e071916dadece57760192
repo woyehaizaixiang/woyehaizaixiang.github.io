@@ -1,0 +1,64 @@
+I"�<h2 id="安装和了解distutils">安装和了解distutils</h2>
+<p>python中自带了distutils，直接用</p>
+
+<h3 id="使用步骤">使用步骤</h3>
+
+<ul>
+  <li>写一个安装脚本(setup.py)</li>
+  <li>(可选)写一个安装配置文件</li>
+  <li>创建一个源码分布</li>
+  <li>(可选)创建一个或多个编译过的二进制分布</li>
+</ul>
+
+<h3 id="一个简单的例子">一个简单的例子</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from distutils.core import setup
+setup(name='test',
+      version='1.0',
+      py_modules=['test'],
+      )
+</code></pre></div></div>
+
+<h3 id="常见的python术语">常见的python术语</h3>
+
+<ul>
+  <li>module 组件 Python中可重用代码的基本单位，这里主要介绍纯python组件、扩展组件和包</li>
+  <li>pure Python module 纯Python组件 完全由python写成的组件</li>
+  <li>extension module 扩展组件 由低级语言(C,C++)等写成的组件</li>
+  <li>package 包 一个含有别的组件的组件。通常包含在文件系统的目录下，并且显示声明在<code class="highlighter-rouge">__init__.py</code>文件中</li>
+  <li>root package 根包。 在根目录sys.path下的包</li>
+</ul>
+
+<h3 id="distutils特有的包">distutils特有的包</h3>
+
+<ul>
+  <li>module distribution 组件分布 一个可以安装的一系列组件的合集</li>
+  <li>pure module distribution 纯组件分布</li>
+  <li>non-pure module distribution 不纯组件分布，含有扩展组件</li>
+  <li>distribution root 你的源码最高级的目录，即<code class="highlighter-rouge">setup.py</code>所在目录</li>
+</ul>
+
+<h2 id="编写安装脚本">编写安装脚本</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env python
+</span>
+<span class="kn">from</span> <span class="nn">distutils.core</span> <span class="kn">import</span> <span class="n">setup</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'test'</span><span class="p">,</span>
+      <span class="n">version</span><span class="o">=</span><span class="s">'1.0'</span><span class="p">,</span>
+      <span class="n">description</span><span class="o">=</span><span class="s">'test package'</span><span class="p">,</span>
+      <span class="n">author</span><span class="o">=</span><span class="s">'Su Yan'</span><span class="p">,</span>
+      <span class="n">author_email</span><span class="o">=</span><span class="s">'yansu0711@gmail.com'</span><span class="p">,</span>
+      <span class="n">url</span><span class="o">=</span><span class="s">'http://www.yansu.org'</span><span class="p">,</span>
+      <span class="n">packages</span><span class="o">=</span><span class="p">[</span><span class="s">'test'</span><span class="p">],</span>
+      <span class="n">scripts</span><span class="o">=</span><span class="p">[</span><span class="s">'scripts/test.sh'</span><span class="p">]</span>
+     <span class="p">)</span>
+</code></pre></div></div>
+
+<p>这个例子包含了一些详细的信息，在packages中可以利用<code class="highlighter-rouge">os.listdir(os.path.join('mydir','subdir'))</code>等函数添加目录下全部目录。</p>
+
+<p>在packages中包含的目录中，最好有<code class="highlighter-rouge">__init__.py</code>来声明它是一个包，如果没有，会有异常提醒</p>
+
+<p>scripts这项指，如果你的包有执行文件，可以讲其复制到<code class="highlighter-rouge">/usr/local/bin</code>下</p>
+
+:ET

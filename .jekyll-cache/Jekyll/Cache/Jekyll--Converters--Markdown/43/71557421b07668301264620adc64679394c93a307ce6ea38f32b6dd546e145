@@ -1,0 +1,239 @@
+I"�/<p>回国之后为了正常上网，还是得部署一个 VPN 自用。之前写过<a href="/2013/12/11/deploy-pptp-vpn-in-ubuntu.html">在ubuntu下搭建pptp vpn服务器</a>，本来准备直接拿来用的，结果发现 MacOS Sierra 竟然不支持 PPTP 了 T_T 只好重新选择一个方式，这篇主要讲如何部署 L2TP VPN 在 Ubuntu 下，以及如何通过 Mac 连接上去。</p>
+
+<h2 id="服务端">服务端</h2>
+
+<p>我的环境是 Linode Tokyo + Ubuntu 14.04</p>
+
+<p>如果不像自己配置，这里有一键脚本，非常方便。<a href="https://github.com/philpl/setup-simple-ipsec-l2tp-vpn">setup-simple-ipsec-l2tp-vpn</a>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://raw.github.com/philpl/setup-simple-ipsec-l2tp-vpn/master/setup.sh
+<span class="nb">sudo </span>sh setup.sh
+</code></pre></div></div>
+
+<p>如果喜欢手动安装，可以往下看。我在root下执行的，所以没有加sudo，如果不是root用户记得加上。</p>
+
+<h3 id="安装必备软件">安装必备软件</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update
+apt <span class="nb">install </span>software-properties-common
+add-apt-repository ppa:openswan/ppa
+apt-get update
+apt-get <span class="nb">install </span>openswan xl2tpd ppp lsof
+</code></pre></div></div>
+
+<h3 id="配置ip转发">配置IP转发</h3>
+
+<h4 id="更新ip转发">更新IP转发</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"net.ipv4.ip_forward = 1"</span> |  <span class="nb">tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+<span class="nb">echo</span> <span class="s2">"net.ipv4.conf.all.accept_redirects = 0"</span> |  <span class="nb">tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+<span class="nb">echo</span> <span class="s2">"net.ipv4.conf.all.send_redirects = 0"</span> |  <span class="nb">tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+<span class="nb">echo</span> <span class="s2">"net.ipv4.conf.default.rp_filter = 0"</span> |  <span class="nb">tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+<span class="nb">echo</span> <span class="s2">"net.ipv4.conf.default.accept_source_route = 0"</span> |  <span class="nb">tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+<span class="nb">echo</span> <span class="s2">"net.ipv4.conf.default.send_redirects = 0"</span> |  <span class="nb">tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+<span class="nb">echo</span> <span class="s2">"net.ipv4.icmp_ignore_bogus_error_responses = 1"</span> |  <span class="nb">tee</span> <span class="nt">-a</span> /etc/sysctl.conf
+<span class="k">for </span>vpn <span class="k">in</span> /proc/sys/net/ipv4/conf/<span class="k">*</span><span class="p">;</span> <span class="k">do </span><span class="nb">echo </span>0 <span class="o">&gt;</span> <span class="nv">$vpn</span>/accept_redirects<span class="p">;</span> <span class="nb">echo </span>0 <span class="o">&gt;</span> <span class="nv">$vpn</span>/send_redirects<span class="p">;</span> <span class="k">done</span>
+</code></pre></div></div>
+
+<h4 id="设置ip-table">设置IP table</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">MYIP</span><span class="o">=</span><span class="sb">`</span>/sbin/ifconfig <span class="nt">-a</span>|grep inet|grep <span class="nt">-v</span> 127.0.0.1|grep <span class="nt">-v</span> inet6|awk <span class="s1">'{print $2}'</span>|tr <span class="nt">-d</span> <span class="s2">"addr:"</span><span class="sb">`</span>
+iptables <span class="nt">-t</span> nat <span class="nt">-A</span> POSTROUTING <span class="nt">-j</span> SNAT <span class="nt">--to-source</span> <span class="nv">$MYIP</span> <span class="nt">-o</span> eth0
+</code></pre></div></div>
+
+<h3 id="配置ipsec">配置IPSEC</h3>
+
+<h4 id="ipsec-基本设置">IPSEC 基本设置</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">MYIP</span><span class="o">=</span><span class="sb">`</span>/sbin/ifconfig <span class="nt">-a</span>|grep inet|grep <span class="nt">-v</span> 127.0.0.1|grep <span class="nt">-v</span> inet6|awk <span class="s1">'{print $2}'</span>|tr <span class="nt">-d</span> <span class="s2">"addr:"</span><span class="sb">`</span>
+
+<span class="nb">cat</span> <span class="o">&gt;</span>/etc/ipsec.conf<span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+version 2 # conforms to second version of ipsec.conf specification
+
+config setup
+    dumpdir=/var/run/pluto/
+    #in what directory should things started by setup (notably the Pluto daemon) be allowed to dump core?
+
+    nat_traversal=yes
+    #whether to accept/offer to support NAT (NAPT, also known as "IP Masqurade") workaround for IPsec
+
+    virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v6:fd00::/8,%v6:fe80::/10
+    #contains the networks that are allowed as subnet= for the remote client. In other words, the address ranges that may live behind a NAT router through which a client connects.
+
+    protostack=netkey
+    #decide which protocol stack is going to be used.
+
+    force_keepalive=yes
+    keep_alive=60
+    # Send a keep-alive packet every 60 seconds.
+
+conn L2TP-PSK-noNAT
+    authby=secret
+    #shared secret. Use rsasig for certificates.
+
+    pfs=no
+    #Disable pfs
+
+    auto=add
+    #the ipsec tunnel should be started and routes created when the ipsec daemon itself starts.
+
+    keyingtries=3
+    #Only negotiate a conn. 3 times.
+
+    ikelifetime=8h
+    keylife=1h
+
+    ike=aes256-sha1,aes128-sha1,3des-sha1
+    phase2alg=aes256-sha1,aes128-sha1,3des-sha1
+    # https://lists.openswan.org/pipermail/users/2014-April/022947.html
+    # specifies the phase 1 encryption scheme, the hashing algorithm, and the diffie-hellman group. The modp1024 is for Diffie-Hellman 2. Why 'modp' instead of dh? DH2 is a 1028 bit encryption algorithm that modulo's a prime number, e.g. modp1028. See RFC 5114 for details or the wiki page on diffie hellmann, if interested.
+
+    type=transport
+    #because we use l2tp as tunnel protocol
+
+    left=</span><span class="nv">$MYIP</span><span class="sh">
+    #fill in server IP above
+
+    leftprotoport=17/1701
+    right=%any
+    rightprotoport=17/%any
+
+    dpddelay=10
+    # Dead Peer Dectection (RFC 3706) keepalives delay
+    dpdtimeout=20
+    #  length of time (in seconds) we will idle without hearing either an R_U_THERE poll from our peer, or an R_U_THERE_ACK reply.
+    dpdaction=clear
+    # When a DPD enabled peer is declared dead, what action should be taken. clear means the eroute and SA with both be cleared.
+</span><span class="no">EOF
+</span></code></pre></div></div>
+
+<h4 id="ipsec密码">IPSEC密码</h4>
+
+<p>下面的 sharedpassword 可以改，但是得自己记住，因为之后连接的时候会用到。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">MYIP</span><span class="o">=</span><span class="sb">`</span>/sbin/ifconfig <span class="nt">-a</span>|grep inet|grep <span class="nt">-v</span> 127.0.0.1|grep <span class="nt">-v</span> inet6|awk <span class="s1">'{print $2}'</span>|tr <span class="nt">-d</span> <span class="s2">"addr:"</span><span class="sb">`</span>
+
+<span class="nb">cat</span> <span class="o">&gt;</span>/etc/ipsec.secrets<span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+</span><span class="nv">$MYIP</span><span class="sh"> %any: PSK "sharedpassword"
+</span><span class="no">EOF
+
+</span>service ipsec restart
+</code></pre></div></div>
+
+<h4 id="验证ipsec">验证IPSEC</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ipsec verify
+</code></pre></div></div>
+
+<p>结果应该如下</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Checking <span class="k">if </span>IPsec got installed and started correctly:
+
+Version check and ipsec on-path                   	<span class="o">[</span>OK]
+Openswan U2.6.42/K3.16.7-x86_64-linode49 <span class="o">(</span>netkey<span class="o">)</span>
+See <span class="sb">`</span>ipsec <span class="nt">--copyright</span><span class="s1">' for copyright information.
+Checking for IPsec support in kernel              	[OK]
+ NETKEY: Testing XFRM related proc values
+         ICMP default/send_redirects              	[OK]
+         ICMP default/accept_redirects            	[OK]
+         XFRM larval drop                         	[OK]
+Hardware random device check                      	[N/A]
+Two or more interfaces found, checking IP forwarding	[OK]
+Checking rp_filter                                	[ENABLED]
+ /proc/sys/net/ipv4/conf/all/rp_filter            	[ENABLED]
+Checking that pluto is running                    	[OK]
+ Pluto listening for IKE on udp 500               	[OK]
+ Pluto listening for IKE on tcp 500               	[NOT IMPLEMENTED]
+ Pluto listening for IKE/NAT-T on udp 4500        	[OK]
+ Pluto listening for IKE/NAT-T on tcp 4500        	[NOT IMPLEMENTED]
+ Pluto listening for IKE on tcp 10000 (cisco)     	[NOT IMPLEMENTED]
+Checking NAT and MASQUERADEing                    	[TEST INCOMPLETE]
+Checking '</span>ip<span class="s1">' command                             	[OK]
+Checking '</span>iptables<span class="s1">' command                       	[OK]
+</span></code></pre></div></div>
+
+<h3 id="配置xl2tpd">配置xl2tpd</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;</span>/etc/xl2tpd/xl2tpd.conf<span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+[global]
+ipsec saref = yes
+saref refinfo = 30
+
+;debug avp = yes
+;debug network = yes
+;debug state = yes
+;debug tunnel = yes
+
+[lns default]
+ip range = 172.16.1.30-172.16.1.100
+local ip = 172.16.1.1
+refuse pap = yes
+require authentication = yes
+;ppp debug = yes
+pppoptfile = /etc/ppp/options.xl2tpd
+length bit = yes
+</span><span class="no">EOF
+</span></code></pre></div></div>
+
+<h3 id="配置ppp">配置PPP</h3>
+
+<h4 id="基本设置">基本设置</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;</span>/etc/ppp/options.xl2tpd<span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+require-mschap-v2
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+auth
+mtu 1000
+mru 1000
+crtscts
+hide-password
+modem
+name l2tpd
+proxyarp
+lcp-echo-interval 0
+lcp-echo-failure 0
+</span><span class="no">EOF
+</span></code></pre></div></div>
+
+<h4 id="添加用户">添加用户</h4>
+
+<p>记得更改账户名和密码 client 和 secret，用来连接vpn的时候使用</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat</span> <span class="o">&gt;</span>/etc/ppp/chap-secrets<span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+# Secrets for authentication using CHAP
+# client       server  secret       IP addresses
+test          l2tpd   test            *
+</span><span class="no">EOF
+</span></code></pre></div></div>
+
+<h3 id="重启服务">重启服务</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service ipsec restart
+/etc/init.d/xl2tpd restart
+</code></pre></div></div>
+
+<h2 id="客户端">客户端</h2>
+
+<h3 id="mac">Mac</h3>
+
+<p>打开 系统设置 -&gt; 网络 点击左下角➕然后选择 VPN，Type选择 L2TP over IPSec。</p>
+
+<ul>
+  <li>Server Address: 服务器ip</li>
+  <li>Account name: 前面设置的client名</li>
+</ul>
+
+<p>点开认证设定</p>
+
+<ul>
+  <li>Password: 之前设置的secret</li>
+  <li>Shared Secret: 之前设置的sharedpassword</li>
+</ul>
+
+<p>别忘了在高级那里选择，所有流量都通过此网络转发。</p>
+
+<h2 id="参考">参考</h2>
+
+<p><a href="http://tacy.github.io/blog/2014/12/24/L2tp-ipsec-in-linode/">l2tp ipsec in linode</a></p>
+
+:ET

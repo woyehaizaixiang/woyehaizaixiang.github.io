@@ -1,0 +1,57 @@
+I"�<h2 id="1-定义关联模型">1. 定义关联模型</h2>
+
+<p>在Laravel里面，我们可以通过定义以下Model来完成关联查询。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyPost</span> <span class="k">extends</span> <span class="nx">Eloquent</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">myPostInfo</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hasOne</span><span class="p">(</span><span class="s1">'MyPostInfo'</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">MyPostInfo</span> <span class="k">extends</span> <span class="nx">Eloquent</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<h2 id="2-使用关联模型">2. 使用关联模型</h2>
+
+<p>这里<code class="highlighter-rouge">myPostInfo()</code>用的是Camel命名规则，但是我们在读取某一个PostInfo的时候可以用Snake规则。如下面代码都是可行的：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$post</span> <span class="o">=</span> <span class="nx">MyPost</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nv">$post_info</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">myPostInfo</span><span class="p">;</span> <span class="c1">// example 1</span>
+<span class="nv">$post_info</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">my_post_info</span><span class="p">;</span> <span class="c1">// example 2</span>
+</code></pre></div></div>
+
+<p>Laravel允许上述两种方法，但是没有合理的处理使用两种命名造成的冲突。</p>
+
+<h2 id="3-缓存失效">3. 缓存失效</h2>
+
+<p>如果我们同时使用了上述两个例子，就会使其中一个缓存失效。在Model的relations变量中，缓存了已经读取过的关联Model，但是当我们用不同规则的名字去读取的时候，却会使得前一个缓存失效。例如</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$post_info</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">myPostInfo</span><span class="p">;</span> 
+<span class="c1">// $post-&gt;relations = [‘myPostInfo’ =&gt; ..];</span>
+
+<span class="nv">$post_info</span> <span class="o">=</span> <span class="nv">$post</span><span class="o">-&gt;</span><span class="na">my_post_info</span><span class="p">;</span>
+<span class="c1">// $post-&gt;relations = [‘myPostInfo’ =&gt; …, ‘my_post_info’ =&gt; …];</span>
+</code></pre></div></div>
+
+<p>所以如果不希望缓存失效，得在项目中只使用一种命名方法去读取关系模型。Laravel推荐的是Camel Case.</p>
+
+<h2 id="4-toarray-方法失效">4. toArray() 方法失效</h2>
+
+<p>如果同时使用了两者，另外一个问题就是导致<code class="highlighter-rouge">Model::toArray()</code>失效。因为<code class="highlighter-rouge">toArray()</code>方法首先去<code class="highlighter-rouge">relations</code>中查找Snake Case命名的关联模型，没有的话才去看Camel Case的。</p>
+
+<p>所以如果用到了<code class="highlighter-rouge">toArray()</code>方法来转换Model，切忌同时使用两者。</p>
+
+<h2 id="5-容易犯错的位置">5. 容易犯错的位置</h2>
+
+<p>最容易犯错的代码是这样的：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">MyPost</span><span class="o">::</span><span class="na">with</span><span class="p">(</span><span class="err">‘</span><span class="nx">myPostInfo</span><span class="err">’</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>在使用With去eagerLoad关联模型时，必须使用和定义方法同名的key去读取，那么这样读取出来的方法只能是Camel Case的key。其他地方就只能用</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$my_post</span><span class="o">-&gt;</span><span class="na">myPostInfo</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>来保证不出问题。</p>
+:ET

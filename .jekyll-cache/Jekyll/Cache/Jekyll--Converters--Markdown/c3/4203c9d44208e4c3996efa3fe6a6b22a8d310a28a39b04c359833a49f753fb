@@ -1,0 +1,20 @@
+I"�<h2 id="常用属性">常用属性</h2>
+
+<h3 id="在link中可能会出现mediascreen的情况">在link中可能会出现media=screen的情况</h3>
+<p>这个属性是确定在哪种情况下使用这个link的css文件，screen是指输出到屏幕，而print用于打印</p>
+
+<h3 id="在meta中增加viewport选项">在meta中增加viewport选项</h3>
+<p>viewport的作用是告诉浏览器，目前的装置情况。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;meta name="viewport" content="width=device-width;initial-scale=1.0"&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>width:数字或device-width   设置宽度</li>
+  <li>height:数字或device-width    设置高度</li>
+  <li>initial-scale:最小0.25，最大5   初始缩放</li>
+  <li>minimum-scale:最小0.25，最大5   最小缩放</li>
+  <li>maximum-scale:最小0.25，最大5   最大缩放</li>
+  <li>user-scalable:1或0(yes or no)  是否允许用户缩放</li>
+</ul>
+:ET

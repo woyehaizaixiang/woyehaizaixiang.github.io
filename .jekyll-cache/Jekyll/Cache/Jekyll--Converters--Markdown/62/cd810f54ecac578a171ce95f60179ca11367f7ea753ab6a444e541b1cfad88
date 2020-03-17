@@ -1,0 +1,245 @@
+I"�V<blockquote>
+  <p>有些东西如果不是经常使用，很容易忘记，比如魔术方法和魔术常量。</p>
+</blockquote>
+
+<h2 id="魔术方法magic-methods">魔术方法(Magic methods)</h2>
+<p>PHP中把以两个下划线<code class="highlighter-rouge">__</code>开头的方法称为魔术方法，这些方法在PHP中充当了举足轻重的作用。 魔术方法包括：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">__construct()</code>，类的构造函数</li>
+  <li><code class="highlighter-rouge">__destruct()</code>，类的析构函数</li>
+  <li><code class="highlighter-rouge">__call()</code>，在对象中调用一个不可访问方法时调用</li>
+  <li><code class="highlighter-rouge">__callStatic()</code>，用静态方式中调用一个不可访问方法时调用</li>
+  <li><code class="highlighter-rouge">__get()</code>，获得一个类的成员变量时调用</li>
+  <li><code class="highlighter-rouge">__set()</code>，设置一个类的成员变量时调用</li>
+  <li><code class="highlighter-rouge">__isset()</code>，当对不可访问属性调用<code class="highlighter-rouge">isset()</code>或<code class="highlighter-rouge">empty()</code>时调用</li>
+  <li><code class="highlighter-rouge">__unset()</code>，当对不可访问属性调用<code class="highlighter-rouge">unset()</code>时被调用。</li>
+  <li><code class="highlighter-rouge">__sleep()</code>，执行<code class="highlighter-rouge">serialize()</code>时，先会调用这个函数</li>
+  <li><code class="highlighter-rouge">__wakeup()</code>，执行<code class="highlighter-rouge">unserialize()</code>时，先会调用这个函数</li>
+  <li><code class="highlighter-rouge">__toString()</code>，类被当成字符串时的回应方法</li>
+  <li><code class="highlighter-rouge">__invoke()</code>，调用函数的方式调用一个对象时的回应方法</li>
+  <li><code class="highlighter-rouge">__set_state()</code>，调用<code class="highlighter-rouge">var_export()</code>导出类时，此静态方法会被调用。</li>
+  <li><code class="highlighter-rouge">__clone()</code>，当对象复制完成时调用</li>
+</ul>
+
+<h3 id="__construct和__destruct"><code class="highlighter-rouge">__construct()</code>和<code class="highlighter-rouge">__destruct()</code></h3>
+<p>构造函数和析构函数应该不陌生，他们在对象创建和消亡时被调用。例如我们需要打开一个文件，在对象创建时打开，对象消亡时关闭</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="kd">class</span> <span class="nc">FileRead</span>
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$handle</span> <span class="o">=</span> <span class="k">NULL</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="nf">__construct</span><span class="p">(){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">handle</span> <span class="o">=</span> <span class="nb">fopen</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="nf">__destruct</span><span class="p">(){</span>
+        <span class="nb">fclose</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>这两个方法在继承时可以扩展，例如：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="kd">class</span> <span class="nc">TmpFileRead</span> <span class="k">extends</span> <span class="nx">FileRead</span>
+<span class="p">{</span>
+    <span class="k">function</span> <span class="nf">__construct</span><span class="p">(){</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="nf">__destruct</span><span class="p">(){</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">__destruct</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="__call和__callstatic"><code class="highlighter-rouge">__call()</code>和<code class="highlighter-rouge">__callStatic()</code></h3>
+<p>在对象中调用一个不可访问方法时会调用这两个方法，后者为静态方法。这两个方法我们在可变方法（Variable functions）调用中可能会用到。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">MethodTest</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__call</span> <span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">"Calling object method '</span><span class="nv">$name</span><span class="s2">' "</span><span class="o">.</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">', '</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">)</span><span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">__callStatic</span> <span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">"Calling static method '</span><span class="nv">$name</span><span class="s2">' "</span><span class="o">.</span> <span class="nb">implode</span><span class="p">(</span><span class="s1">', '</span><span class="p">,</span> <span class="nv">$arguments</span><span class="p">)</span><span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MethodTest</span><span class="p">;</span>
+<span class="nv">$obj</span><span class="o">-&gt;</span><span class="na">runTest</span><span class="p">(</span><span class="s1">'in object context'</span><span class="p">);</span>
+<span class="nx">MethodTest</span><span class="o">::</span><span class="na">runTest</span><span class="p">(</span><span class="s1">'in static context'</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="__get__set__isset和__unset"><code class="highlighter-rouge">__get()</code>，<code class="highlighter-rouge">__set()</code>，<code class="highlighter-rouge">__isset()</code>和<code class="highlighter-rouge">__unset()</code></h3>
+<p>当get/set一个类的成员变量时调用这两个函数。例如我们将对象变量保存在另外一个数组中，而不是对象本身的成员变量</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="kd">class</span> <span class="nc">MethodTest</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__set</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$value</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="nv">$name</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__get</span><span class="p">(</span><span class="nv">$name</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nb">array_key_exists</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">))</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="nv">$name</span><span class="p">];</span>
+        <span class="k">return</span> <span class="k">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__isset</span><span class="p">(</span><span class="nv">$name</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="nv">$name</span><span class="p">])</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">unset</span><span class="p">(</span><span class="nv">$name</span><span class="p">){</span>
+        <span class="nb">unset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">[</span><span class="nv">$name</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="__sleep和__wakeup"><code class="highlighter-rouge">__sleep()</code>和<code class="highlighter-rouge">__wakeup()</code></h3>
+<p>当我们在执行<code class="highlighter-rouge">serialize()</code>和<code class="highlighter-rouge">unserialize()</code>时，会先调用这两个函数。例如我们在序列化一个对象时，这个对象有一个数据库链接，想要在反序列化中恢复链接状态，则可以通过重构这两个函数来实现链接的恢复。例子如下：</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">Connection</span> 
+<span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$link</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$server</span><span class="p">,</span> <span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">,</span> <span class="nv">$db</span><span class="p">;</span>
+    
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$server</span><span class="p">,</span> <span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">,</span> <span class="nv">$db</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">server</span> <span class="o">=</span> <span class="nv">$server</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">username</span> <span class="o">=</span> <span class="nv">$username</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">password</span> <span class="o">=</span> <span class="nv">$password</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">();</span>
+    <span class="p">}</span>
+    
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">connect</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">link</span> <span class="o">=</span> <span class="nb">mysql_connect</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">server</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">username</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">password</span><span class="p">);</span>
+        <span class="nb">mysql_select_db</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">link</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__sleep</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">array</span><span class="p">(</span><span class="s1">'server'</span><span class="p">,</span> <span class="s1">'username'</span><span class="p">,</span> <span class="s1">'password'</span><span class="p">,</span> <span class="s1">'db'</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__wakeup</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="__tostring"><code class="highlighter-rouge">__toString()</code></h3>
+<p>对象当成字符串时的回应方法。例如使用<code class="highlighter-rouge">echo $obj;</code>来输出一个对象</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="c1">// Declare a simple class</span>
+<span class="kd">class</span> <span class="nc">TestClass</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__toString</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'this is a object'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$class</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">TestClass</span><span class="p">();</span>
+<span class="k">echo</span> <span class="nv">$class</span><span class="p">;</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>这个方法只能返回字符串，而且不可以在这个方法中抛出异常，否则会出现致命错误。</p>
+
+<h3 id="__invoke"><code class="highlighter-rouge">__invoke()</code></h3>
+<p>调用函数的方式调用一个对象时的回应方法。如下</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">CallableClass</span> 
+<span class="p">{</span>
+    <span class="k">function</span> <span class="nf">__invoke</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">'this is a object'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CallableClass</span><span class="p">;</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">is_callable</span><span class="p">(</span><span class="nv">$obj</span><span class="p">));</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="__set_state"><code class="highlighter-rouge">__set_state()</code></h3>
+<p>调用<code class="highlighter-rouge">var_export()</code>导出类时，此静态方法会被调用。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">A</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$var1</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$var2</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">__set_state</span> <span class="p">(</span><span class="nv">$an_array</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">;</span>
+        <span class="nv">$obj</span><span class="o">-&gt;</span><span class="na">var1</span> <span class="o">=</span> <span class="nv">$an_array</span><span class="p">[</span><span class="s1">'var1'</span><span class="p">];</span>
+        <span class="nv">$obj</span><span class="o">-&gt;</span><span class="na">var2</span> <span class="o">=</span> <span class="nv">$an_array</span><span class="p">[</span><span class="s1">'var2'</span><span class="p">];</span>
+        <span class="k">return</span> <span class="nv">$obj</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">A</span><span class="p">;</span>
+<span class="nv">$a</span><span class="o">-&gt;</span><span class="na">var1</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="nv">$a</span><span class="o">-&gt;</span><span class="na">var2</span> <span class="o">=</span> <span class="s1">'foo'</span><span class="p">;</span>
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">var_export</span><span class="p">(</span><span class="nv">$a</span><span class="p">));</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h3 id="__clone"><code class="highlighter-rouge">__clone()</code></h3>
+<p>当对象复制完成时调用。例如在<a href="https://woyehaizaixiang.github.io//2014/04/19/sigleton-design-pattern.html">设计模式详解及PHP实现：单例模式</a>一文中提到的单例模式实现方式，利用这个函数来防止对象被克隆。</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="k">public</span> <span class="kd">class</span> <span class="nc">Singleton</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="nv">$_instance</span> <span class="o">=</span> <span class="k">NULL</span><span class="p">;</span>
+
+    <span class="c1">// 私有构造方法 </span>
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getInstance</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">is_null</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="nv">$_instance</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">self</span><span class="o">::</span><span class="nv">$_instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Singleton</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="o">::</span><span class="nv">$_instance</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 防止克隆实例</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__clone</span><span class="p">(){</span>
+        <span class="k">die</span><span class="p">(</span><span class="s1">'Clone is not allowed.'</span> <span class="o">.</span> <span class="nx">E_USER_ERROR</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<h2 id="魔术常量magic-constants">魔术常量(Magic constants)</h2>
+<p>PHP中的常量大部分都是不变的，但是有8个常量会随着他们所在代码位置的变化而变化，这8个常量被称为魔术常量。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">__LINE__</code>，文件中的当前行号</li>
+  <li><code class="highlighter-rouge">__FILE__</code>，文件的完整路径和文件名</li>
+  <li><code class="highlighter-rouge">__DIR__</code>，文件所在的目录</li>
+  <li><code class="highlighter-rouge">__FUNCTION__</code>，函数名称</li>
+  <li><code class="highlighter-rouge">__CLASS__</code>，类的名称</li>
+  <li><code class="highlighter-rouge">__TRAIT__</code>，Trait的名字</li>
+  <li><code class="highlighter-rouge">__METHOD__</code>，类的方法名</li>
+  <li><code class="highlighter-rouge">__NAMESPACE__</code>，当前命名空间的名称</li>
+</ul>
+
+<p>这些魔术常量常常被用于获得当前环境信息或者记录日志。</p>
+:ET

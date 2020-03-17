@@ -1,0 +1,56 @@
+I"
+<h2 id="创建ubuntu镜像">创建Ubuntu镜像</h2>
+
+<h3 id="创建一个img文件">创建一个img文件</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kvm-img create -f raw ubuntu.img 10G
+</code></pre></div></div>
+
+<h3 id="启动安装程序">启动安装程序</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kvm -m 512 -cdrom ubuntu-12.04-server-amd64.iso -drive file=ubuntu.img -boot d -nographic -vnc :0
+</code></pre></div></div>
+
+<h3 id="接入继续安装步骤">接入继续安装步骤</h3>
+
+<p>我是在ubuntu下完成的，安装一个vncview即可</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vncview localhost:5900
+</code></pre></div></div>
+
+<p>这里的端口号根据上一步 -vnc :0 推移，如果是-vnc :1则是5901端口</p>
+
+<h3 id="安装过程">安装过程</h3>
+
+<p>在分区那里不能有swap分区，手动只设一个分区，挂载<code class="highlighter-rouge">/</code>根目录</p>
+
+<h3 id="装完以后重新开启虚拟机">装完以后重新开启虚拟机</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kvm -m 512 -drive file=ubuntu.img -boot c -nographic -vnc :0
+</code></pre></div></div>
+
+<h3 id="删除下面文件避免增加除了eth0之外的网卡">删除下面文件，避免增加除了eth0之外的网卡</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo rm -rf /etc/udev/rules.d/70-persistent-net.rules
+</code></pre></div></div>
+
+<h3 id="如果制作前使用的是raw格式想换成qcow2格式">如果制作前使用的是raw格式，想换成qcow2格式</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>qemu-img convert -f raw -O qcow2 ./ubuntu.img ./ubuntu.qcow2
+</code></pre></div></div>
+
+<h2 id="上传ubuntu镜像">上传Ubuntu镜像</h2>
+<p>openstack的命令以<a href="http://docs.openstack.org/trunk/openstack-compute/admin/content/creating-a-windows-image.html">最新文档</a>为标准，网上博客难免有过时的</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>glance image-create --name="ubuntu" --is-public=true --container-format=ovf --disk-format=qcow2 &lt; ubuntu.qcow2
+</code></pre></div></div>
+
+<h3 id="在openstack中打开端口tcp-3389">在openstack中打开端口（TCP 3389）</h3>
+<p>另外几个常用端口</p>
+
+<ul>
+  <li>TCP 22 (ssh)</li>
+  <li>ICMP -1 (ping)</li>
+  <li>TCP 3306 (mysql)</li>
+</ul>
+:ET

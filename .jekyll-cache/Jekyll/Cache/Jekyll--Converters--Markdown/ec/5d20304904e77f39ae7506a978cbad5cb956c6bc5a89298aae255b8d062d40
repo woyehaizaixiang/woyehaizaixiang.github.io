@@ -1,0 +1,54 @@
+I"
+<blockquote>
+  <p>昨天随手一点<code class="highlighter-rouge">brew upadte &amp; brew upgrade</code>后phpunit出现了各种F，细查下来原来是 php 5.5.17 的一个<a href="https://bugs.php.net/bug.php?id=67839">bug fix</a> 引起的。为了暂时正常使用phpunit，只能回退php的版本。</p>
+</blockquote>
+
+<h2 id="版本切换方式">版本切换方式</h2>
+
+<p>通过brew安装的php可以通过<code class="highlighter-rouge">brew link</code>和<code class="highlighter-rouge">brew unlink</code>来切换不同版本。</p>
+
+<p>例如</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew list
+brew <span class="nb">unlink </span>php56
+brew <span class="nb">link </span>php55
+</code></pre></div></div>
+
+<p>大版本可以用<code class="highlighter-rouge">brew list</code>来查，如果是小版本的话只能去<code class="highlighter-rouge">/usr/local/Cellar/php55</code>看了。这个时候使用<code class="highlighter-rouge">php-version</code>可以更方便一点。</p>
+
+<h2 id="安装php-version">安装<code class="highlighter-rouge">php-version</code></h2>
+
+<p><a href="https://github.com/wilmoore/php-version">php-version</a>是一个帮助管理从brew安装的php版本切换的工具。</p>
+
+<p>安装非常简单</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew <span class="nb">install </span>php-version
+</code></pre></div></div>
+
+<p>然后执行</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> <span class="si">$(</span>brew <span class="nt">--prefix</span> php-version<span class="si">)</span>/php-version.sh <span class="o">&amp;&amp;</span> php-version 5
+</code></pre></div></div>
+
+<h2 id="使用php-version">使用<code class="highlighter-rouge">php-version</code></h2>
+
+<p>直接执行</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php-version
+</code></pre></div></div>
+
+<p>就可以看到现有的版本，比如我自己的</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>php-version
+  5.5.15
+<span class="k">*</span> 5.5.16
+  5.5.17
+</code></pre></div></div>
+
+<p>然后使用以下命令切换即可</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php-version 5.5.15
+</code></pre></div></div>
+
+<p>再看php的版本，已经切换好了。</p>
+:ET

@@ -1,0 +1,253 @@
+I"�C<h2 id="1-安装-yarn">1. 安装 Yarn</h2>
+
+<p>包管理可以用 npm 或者 yarn，好多人推荐 yarn，我这里就用这个了</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew update
+brew install yarn
+</code></pre></div></div>
+
+<h2 id="2-初始化项目文件夹">2. 初始化项目文件夹</h2>
+
+<p>首先要做的是创建一个工程目录，然后在目录中执行 yarn 初始化即可</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn init
+</code></pre></div></div>
+
+<h2 id="3-安装-webpack">3. 安装 Webpack</h2>
+
+<p>Webpack 可以让整个开发过程及其方便，这里只讲如何使用它来搭建 React 开发环境</p>
+
+<p>安装webpack</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add webpack webpack-dev-server path
+</code></pre></div></div>
+
+<p>创建 webpack 配置文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch webpack.config.js
+</code></pre></div></div>
+
+<p>写入以下内容</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">path</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="c1">// Html webpack plugin setting</span>
+<span class="kd">const</span> <span class="nx">HtmlWebpackPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">html-webpack-plugin</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">HtmlWebpackPluginConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HtmlWebpackPlugin</span><span class="p">({</span>
+  <span class="na">template</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./client/index.html</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">index.html</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">inject</span><span class="p">:</span> <span class="dl">'</span><span class="s1">body</span><span class="dl">'</span>
+<span class="p">})</span>
+
+<span class="c1">// Open browser plugin setting</span>
+<span class="kd">var</span> <span class="nx">OpenBrowserPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">open-browser-webpack-plugin</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">entry</span><span class="p">:</span> <span class="dl">'</span><span class="s1">./client/index.js</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">output</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">path</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="dl">'</span><span class="s1">dist</span><span class="dl">'</span><span class="p">),</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="dl">'</span><span class="s1">index_bundle.js</span><span class="dl">'</span>
+  <span class="p">},</span>
+  <span class="na">module</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">loaders</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.</span><span class="sr">js$/</span><span class="p">,</span> <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">babel-loader</span><span class="dl">'</span><span class="p">,</span> <span class="na">exclude</span><span class="p">:</span> <span class="sr">/node_modules/</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.</span><span class="sr">jsx$/</span><span class="p">,</span> <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">babel-loader</span><span class="dl">'</span><span class="p">,</span> <span class="na">exclude</span><span class="p">:</span> <span class="sr">/node_modules/</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">test</span><span class="p">:</span> <span class="sr">/</span><span class="se">\.</span><span class="sr">css$/</span><span class="p">,</span> <span class="na">loader</span><span class="p">:</span> <span class="dl">'</span><span class="s1">style-loader!css-loader</span><span class="dl">'</span><span class="p">,</span> <span class="na">exclude</span><span class="p">:</span> <span class="sr">/node_modules/</span> <span class="p">},</span>
+    <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="na">plugins</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">HtmlWebpackPluginConfig</span><span class="p">,</span>
+    <span class="k">new</span> <span class="nx">OpenBrowserPlugin</span><span class="p">({</span> <span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">http://localhost:8080</span><span class="dl">'</span> <span class="p">})</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>这里需要说明一下：</p>
+
+<ul>
+  <li>entry: 整个项目的入口文件</li>
+  <li>output: 编译好的文件输出位置</li>
+  <li>loaders: 用来告诉loaders处理哪些文件</li>
+  <li>plugins: 启用的webpack插件</li>
+</ul>
+
+<h3 id="html-webpack-plugin">html-webpack-plugin</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add html-webpack-plugin
+</code></pre></div></div>
+
+<p>上面我设置了 html 插件用来帮助把编译后的文件添加到body最后面，所以bundle.js这个js不需要我自己来添加到index.html中了</p>
+
+<h3 id="css-loader-和-style-loader">css-loader 和 style-loader</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add css-loader style-loader
+</code></pre></div></div>
+
+<p>然后在webpack.config.js中就可以使用 css-loader 和 style-loader 了</p>
+
+<p>之后我们在需要使用css的时候，直接用以下方式即可</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import "./App.css";
+</code></pre></div></div>
+
+<p>另外在写 react 应用时，也可以直接使用内敛样式，例如</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">style</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">backgroundColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#EEE</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="na">render</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">style</span><span class="o">=</span><span class="p">{</span><span class="nx">style</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">world</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h3 id="open-browser-webpack-plugin">open-browser-webpack-plugin</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add open-browser-webpack-plugin
+</code></pre></div></div>
+
+<p>这个插件的作用是编译完成以后，打开浏览器</p>
+
+<h2 id="设置-babel">设置 Babel</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add babel-loader babel-core babel-preset-es2015 babel-preset-react --dev
+</code></pre></div></div>
+
+<p>preset 是 babel 的插件，用来让 babel 帮忙转译。然后再创建一个 babel 配置文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch .babelrc
+</code></pre></div></div>
+
+<p>写入内容</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"presets"</span><span class="p">:[</span><span class="w">
+        </span><span class="s2">"es2015"</span><span class="p">,</span><span class="w"> </span><span class="s2">"react"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="4-设置-react-环境">4. 设置 React 环境</h2>
+
+<p>安装 React</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add react react-dom
+</code></pre></div></div>
+
+<p>当前目录是这个样子</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+├── .babelrc
+├── node_modules
+├── package.json
+├── webpack.config.js
+└── yarn.lock
+</code></pre></div></div>
+
+<p>接下来我们加入 React 需要的文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.
+├── client
+│   ├── components
+│   │   └── App.js
+│   ├── index.html
+│   └── index.js
+├── package.json
+├── webpack.config.js
+└── yarn.lock
+</code></pre></div></div>
+
+<p>在 index.html 中写入</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>React App Setup<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"root"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>在 index.js 中写入</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">ReactDOM</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-dom</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">App</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./components/App.js</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Router</span><span class="p">,</span> <span class="nx">Route</span><span class="p">,</span> <span class="nx">hashHistory</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react-router</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="p">(</span><span class="o">&lt;</span><span class="nx">Router</span> <span class="nx">history</span><span class="o">=</span><span class="p">{</span><span class="nx">hashHistory</span><span class="p">}</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="dl">"</span><span class="s2">/</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">App</span><span class="p">}</span><span class="sr">/</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">Route</span> <span class="nx">path</span><span class="o">=</span><span class="dl">"</span><span class="s2">/about</span><span class="dl">"</span> <span class="nx">component</span><span class="o">=</span><span class="p">{</span><span class="nx">App</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="sr">/Router&gt;</span><span class="se">)</span><span class="err">,
+</span>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">root</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+
+</code></pre></div></div>
+
+<p>在 App.js 中写入</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nx">React</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">react</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">class</span> <span class="nx">App</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+     <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">style</span><span class="o">=&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="nx">World</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="se">)</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="5-设置-react-router">5. 设置 React-Router</h2>
+
+<p>想要完成页面跳转以及一些复杂的多页面操作，可以使用 React-Router 来支持</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn add react-router
+</code></pre></div></div>
+
+<p>使用例子可以看上面index.js内容</p>
+
+<h2 id="6-启动-react">6. 启动 React</h2>
+
+<p>修改package.json，加入scripts</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"start"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webpack-dev-server"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"build"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webpack --progress --colors"</span><span class="w">
+    
+  </span><span class="p">}</span><span class="err">,</span><span class="w">
+</span></code></pre></div></div>
+
+<p>build 方法会把网站打包一下，然后放到之前定义好的目录里面。start 可以直接开启开发模式，并且开启预览</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn start
+</code></pre></div></div>
+
+<h2 id="7-start-kit">7. start kit</h2>
+
+<p>这些配置不需要每次都跑一次，我自己的放在 <a href="https://github.com/suyan/react-start-kit">Github</a> 上。下载下来运行</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn install
+yarn start
+</code></pre></div></div>
+
+<p>即可开启一个 Web App 的开发了</p>
+
+<h2 id="refer">Refer</h2>
+
+<p><a href="https://scotch.io/tutorials/setup-a-react-environment-using-webpack-and-babel">Setup a React Environment Using webpack and Babel</a></p>
+
+:ET

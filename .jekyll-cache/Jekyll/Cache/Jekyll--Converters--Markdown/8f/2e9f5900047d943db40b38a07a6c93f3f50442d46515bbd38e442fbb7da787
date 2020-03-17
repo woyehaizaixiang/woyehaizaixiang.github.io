@@ -1,0 +1,78 @@
+I"	<h1 id="git创建远程库">git创建远程库</h1>
+
+<blockquote>
+  <p>git中一般使用 git init 创建的库不允许同一分支多个work tree直接提交，如果这么做有可能会出现以下问题：</p>
+</blockquote>
+
+<blockquote>
+  <p>remote: error: refusing to update checked out branch: refs/heads/master</p>
+</blockquote>
+
+<blockquote>
+  <p>要解决这个问题可以有以下四种方式</p>
+</blockquote>
+
+<h2 id="创建共享库推荐">创建共享库（推荐）</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 创建共享库(bare)
+$ mkdir /git/repo.git &amp;&amp; cd /git/repo.git &amp;&amp; git init --bare
+
+# 本地库
+$ mkdir ~/repo &amp;&amp; cd ~/repo &amp;&amp; git init
+# 创建一个文件
+$ vi foo
+# 增加新增文件到库管理
+$ git add .
+# 提交
+$ git commit
+# 增加共享库位置
+$ git remote add origin file:///git/repo.git
+# 提交更改
+$ git push origin master
+</code></pre></div></div>
+
+<h2 id="不工作在同一库下推荐">不工作在同一库下（推荐）</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 创建库
+$ mkdir /git/repo  &amp;&amp; cd /git/repo &amp;&amp; git init
+# 创建一个文件
+$ vi foo
+# 增加新增文件到库管理
+$ git add .
+# 提交
+$ git commit 
+# 新建一个分支
+$ git branch test
+
+# 本地库
+$ git clone file:///git/repo &amp;&amp; cd repo
+# 切换到分支test
+$ git checkout test
+# 修改文件
+$ echo "foo"&gt;foo
+# 提交
+$ git commit 
+# 增加远程库位置
+$ git remote add origin flie:///git/repo
+# 提交更改
+$ git push origin test
+</code></pre></div></div>
+
+<h2 id="忽略冲突1">忽略冲突1</h2>
+<p>修改远程库.git/config添加下面代码</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[receive]
+    denyCurrentBranch = ignore
+</code></pre></div></div>
+
+<p>这种方式不能直接显示在结果的work tree上，如果要显示，需要使用</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --hard才能看到
+</code></pre></div></div>
+
+<h2 id="忽略冲突2">忽略冲突2</h2>
+<p>在远程库上</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git config -bool core.bare true
+</code></pre></div></div>
+:ET

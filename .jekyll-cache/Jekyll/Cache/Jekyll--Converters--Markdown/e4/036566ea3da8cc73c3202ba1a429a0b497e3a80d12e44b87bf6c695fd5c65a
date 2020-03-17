@@ -1,0 +1,89 @@
+I"�<blockquote>
+  <p>xdebug是php调试的好帮手，sublime是php编写的好帮手。这里只说如何配置，默认读者会用sublime和xdebug</p>
+</blockquote>
+
+<h2 id="安装xdebug">安装xdebug</h2>
+<p>在mac下非常方便：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install php55-xdebug
+</code></pre></div></div>
+
+<p>然后进行配置，在<code class="highlighter-rouge">/usr/local/etc/php/5.5/conf.d/ext-xdebug.ini</code>中添加</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xdebug.remote_enable=1
+xdebug.remote_handler=dbgp
+xdebug.remote_host=127.0.0.1
+xdebug.remote_port=9000
+xdebug.remote_log="/var/log/xdebug/xdebug.log"
+</code></pre></div></div>
+
+<p>重启apache</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apachectl restart
+</code></pre></div></div>
+
+<h2 id="配置sublime">配置sublime</h2>
+<p>要调试某一个项目，首先得把这个项目在sublime下保存成一个project</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sublime-&gt;project-&gt;save project as ...
+</code></pre></div></div>
+
+<p>然后用<a href="https://sublime.wbond.net/installation">package control</a>安装<code class="highlighter-rouge">xdebug client</code></p>
+
+<p>接下来配置项目</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sublime-&gt;project-&gt;edit poject
+</code></pre></div></div>
+
+<p>配置文件类似以下内容：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    "folders":
+    [
+        {
+            "follow_symlinks": true,
+            "path": "."
+        }
+    ],
+    "settings": {
+        "xdebug": {
+             "url": "http://my.local.website/",
+        }
+    }
+}
+</code></pre></div></div>
+
+<p>其中url是项目所在url，记得在hosts里头将这个url指向127.0.0.1，还有在apache的virtualhost里将其指向项目根目录</p>
+
+<p>这样就OK了，准备开启调试吧</p>
+
+<h2 id="开启调试">开启调试</h2>
+<p>开启调试方式也比较简单，在想要加断点的地方右键</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xdebug-&gt;Add/Remove breakpoint
+</code></pre></div></div>
+
+<p>这样项目在运行到本行的时候就会停止下来</p>
+
+<p>然后开始调试，在菜单栏选择</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tools-&gt;xdebug-&gt;start debugging(launch browser)
+</code></pre></div></div>
+
+<p>sublime会自动打开浏览器，进入配置时写的网站链接，进行调试</p>
+
+<p>调试中所用的功能可以在调试文件中右键查看之</p>
+
+<h2 id="可能问题">可能问题</h2>
+
+<h3 id="无法跟踪断点">无法跟踪断点</h3>
+<p>这可能是xdebug端口被占用，按Ctrl+`或者菜单栏View-&gt;show Console查看错误信息，有可能是xdebug端口已经被占用的缘故。</p>
+
+<p>在sublime xdebug中关闭调试，或者重启sublime可以解决这个问题。</p>
+
+<h2 id="参考">参考</h2>
+<ol>
+  <li><a href="http://www.sitepoint.com/debugging-xdebug-sublime-text-3/">Debugging with Xdebug and Sublime Text 3</a></li>
+</ol>
+
+:ET

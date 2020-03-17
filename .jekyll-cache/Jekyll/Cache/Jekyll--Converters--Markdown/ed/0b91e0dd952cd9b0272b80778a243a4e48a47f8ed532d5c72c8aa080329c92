@@ -1,0 +1,112 @@
+I"W*<blockquote>
+  <p>最近在做的项目有一项需要耗时任务在后台运行的功能，虽然PHP并不是非常适合做常驻后台的守护进程，但是由于项目主要代码都是基于PHP实现，如果运行在后台的守护进程改换别的语言会非常不方便。所以不可避免会涉及到Web端和Daemon部分的通信，Socket是一个不错的方式。</p>
+</blockquote>
+
+<h2 id="socket是什么">Socket是什么</h2>
+
+<blockquote>
+  <p>socket的英文原义是“孔”或“插座”。作为BSD UNIX的进程通信机制，取后一种意思。通常也称作”套接字”，用于描述IP地址和端口，是一个通信链的句柄。在Internet上的主机一般运行了多个服务软件，同时提供几种服务。每种服务都打开一个Socket，并绑定到一个端口上，不同的端口对应于不同的服务。</p>
+</blockquote>
+
+<p>以上内容来自<a href="http://baike.baidu.com/link?url=Hnush4cjfuWUCEOUwCNaQbQCiwIhY-oL-wDv0VQEpxIkAiY9gf2kjoDfpH6BjUNH">百度百科</a></p>
+
+<p>简单说来，socket可以帮助不同的服务在不同的端口进行通信。</p>
+
+<h2 id="php中的实现">PHP中的实现</h2>
+<h3 id="服务端">服务端</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nb">set_time_limit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="c1">// 设置主机和端口</span>
+<span class="nv">$host</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span><span class="p">;</span>
+<span class="nv">$port</span> <span class="o">=</span> <span class="mi">12387</span><span class="p">;</span>
+<span class="c1">// 创建一个tcp流</span>
+<span class="nv">$socket</span> <span class="o">=</span> <span class="nb">socket_create</span><span class="p">(</span><span class="nx">AF_INET</span><span class="p">,</span> <span class="nx">SOCK_STREAM</span><span class="p">,</span> <span class="nx">SOL_TCP</span><span class="p">)</span> 
+    <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"socket_create() failed:"</span> <span class="o">.</span> <span class="nb">socket_strerror</span><span class="p">(</span><span class="nb">socket_last_error</span><span class="p">()));</span>
+
+<span class="c1">// 设置阻塞模式</span>
+<span class="nb">socket_set_block</span><span class="p">(</span><span class="nv">$socket</span><span class="p">)</span> 
+    <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"socket_set_block() failed:"</span> <span class="o">.</span> <span class="nb">socket_strerror</span><span class="p">(</span><span class="nb">socket_last_error</span><span class="p">()));</span>  
+
+<span class="c1">// 绑定到端口</span>
+<span class="nb">socket_bind</span><span class="p">(</span><span class="nv">$socket</span><span class="p">,</span> <span class="nv">$host</span><span class="p">,</span> <span class="nv">$port</span><span class="p">)</span> 
+    <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"socket_bind() failed:"</span> <span class="o">.</span> <span class="nb">socket_strerror</span><span class="p">(</span><span class="nb">socket_last_error</span><span class="p">()));</span>
+
+<span class="c1">// 开始监听</span>
+<span class="nb">socket_listen</span><span class="p">(</span><span class="nv">$socket</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> 
+    <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"socket_listen() failed:"</span> <span class="o">.</span> <span class="nb">socket_strerror</span><span class="p">(</span><span class="nb">socket_last_error</span><span class="p">()));</span>
+
+<span class="k">echo</span> <span class="s2">"Binding the socket on </span><span class="nv">$host</span><span class="s2">:</span><span class="nv">$port</span><span class="s2"> ... </span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">// 接收连接请求并调用一个子连接Socket来处理客户端和服务器间的信息</span>
+    <span class="k">if</span> <span class="p">((</span><span class="nv">$msgsock</span> <span class="o">=</span> <span class="nb">socket_accept</span><span class="p">(</span><span class="nv">$socket</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s2">"socket_accept() failed:"</span> <span class="o">.</span> <span class="nb">socket_strerror</span><span class="p">(</span><span class="nb">socket_last_error</span><span class="p">());</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="c1">// 读数据</span>
+        <span class="nv">$out</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="nv">$buf</span> <span class="o">=</span> <span class="nb">socket_read</span><span class="p">(</span><span class="nv">$msgsock</span><span class="p">,</span><span class="mi">8192</span><span class="p">)){</span>
+            <span class="nv">$out</span> <span class="o">.=</span> <span class="nv">$buf</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">// 写数据</span>
+        <span class="nv">$in</span> <span class="o">=</span> <span class="s2">"数据是 </span><span class="nv">$out</span><span class="s2">"</span><span class="p">;</span>
+        <span class="nb">socket_write</span><span class="p">(</span><span class="nv">$msgsock</span><span class="p">,</span> <span class="nv">$in</span><span class="p">,</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$in</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="c1">// 结束通信</span>
+    <span class="nb">socket_close</span><span class="p">(</span><span class="nv">$msgsock</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nb">socket_close</span><span class="p">(</span><span class="nv">$socket</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>服务端主要进行了以下步骤：</p>
+
+<ul>
+  <li>创建Socket的监听，等待连接</li>
+  <li>当链接到来时，开启一个子连接处理IO</li>
+  <li>接收来自客户端的传输数据</li>
+  <li>将结果写回给客户端</li>
+</ul>
+
+<h3 id="客户端">客户端</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nb">set_time_limit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="nv">$host</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span><span class="p">;</span>  
+<span class="nv">$port</span> <span class="o">=</span> <span class="mi">12387</span><span class="p">;</span>
+
+<span class="c1">// 创建一个tcp流</span>
+<span class="nv">$socket</span> <span class="o">=</span> <span class="nb">socket_create</span><span class="p">(</span><span class="nx">AF_INET</span><span class="p">,</span> <span class="nx">SOCK_STREAM</span><span class="p">,</span> <span class="nx">SOL_TCP</span><span class="p">)</span> 
+    <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"socket_create() failed:"</span> <span class="o">.</span> <span class="nb">socket_strerror</span><span class="p">(</span><span class="nb">socket_last_error</span><span class="p">()));</span>
+
+<span class="k">echo</span> <span class="s2">"try to connect to </span><span class="nv">$host</span><span class="s2">:</span><span class="nv">$port</span><span class="s2">...</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="nv">$result</span> <span class="o">=</span> <span class="nb">socket_connect</span><span class="p">(</span><span class="nv">$socket</span><span class="p">,</span> <span class="nv">$host</span><span class="p">,</span> <span class="nv">$port</span><span class="p">)</span>
+    <span class="k">or</span> <span class="k">die</span><span class="p">(</span><span class="s2">"socket_connect() failed:"</span> <span class="o">.</span> <span class="nb">socket_strerror</span><span class="p">(</span><span class="nb">socket_last_error</span><span class="p">()));</span>
+
+<span class="nv">$in</span> <span class="o">=</span> <span class="s2">"hello </span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">socket_write</span><span class="p">(</span><span class="nv">$socket</span><span class="p">,</span> <span class="nv">$in</span><span class="p">,</span> <span class="nb">strlen</span><span class="p">(</span><span class="nv">$in</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"socket_write() failed:"</span> <span class="o">.</span> <span class="nb">socket_strerror</span><span class="p">(</span><span class="nv">$socket</span><span class="p">);</span>
+<span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"发送成功！</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nv">$out</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+<span class="k">while</span><span class="p">(</span><span class="nv">$buf</span> <span class="o">=</span> <span class="nb">socket_read</span><span class="p">(</span><span class="nv">$socket</span><span class="p">,</span> <span class="mi">8192</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$out</span> <span class="o">.=</span> <span class="nv">$buf</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">echo</span> <span class="s2">"接受内容为：</span><span class="nv">$out</span><span class="s2"> </span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="nb">socket_close</span><span class="p">(</span><span class="nv">$socket</span><span class="p">);</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>客户端主要有以下步骤：</p>
+
+<ul>
+  <li>连接到服务端Socket</li>
+  <li>向服务端写数据</li>
+  <li>接收来自服务端的数据</li>
+</ul>
+
+:ET

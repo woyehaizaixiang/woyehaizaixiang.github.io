@@ -1,0 +1,63 @@
+I"r<h2 id="创建windows镜像">创建windows镜像</h2>
+
+<h3 id="创建一个img文件">创建一个img文件</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kvm-img create -f raw windowsxp.img 10G
+</code></pre></div></div>
+
+<h3 id="下载virtio驱动">下载virtio驱动</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://alt.fedoraproject.org/pub/alt/virtio-win/archives/virtio-win-0.1-59/virtio-win-0.1-59.iso
+wget http://www.linuxwind.org/download/virtio-win-1.1.16.vfd
+</code></pre></div></div>
+
+<h3 id="启动安装程序">启动安装程序</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kvm -m 1024 -cdrom windowsxp.iso -drive file=windowsxp.img,if=virtio,boot=on -fda virtio-win-1.1.16.vfd -boot d -nographic -vnc :0
+</code></pre></div></div>
+
+<h3 id="接入继续安装步骤">接入继续安装步骤</h3>
+
+<p>我是在ubuntu下完成的，安装一个vncview即可</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vncview localhost:5900
+</code></pre></div></div>
+
+<h3 id="装完以后别急因为木有网卡驱动使用下面方式">装完以后别急，因为木有网卡驱动，使用下面方式</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kvm -m 1024 -cdrom virtio-win-0.1-59.iso -drive file=windowsxp.img,if=virtio,boot=on -net nic,model=virtio -boot d -nographic -net user -usb -usbdevice tablet -vnc :0
+</code></pre></div></div>
+
+<p>进入虚拟机以后，安装网卡驱动，然后驱动从CD-ROM中搜索即可</p>
+
+<h3 id="有定制需求的时候可以再次打开命令如下">有定制需求的时候，可以再次打开，命令如下</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kvm -m 1024 -drive file=windowsxp.img,if=virtio,boot=on -net nic,model=virtio -boot d -nographic -vnc :0
+</code></pre></div></div>
+
+<h2 id="上传windows镜像">上传windows镜像</h2>
+<p>openstack的命令以<a href="http://docs.openstack.org/trunk/openstack-compute/admin/content/creating-a-windows-image.html">最新文档</a>为标准，网上博客难免有过时的</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>glance image-create --name="My WinServer" --is-public=true --container-format=ovf --disk-format=raw &lt; windowsserver.img
+</code></pre></div></div>
+
+<h2 id="远程桌面连接">远程桌面连接</h2>
+
+<h3 id="开启xp远程桌面">开启xp远程桌面</h3>
+<ul>
+  <li>先关闭防火墙，在控制面板里头关</li>
+  <li>在控制面板里头创建一个新用户，一定要设密码。</li>
+  <li>计算机-》属性-》远程-》远程桌面-》允许用户远程连接</li>
+  <li>检查一下服务开了没有：Remote Desktop Help Session Manager和Terminal Services</li>
+</ul>
+
+<h3 id="在openstack中打开端口tcp-3389">在openstack中打开端口（TCP 3389）</h3>
+<p>另外几个常用端口</p>
+
+<ul>
+  <li>TCP 22 (ssh)</li>
+  <li>ICMP -1 (ping)</li>
+  <li>TCP 3306 (mysql)</li>
+  <li>TCP 3389 (远程桌面)</li>
+</ul>
+:ET

@@ -1,0 +1,50 @@
+I"�<p><a href="http://docs.openstack.org/developer/ceilometer/glossary.html#id3">原文档</a></p>
+
+<h3 id="agent">agent</h3>
+<p>代理，运行在OpenStack架构中用来测量和发送监控结果到收集器的服务。</p>
+
+<h3 id="api-server">API server</h3>
+<p>Ceilometer的HTTP REST API服务</p>
+
+<h3 id="ceilometer"><a href="http://en.wikipedia.org/wiki/Ceilometer">ceilometer</a></h3>
+<p>本项目名称，来源于云高计/云幂测量仪，测量云底的高度的仪器</p>
+
+<h3 id="central-agent">central agent</h3>
+<p>中央代理，运行在OpenStack架构中中央管理节点上用来测量和发送监控结果到收集器的服务。</p>
+
+<h3 id="collector">collector</h3>
+<p>收集器，运行在OpenStack架构中的服务，用来监控来自其他OpenStack组件和监控代理发送来的通知，并且将其存入数据库中。</p>
+
+<h3 id="compute-agent">compute agent</h3>
+<p>计算代理，运行再OpenStack架构中计算节点上的服务，用来测量和发送监控结果到搜集器中。</p>
+
+<h3 id="data-store">data store</h3>
+<p>数据存储，搜集数据的存储系统。</p>
+
+<h3 id="meter">meter</h3>
+<p>计量值，被跟踪资源的测量值。一个实例有很多的计量值，比如实例运行时长、CPU使用时间、请求磁盘的数量等。在Ceilometer中有三种计量值：</p>
+
+<ul>
+  <li>Cumulative: 累计的，随着时间增长(如磁盘读写)</li>
+  <li>Gauge: 计量单位，离散的项目(如浮动IP，镜像上传)和波动的值(如对象存储数值)</li>
+  <li>Delta: 增量，随着时间的改变而增加的值(如带宽变化)</li>
+</ul>
+
+<h3 id="non-repudiable"><a href="http://en.wikipedia.org/wiki/Non-repudiation">non-repudiable</a></h3>
+<p>“不可拒绝”</p>
+
+<h3 id="project">project</h3>
+<p>项目，OpenStack中的租户或者项目。</p>
+
+<h3 id="resource">resource</h3>
+<p>资源，OpenStack中被计量的基本单位(如实例，卷，镜像等)</p>
+
+<h3 id="sample">sample</h3>
+<p>采样数据，一个详细的计量的采样数据。</p>
+
+<h3 id="source">source</h3>
+<p>原始数据，计量数据的原始数据。这个字段一般默认为”openstack”，它可以通过ceilometer.conf文件中的counter_source来设置。</p>
+
+<h3 id="user">user</h3>
+<p>OpenStack中的一个用户。</p>
+:ET

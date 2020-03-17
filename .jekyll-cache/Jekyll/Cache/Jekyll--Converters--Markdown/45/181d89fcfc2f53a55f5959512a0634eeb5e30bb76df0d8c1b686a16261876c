@@ -1,0 +1,34 @@
+I"�<p>使用virsh连接到别的服务器时，使用的是tcp连接</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>virsh -c qemu+tcp://host/system
+</code></pre></div></div>
+
+<p>如果目标服务器没有开启libvirtd的tcp端口监听时，会出现</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>error: unable to connect to server at 'host:16509': Connection refused
+error: failed to connect to the hypervisor
+</code></pre></div></div>
+
+<h2 id="ubuntu下解决方法">ubuntu下解决方法</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed -i 's/#listen_tls = 0/listen_tls = 0/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#listen_tcp = 1/listen_tcp = 1/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#auth_tcp = "sasl"/auth_tcp = "none"/g' /etc/libvirt/libvirtd.conf
+
+vi /etc/default/libvirt-bin
+修改为libvirt_opts = "-d -l"  
+增加-l监听tcp
+
+service libvirt-bin restart
+</code></pre></div></div>
+
+<h2 id="centos下解决方法">centos下解决方法</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed -i 's/#listen_tls = 0/listen_tls = 0/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#listen_tcp = 1/listen_tcp = 1/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#auth_tcp = "sasl"/auth_tcp = "none"/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#LIBVIRTD_ARGS="--listen"/LIBVIRTD_ARGS="--listen"/g' /etc/sysconfig/libvirtd
+
+service libvirtd restart
+</code></pre></div></div>
+:ET

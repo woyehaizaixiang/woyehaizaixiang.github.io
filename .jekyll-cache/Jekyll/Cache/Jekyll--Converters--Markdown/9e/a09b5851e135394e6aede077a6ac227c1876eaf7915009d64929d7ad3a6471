@@ -1,0 +1,204 @@
+I"�<h1>kanyun的部署</h1>
+
+<ul>
+  <li><a href="#all">1 全部节点配置</a>
+    <ul>
+      <li><a href="#all-zmq">1.1 安装zmq</a></li>
+      <li><a href="#all-kanyun">1.2 安装kanyun</a></li>
+    </ul>
+  </li>
+  <li><a href="#controller">2 控制节点配置</a>
+    <ul>
+      <li><a href="#controller-cassandra">2.1 安装配置cassandra</a></li>
+      <li><a href="#controller-kanyun">2.2 启动和配置kanyun</a></li>
+    </ul>
+  </li>
+  <li><a href="#compute">3 计算节点配置</a>
+    <ul>
+      <li><a href="#compute-kanyun">3.1 启动和配置kanyun</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="all">1 全部节点</h2>
+<h3 id="all-zmq">1.1 安装zmq</h3>
+<h4>安装zerozmq(2.2.0)</h4>
+<ol>
+  <li>yum install libtool autoconf automake</li>
+  <li>yum install uuid-devel</li>
+  <li>yum install libuuid-devel</li>
+  <li>wget http://download.zeromq.org/zeromq-2.2.0.tar.gz</li>
+  <li>tar zxvf zeromq-2.2.0.tar.gz &amp; cd zeromq-2.2.0 &amp; ./configure &amp; make install</li>
+  <li>ldconfig</li>
+</ol>
+
+<h4>安装pyzmq</h4>
+<ol>
+  <li>easy_install “pyzmq==2.2.0”</li>
+  <li>如果出现缺少libzmq.so.1的情况，可能是链接库没有正确配置。</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>sudo /sbin/ldconfig -v</td>
+          <td>grep libzmq查看是否有所需链接</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>如果没有libzmq.so.1 -&gt; libzmq.so.1.0.1，则修改/etc/ld.so.conf，在末尾增加/usr/local/lib，然后ldconfig -v</td>
+          <td>grep libzmq即可</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>如果出现缺少Python.h，则使用yum install python-devel来安装</li>
+</ol>
+
+<h3 id="all-kanyun">1.2 安装kanyun</h3>
+<h4>下载代码</h4>
+<p>kanyun原来的代码有bug，而且不能在python2.6环境下使用，下面是我改过的</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt
+git clone https://github.com/suyan/kanyun.git
+</code></pre></div></div>
+
+<p>修改内容：</p>
+
+<ul>
+  <li>兼容python2.6和2.7（python2.6需要安装OrderedDict）</li>
+  <li>修改获取内存信息方式和计算cpu使用率方式</li>
+  <li>修复一些bug</li>
+</ul>
+
+<h4>安装</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python /opt/kanyun/setup.py install
+</code></pre></div></div>
+<h4>创建日志目录</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /var/log/kanyun
+</code></pre></div></div>
+<h4>安装OrderedDict(python2.6)</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>easy_install OrderedDict
+</code></pre></div></div>
+
+<h2 id="controller">2 控制节点</h2>
+<h3 id="controller-cassandra">2.1 安装配置cassandra</h3>
+<h4>下载Cassandra</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /opt
+wget http://mirror.bit.edu.cn/apache/cassandra/0.8.10/apache-cassandra-0.8.10-bin.tar.gz
+</code></pre></div></div>
+<h4>解压</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tar zxvf apache-cassandra-0.8.10-bin.tar.gz
+</code></pre></div></div>
+<h4>运行</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/opt/apache-cassandra-0.8.10/bin/cassandra
+</code></pre></div></div>
+<h4>创建数据库</h4>
+<p>通过命令打开数据库</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/opt/apache-cassandra-0.8.10/bin/cassandra-cli -h 127.0.0.1
+</code></pre></div></div>
+
+<p>并执行下面命令</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE keyspace DATA;
+USE DATA;
+
+CREATE COLUMN family vmnetwork WITH column_type='Super' AND comparator='AsciiType' AND subcomparator='IntegerType' AND default_validation_class='AsciiType';
+CREATE COLUMN family cpu WITH column_type='Super' AND comparator='AsciiType' AND subcomparator='IntegerType' AND default_validation_class='AsciiType';
+CREATE COLUMN family mem_max WITH column_type='Super' AND comparator='AsciiType' AND subcomparator='IntegerType' AND default_validation_class='AsciiType';
+CREATE COLUMN family mem_free WITH column_type='Super' AND comparator='AsciiType' AND subcomparator='IntegerType' AND default_validation_class='AsciiType';
+CREATE COLUMN family nic_incoming WITH column_type='Super' AND comparator='AsciiType' AND subcomparator='IntegerType' AND default_validation_class='AsciiType';
+CREATE COLUMN family nic_outgoing WITH column_type='Super' AND comparator='AsciiType' AND subcomparator='IntegerType' AND default_validation_class='AsciiType';
+CREATE COLUMN family blk_read WITH column_type='Super' AND comparator='AsciiType' AND subcomparator='IntegerType' AND default_validation_class='AsciiType';
+CREATE COLUMN family blk_write WITH column_type='Super' AND comparator='AsciiType' AND subcomparator='IntegerType' AND default_validation_class='AsciiType';
+
+assume vmnetwork KEYS AS ascii;
+assume cpu KEYS AS ascii;
+assume mem_max KEYS AS ascii;
+assume nic_incoming KEYS AS ascii;
+assume nic_outgoing KEYS AS ascii;
+assume blk_read KEYS AS ascii;
+assume blk_write KEYS AS ascii;
+assume mem_free KEYS AS ascii;       
+</code></pre></div></div>
+
+<h4>安装pycassa支持</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>easy_install pycassa
+</code></pre></div></div>
+
+<p>如果出现<em>The required version of distribute is not available</em></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>easy_install -U distribute
+</code></pre></div></div>
+
+<h3 id="controller-kanyun">2.2 启动和配置kanyun</h3>
+<h4>配置/etc/kanyun.conf</h4>
+<ul>
+  <li>文件中host需要填写计算节点的ip</li>
+  <li>sql_connection填写nova.conf中connection值</li>
+</ul>
+
+<p>配置文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[kanyun]
+log: /var/log/kanyun/kanyun.log
+[DEFAULT]
+sql_connection: mysql://nova:novamysqlpassword@controller/nova
+[server]
+host: 172.19.9.1 
+port: 5551
+db_host: 127.0.0.1
+log: /var/log/kanyun/kanyun-server.log
+[api]
+api_host: 172.19.9.1
+api_port: 5552
+db_host: 127.0.0.1
+log: /var/log/kanyun/kanyun-api.log
+[client]
+api_host: 172.19.9.1
+api_port: 5552
+log: /var/log/kanyun/kanyun-client.log 
+</code></pre></div></div>
+
+<h4>启动服务</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python /opt/kanyun/bin/kanyun-server &amp;
+python /opt/kanyun/bin/kanyun-api &amp;
+</code></pre></div></div>
+
+<h2 id="compute">3 计算节点</h2>
+<h3 id="compute-kanyun">3.1 启动和配置kanyun</h3>
+<h4>配置/etc/kanyun.conf</h4>
+<ul>
+  <li>文件中api_host需要填写计算节点的ip</li>
+  <li>sql_connection填写nova.conf中connection值</li>
+  <li>id根据节点编号自己设置</li>
+</ul>
+
+<p>配置文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[kanyun]
+log: /var/log/kanyun/kanyun.log
+[DEFAULT]
+sql_connection: mysql://nova:novamysqlpassword@controller/nova
+[worker]
+id: worker1
+worker_timeout: 60
+dataserver_host: 172.19.9.1
+dataserver_port: 5551
+log: /var/log/kanyun/kanyun-worker.log
+[client]
+api_host: 172.19.9.1
+api_port: 5552
+log: /var/log/kanyun/kanyun-client.log
+</code></pre></div></div>
+
+<h4>启动服务</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python /opt/kanyun/bin/kanyun-worker &amp;
+</code></pre></div></div>
+
+:ET

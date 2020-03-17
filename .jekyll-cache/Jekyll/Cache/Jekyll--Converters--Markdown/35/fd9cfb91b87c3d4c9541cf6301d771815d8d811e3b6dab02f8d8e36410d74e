@@ -1,0 +1,133 @@
+I"%<h2 id="安装必要组件">安装必要组件</h2>
+
+<p>首先要把必备组件安装好，因为OpenStack Grizzly是基于Ubuntu包安装的，所以Ceilometer也依赖这种方式</p>
+
+<p>OpenStack具体Grizzly搭建方式参考<a href="/2013/05/13/openstack-grizzly-multihost-deployment-doc.html">OpenStack Grizzly Multihost部署文档</a></p>
+
+<h3 id="所有节点">所有节点</h3>
+
+<p>所有节点都必须安装以下两个包，它们是Ceilometer的基础依赖</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install python-ceilometer 
+apt-get install ceilometer-common
+</code></pre></div></div>
+
+<h3 id="控制节点">控制节点</h3>
+
+<p>首先将MongoDB安装在控制节点，方便数据存取</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install mongodb
+</code></pre></div></div>
+
+<p>控制节点需要安装Collector和Api服务</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install ceilometer-api
+apt-get install ceilometer-collector
+</code></pre></div></div>
+
+<p>另外把Agent Central也装在控制节点</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install ceilometer-agent-central
+</code></pre></div></div>
+
+<p>最后还有Ceilometer的Client部分，用来执行CLI命令</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install python-ceilometerclient
+</code></pre></div></div>
+
+<h3 id="计算节点">计算节点</h3>
+
+<p>计算节点只需要再安装Agent Compute即可</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install ceilometer-agent-compute
+</code></pre></div></div>
+
+<h2 id="ceilometer配置">Ceilometer配置</h2>
+
+<p>安装过程相对简单，但是如何获取监控数据以及如何进行存取呢？</p>
+
+<p>首先得对OpenStack进行配置，让它们将Ceilometer所需数据通过notification发送到消息队列中，然后再对Ceilometer进行设定，实现各个服务之间的正常通信</p>
+
+<h3 id="glance配置">Glance配置</h3>
+
+<p>我的环境中使用的是rabbit，所以修改glance-api.conf配置:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notifier_strategy = rabbit
+</code></pre></div></div>
+
+<h3 id="cinder配置">Cinder配置</h3>
+
+<p>修改cinder.conf配置：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>notification_driver=cinder.openstack.common.notifier.rabbit_notifier
+control_exchange=cinder
+</code></pre></div></div>
+
+<h3 id="nova配置">Nova配置</h3>
+
+<p>修改nova.conf配置：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>instance_usage_audit=True
+instance_usage_audit_period=hour
+notify_on_state_change=vm_and_task_state
+notification_driver=nova.openstack.common.notifier.rpc_notifier
+notification_driver=ceilometer.compute.nova_notifier
+</code></pre></div></div>
+
+<h3 id="keystone配置">Keystone配置</h3>
+
+<p>创建ceilometer的server</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keystone service-create --name=ceilometer \
+                        --type=metering \
+                        --description="Ceilometer Service"
+</code></pre></div></div>
+
+<p>创建一个ceilometer的endpoint</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keystone endpoint-create --region RegionOne \
+                         --service_id $CEILOMETER_SERVICE \
+                         --publicurl "http://$SERVICE_HOST:8777/" \
+                         --adminurl "http://$SERVICE_HOST:8777/" \
+                         --internalurl "http://$SERVICE_HOST:8777/"
+</code></pre></div></div>
+
+<h3 id="ceilometer配置-1">Ceilometer配置</h3>
+
+<p>修改ceilometer.conf的配置</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>debug=true
+verbose=true
+auth_strategy=noauth
+rabbit_host=$CONTROLLER_HOST
+database_connection=mongodb://localhost:27017/ceilometer
+os_username=$ADMIN_USERNAME
+os_tenant_name=$TENANT_NAME
+os_password=$ADMIN_PASSWORD
+os_auth_url=http://${CONTROLLER_HOS}:5000/v2.0/
+</code></pre></div></div>
+
+<h2 id="重启服务">重启服务</h2>
+
+<h3 id="控制节点-1">控制节点</h3>
+
+<p>重启三个服务</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service ceilometer-agent-central restart
+service ceilometer-api restart
+service ceilometer-collector restart
+</code></pre></div></div>
+
+<h3 id="计算节点-1">计算节点</h3>
+
+<p>重启服务</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service ceilometer-agent-compute restart
+</code></pre></div></div>
+
+<h2 id="总结">总结</h2>
+
+<p>整个过程安装比较顺利，但是配置的时候可能会出现通信问题，这个时候好好研究研究文档是正事。</p>
+
+<p>这个配置仅限于测试环境，对于生产环境安装和配置都根据情况来改变</p>
+:ET

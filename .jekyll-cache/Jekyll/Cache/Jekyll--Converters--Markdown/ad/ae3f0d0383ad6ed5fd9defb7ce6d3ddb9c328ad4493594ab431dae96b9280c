@@ -1,0 +1,51 @@
+I"f<p>回国以后先试了部署 L2TP VPN（<a href="/2016/12/30/deploy-l2tp-on-ubuntu.html">在 Ubuntu 下部署 L2TP VPN</a>），结果发现 VPN 稳定性还是略差，经常掉线。其实对于一般的浏览网页需求，Shadowsocks 就足够了，所以就有了此文。</p>
+
+<h2 id="服务端">服务端</h2>
+
+<p>我的环境是 Linode Tokyo + Ubuntu 14.04</p>
+
+<p>这里依然提供一个一键脚本，<a href="https://teddysun.com/342.html">Shadowsocks Python版一键安装脚本</a>。</p>
+
+<p>想手动配置的往下看。</p>
+
+<h3 id="安装-shadowsocks">安装 Shadowsocks</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update
+apt-get <span class="nb">install </span>python-pip
+pip <span class="nb">install </span>shadowsocks
+</code></pre></div></div>
+
+<h3 id="配置-shadowsocks">配置 Shadowsocks</h3>
+
+<p>下面的password那儿自己修改一下</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">MYIP</span><span class="o">=</span><span class="sb">`</span>/sbin/ifconfig <span class="nt">-a</span>|grep inet|grep <span class="nt">-v</span> 127.0.0.1|grep <span class="nt">-v</span> inet6|awk <span class="s1">'{print $2}'</span>|tr <span class="nt">-d</span> <span class="s2">"addr:"</span><span class="sb">`</span>
+
+<span class="nb">cat</span> <span class="o">&gt;</span>/etc/shadowsocks.json<span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+{
+    "server":"</span><span class="nv">$MYIP</span><span class="sh">",
+    "server_port":8989,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"test",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}
+</span><span class="no">EOF
+</span></code></pre></div></div>
+
+<h3 id="启动-shadowsocks">启动 Shadowsocks</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssserver <span class="nt">-c</span> /etc/shadowsocks.json <span class="nt">-d</span> start
+</code></pre></div></div>
+
+<h2 id="客户端">客户端</h2>
+
+<p>客户端的话可以直接去<a href="https://shadowsocks.org/en/download/clients.html">官网查看</a>，我之前使用的是 <a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases">ShadowsocksX-NG</a>，但是我发现这里我自己设置了代理网站后总是不能立刻生效。</p>
+
+<p>所以现在改到了<a href="https://github.com/zhuhaow/SpechtLite">SpechtLite</a>，根据<a href="http://www.jianshu.com/p/663a898aa01a">这篇文章</a>可以非常方便配置。iOS下的客户端的话，推荐 <a href="https://itunes.apple.com/cn/app/wingy-proxy-for-http-s-socks5/id1178584911?mt=8">Wingy</a>，设置也非常简单。</p>
+
+<p>这里提一下最近很火的 Surge，这个软件确实是神器一枚，使用起来非常方便。只是它暂时功能还有限，感觉并不值当前的价格，如果未来提供像 Charles 一样强大的功能的话，即使不用来科学上网，也是很值得入手的应用之一。不过据说还在开发中，所以之后可以考虑入手一枚。</p>
+
+:ET

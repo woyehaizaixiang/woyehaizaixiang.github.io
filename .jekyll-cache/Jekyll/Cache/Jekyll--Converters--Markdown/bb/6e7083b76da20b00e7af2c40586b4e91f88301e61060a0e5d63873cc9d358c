@@ -1,0 +1,11 @@
+I"�<h2 id="在粘贴代码时不启动自动缩进">在粘贴代码时不启动自动缩进</h2>
+
+<p>粘贴之前输入 <code class="highlighter-rouge">:set paste</code>
+粘贴完后恢复 <code class="highlighter-rouge">:set nopaste</code></p>
+
+<h2 id="关闭和开启行号">关闭和开启行号</h2>
+
+<p>关闭 <code class="highlighter-rouge">:set nonu</code>
+开启 <code class="highlighter-rouge">:set number</code></p>
+
+:ET

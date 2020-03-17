@@ -1,0 +1,8 @@
+I"<p>下面的信息图，来自<a href="http://guide.python-distribute.org/index.html">The Hitchhiker’s Guide to Packaging v1.0</a>其中的<a href="http://guide.python-distribute.org/introduction.html#current-state-of-packaging">Current State of Packaging</a>一章，其中显示setuptools/easy_install讲在未来不再使用</p>
+
+<p><img src="http://imgs.yansu.org/tech-pip-future.jpg" alt="pip-future" /></p>
+
+<p>另一张信息图，来自<a href="http://packages.python.org/distribute/">distribute’s documentation</a>显示setuptools和easy_install将被<a href="http://packages.python.org/distribute/">distribute</a>和<a href="http://pip.openplans.org/">pip</a>替换掉</p>
+
+<p><img src="http://imgs.yansu.org/tech-pip-future2.png" alt="pip-future2" /></p>
+:ET

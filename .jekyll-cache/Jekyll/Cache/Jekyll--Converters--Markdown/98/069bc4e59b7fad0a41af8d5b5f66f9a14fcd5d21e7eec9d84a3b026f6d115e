@@ -1,0 +1,170 @@
+I"<<h3 id="1stevedore作用">1.stevedore作用</h3>
+<p>Python导入动态代码很容易，例如通过在运行时导入扩展插件来扩展你的应用。许多应用通过<code class="highlighter-rouge">__import__</code>或importlib实现了这个功能。<a href="http://stevedore.readthedocs.org/en/latest/index.html">stevedore</a>的功能就是管理扩展的，但是它的实现方式是借助steuptools的entry points（我的<a href="/2013/06/07/learn-python-setuptools-in-detail.html">上一篇</a>有讲entry points功能）。</p>
+
+<h3 id="2创建一个插件">2.创建一个插件</h3>
+<p>这里以一个格式转换的例子来学习：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># stevedore/example/base.py
+import abc
+class FormatterBase(object):
+    __metaclass__ = abc.ABCMeta
+
+    def __init__(self, max_width=60):
+        self.max_width = max_width
+
+    @abc.abstractmethod
+    def format(self, data):
+        pass
+</code></pre></div></div>
+
+<p>首先创建一个基类，来作为虚拟基础类，供插件们继承并实现其中方法。这个例子中的关键函数为format，其子类都需要实现这个函数。</p>
+
+<p>有关虚拟基础类的内容在我之前的<a href="/2013/06/09/learn-python-abc-module.html">一篇</a>博客中也说到。</p>
+
+<p>接下来是实现功能的两个插件类：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># stevedore/example/simple.py
+from stevedore.example import base
+class Simple(base.FormatterBase):
+    def format(self, data):
+        for name, value in sorted(data.items()):
+            line = '{name} = {value}\n'.format(
+                name=name,
+                value=value,
+            )
+            yield line
+</code></pre></div></div>
+
+<p>另一个：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># stevedore/example/fields.py
+import textwrap
+from stevedore.example import base
+class FieldList(base.FormatterBase):
+    def format(self, data):
+        for name, value in sorted(data.items()):
+            full_text = ': {name} : {value}'.format(
+                name=name,
+                value=value,
+            )
+            wrapped_text = textwrap.fill(
+                full_text,
+                initial_indent='',
+                subsequent_indent='    ',
+                width=self.max_width,
+            )
+            yield wrapped_text + '\n'
+</code></pre></div></div>
+
+<p>这两个插件以不同的方式对传入的数据进行格式化，并且都实现了format方法，接下来是在<code class="highlighter-rouge">setup.py</code>中注册插件：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># stevedore/example/setup.py
+from setuptools import setup, find_packages
+setup(
+    ...
+    entry_points={
+        'stevedore.example.formatter': [
+            'simple = stevedore.example.simple:Simple',
+            'field = stevedore.example.fields:FieldList',
+            'plain = stevedore.example.simple:Simple',
+        ],
+    },
+)
+</code></pre></div></div>
+
+<p>这个例子可以看到，我们设定了三个接口，simple/field/plain，其他应用或者自身都可以对它们进行调用。如果不用stevedore的话，直接使用<code class="highlighter-rouge">pkg_resources.require()</code>调用他们，但是stevedore有了一个更好的机制来管理和使用他们</p>
+
+<h3 id="3导入插件">3.导入插件</h3>
+<p>stevedore定义了一系列类来帮助更好的调用上面生成的插件</p>
+
+<h4 id="以driver方式调用">以Driver方式调用</h4>
+<p>这种方式经常被使用，即我们有多个方法可以做成一件事，但是我们只用其中一种就够了，通过stevedore的<code class="highlighter-rouge">DriverManager</code>可以做到，如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># stevedore/example/load_as_driver.py
+from __future__ import print_function
+import argparse
+from stevedore import driver
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        'format',
+        nargs='?',
+        default='simple',
+        help='the output format',
+    )
+    parser.add_argument(
+        '--width',
+        default=60,
+        type=int,
+        help='maximum output width for text',
+    )
+    parsed_args = parser.parse_args()
+    data = {
+        'a': 'A',
+        'b': 'B',
+        'long': 'word ' * 80,
+    }
+    mgr = driver.DriverManager(
+        namespace='stevedore.example.formatter',
+        name=parsed_args.format,
+        invoke_on_load=True,
+        invoke_args=(parsed_args.width,),
+    )
+    for chunk in mgr.driver.format(data):
+        print(chunk, end='')
+</code></pre></div></div>
+
+<p>这里关键的位置在mgr生成部分，首先根据namespace获得相应entry point组，然后根据name调用响应的plugin</p>
+
+<p>例如<code class="highlighter-rouge">python -m stevedore.example.load_as_driver a = A</code>即以默认的name调用plugin，默认的format为simple。<code class="highlighter-rouge">python -m stevedore.example.load_as_driver field</code>为调用field的plugin</p>
+
+<h4 id="以extensions方式调用">以Extensions方式调用</h4>
+<p>另外一种常见的方式是调用多个plugin共同处理一件事情，这可以利用<code class="highlighter-rouge">ExtensionManager</code>、<code class="highlighter-rouge">NamedExtensionManager</code>、<code class="highlighter-rouge">EnabledExtensionManger</code>来实现</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># stevedore/example/load_as_extension.py
+from __future__ import print_function
+
+import argparse
+
+from stevedore import extension
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        '--width',
+        default=60,
+        type=int,
+        help='maximum output width for text',
+    )
+    parsed_args = parser.parse_args()
+
+    data = {
+        'a': 'A',
+        'b': 'B',
+        'long': 'word ' * 80,
+    }
+
+    mgr = extension.ExtensionManager(
+        namespace='stevedore.example.formatter',
+        invoke_on_load=True,
+        invoke_args=(parsed_args.width,),
+    )
+
+    def format_data(ext, data):
+        return (ext.name, ext.obj.format(data))
+
+    results = mgr.map(format_data, data)
+
+    for name, result in results:
+        print('Formatter: {0}'.format(name))
+        for chunk in result:
+            print(chunk, end='')
+        print('')
+</code></pre></div></div>
+
+<p>这里ExtensionManger的参数只需要namespace，因为它将使用这个entry point组中的所有插件，并且通过mgr.map()来为每一个plugin传递参数</p>
+
+<h4 id="其他">其他</h4>
+<p>除了上面提到的几种方式外，还有<a href="http://stevedore.readthedocs.org/en/latest/managers.html">其他</a>几种可以使用，具体可以自己研究了~</p>
+:ET

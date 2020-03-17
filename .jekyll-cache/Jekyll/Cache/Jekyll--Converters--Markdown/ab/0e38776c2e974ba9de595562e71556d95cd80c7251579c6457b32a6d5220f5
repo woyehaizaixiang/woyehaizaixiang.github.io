@@ -1,0 +1,81 @@
+I"�
+<h3 id="1abc模块作用">1.abc模块作用</h3>
+<p>Python本身不提供抽象类和接口机制，要想实现抽象类，可以借助abc模块。ABC是Abstract Base Class的缩写。</p>
+
+<h3 id="2模块中的类和函数">2.模块中的类和函数</h3>
+<h4 id="abcabcmeta">abc.ABCMeta</h4>
+<p>这是用来生成抽象基础类的元类。由它生成的类可以被直接继承。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from abc import ABCMeta
+
+class MyABC:
+    __metaclass__ = ABCMeta
+
+MyABC.register(tuple)
+
+assert issubclass(tuple, MyABC)
+assert isinstance((), MyABC)
+</code></pre></div></div>
+
+<p>上面这个例子中，首先生成了一个MyABC的抽象基础类，然后再将tuple变成它的虚拟子类。然后通过issubclass或者isinstance都可以判断出tuple是不是出于MyABC类。</p>
+
+<p>另外，也可以通过复写<code class="highlighter-rouge">__subclasshook__(subclass)</code>来实现相同功能，它必须是classmethod</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Foo(object):
+    def __getitem__(self, index):
+        ...
+    def __len__(self):
+        ...
+    def get_iterator(self):
+        return iter(self)
+
+class MyIterable:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def __iter__(self):
+        while False:
+            yield None
+
+    def get_iterator(self):
+        return self.__iter__()
+
+    @classmethod
+    def __subclasshook__(cls, C):
+        if cls is MyIterable:
+            if any("__iter__" in B.__dict__ for B in C.__mro__):
+                return True
+        return NotImplemented
+
+MyIterable.register(Foo)
+</code></pre></div></div>
+
+<h4 id="abcabstractmethodfunction">abc.abstractmethod(function)</h4>
+<p>表明抽象方法的生成器</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class C:
+    __metaclass__ = ABCMeta
+    @abstractmethod
+    def my_abstract_method(self, ...):
+        ...
+</code></pre></div></div>
+
+<h4 id="abcabstractpropertyfgetfsetfdeldoc">abc.abstractproperty([fget[,fset[,fdel[,doc]]]])</h4>
+<p>表明一个抽象属性</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class C:
+    __metaclass__ = ABCMeta
+    @abstractproperty
+    def my_abstract_property(self):
+        ...
+</code></pre></div></div>
+
+<p>上例只是只读属性，如果是读写属性，可以如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class C:
+    __metaclass__ = ABCMeta
+    def getx(self): ...
+    def setx(self, value): ...
+    x = abstractproperty(getx, setx)
+</code></pre></div></div>
+:ET

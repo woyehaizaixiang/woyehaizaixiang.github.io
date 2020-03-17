@@ -1,0 +1,308 @@
+I"�0<blockquote>
+  <p>Mac下搭建lamp开发环境很容易，有xampp和mamp现成的集成环境。但是集成环境对于经常需要自定义一些配置的开发者来说会非常麻烦，而且Mac本身自带apache和php，在brew的帮助下非常容易手动搭建，可控性很高</p>
+</blockquote>
+
+<h2 id="brew"><a href="http://brew.sh/">Brew</a></h2>
+<p>brew对于mac，就像apt-get对于ubuntu，安装软件的好帮手，不能方便更多…</p>
+
+<p>brew的安装方式如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+</code></pre></div></div>
+
+<p>brew常用选项</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install xxx
+brew uninstall xxx
+brew list 
+brew update xxx
+</code></pre></div></div>
+
+<h2 id="apache-或-nginx">Apache 或 Nginx</h2>
+
+<blockquote>
+  <p>两者只需要安装一个</p>
+</blockquote>
+
+<h3 id="apache">Apache</h3>
+<p>Apache的话使用mac自带的基本就够了，我的系统是10.9，可以使用以下命令控制Apache</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apachectl start
+sudo apachectl restart
+sudo apachectl stop
+</code></pre></div></div>
+
+<p>唯一要改的是主目录，mac默认在home下有个<code class="highlighter-rouge">Sites</code>（站点）目录，访问路径是</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost/~user_name
+</code></pre></div></div>
+
+<p>这样不太容易访问，修改<code class="highlighter-rouge">/etc/apache2/httpd.conf</code>内容</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DocumentRoot /Users/username/Sites
+&lt;Directory /Users/username/Sites&gt;
+    Options Indexes MultiViews
+    # apache 2.2
+    # AllowOverride All
+    # Order allow,deny
+    # Allow from 127.0.0.1
+
+    # apache 2.4
+    Require local
+&lt;/Directory&gt;
+</code></pre></div></div>
+
+<p>这样<code class="highlighter-rouge">Sites</code>目录就是网站根目录了，通过<code class="highlighter-rouge">http://localhost</code>就可以访问了。</p>
+
+<h4 id="常用命令">常用命令</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apachectl start <span class="c"># 启动apache</span>
+<span class="nb">sudo </span>apachectl stop <span class="c"># 关闭apache</span>
+<span class="nb">sudo </span>apachectl restart <span class="c"># 重启apache</span>
+</code></pre></div></div>
+
+<h4 id="设置vhost">设置vhost</h4>
+<p>设置vhost可以很方便的进行站点调试，尤其是对于需要在根目录运行的站点。推荐 <a href="https://clickontyler.com/virtualhostx/">VirtualHostX</a>.</p>
+
+<p>设置方法是：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vi /etc/apache2/extra/httpd-vhosts.conf
+</code></pre></div></div>
+
+<p>然后输入：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Directory <span class="s2">"/pash/to/site"</span><span class="o">&gt;</span>
+    Allow From All
+    AllowOverride All
+    Options +Indexes
+&lt;/Directory&gt;
+&lt;VirtualHost <span class="k">*</span>:80&gt;
+       ServerName <span class="s2">"site.test"</span>
+       DocumentRoot <span class="s2">"/path/to/site"</span>
+&lt;/VirtualHost&gt;
+</code></pre></div></div>
+
+<p>这么设置会有个问题，默认的<code class="highlighter-rouge">http://localhost</code>会被转到这儿来，所以专门再设置一下<code class="highlighter-rouge">localhost</code>的host就好了。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;VirtualHost <span class="k">*</span>:80&gt;
+    ServerName localhost
+    DocumentRoot /path/to/root
+&lt;/VirtualHost&gt;
+</code></pre></div></div>
+
+<p>然后把host文件改一下，把刚刚设置的<code class="highlighter-rouge">ServerName</code>改到本地就好了。</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vi /etc/hosts
+</code></pre></div></div>
+
+<p>写入：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>127.0.0.1 site.test
+</code></pre></div></div>
+
+<h3 id="nginx">Nginx</h3>
+<p>要使用Nginx也比较方便，首先安装</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install nginx
+</code></pre></div></div>
+
+<p>启动关闭Nginx的命令如下（如果想要监听80端口，必须以管理员身份运行）</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#打开 nginx
+sudo nginx
+#重新加载配置|重启|停止|退出 nginx
+nginx -s reload|reopen|stop|quit
+#测试配置是否有语法错误
+nginx -t
+</code></pre></div></div>
+
+<p>配置Nginx</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/local/etc/nginx/
+mkdir conf.d
+</code></pre></div></div>
+
+<p>修改Nginx配置文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim nginx.conf
+</code></pre></div></div>
+
+<p>主要修改位置是最后的include</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>worker_processes  1;  
+
+error_log       /usr/local/var/log/nginx/error.log warn;
+
+pid        /usr/local/var/run/nginx.pid;
+
+events {
+    worker_connections  256;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log      /usr/local/var/log/nginx/access.log main;
+    port_in_redirect off;
+    sendfile        on; 
+    keepalive_timeout  65; 
+
+    include /usr/local/etc/nginx/conf.d/*.conf;
+}
+</code></pre></div></div>
+
+<p>修改自定义文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vim ./conf.d/default.conf
+</code></pre></div></div>
+
+<p>增加一个监听端口</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+    listen       80;
+    server_name  localhost;
+
+    root /Users/username/Sites/; # 该项要修改为你准备存放相关网页的路径
+
+    location / { 
+        index index.php;
+        autoindex on; 
+    }   
+
+    #proxy the php scripts to php-fpm  
+    location ~ \.php$ {
+        include /usr/local/etc/nginx/fastcgi.conf;
+        fastcgi_intercept_errors on; 
+        fastcgi_pass   127.0.0.1:9000; 
+    }   
+
+}
+</code></pre></div></div>
+
+<p>这个时候还不能访问php站点，因为还没有开启php-fpm。</p>
+
+<p>虽然mac 10.9自带了php-fpm，但是由于我们使用了最新的PHP，PHP中自带php-fpm，所以使用PHP中的php-fpm可以保证版本的一致。</p>
+
+<p>这里的命令在安装完下一步的php后再执行</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nginx
+sudo php-fpm -D
+</code></pre></div></div>
+
+<h2 id="php">PHP</h2>
+<p>PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac下安装最新版本，甚至是多个版本，我装了php5.5</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew update
+brew tap homebrew/dupes
+brew tap josegonzalez/homebrew-php
+# brew install php55 --with-fpm #Nginx
+brew install php55 #Apache
+</code></pre></div></div>
+
+<p>然后修改php的cli路径和apache使用的php模块。在.bashrc或.zshrc里头加以下内容</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#export PATH="$(brew --prefix josegonzalez/php/php55)/bin:$PATH" 
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+</code></pre></div></div>
+
+<p>就用刚刚安装的php代替了系统默认cli的php版本。然后在<code class="highlighter-rouge">/etc/apache2/httpd.conf</code>下增加</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LoadModule php5_module /usr/local/Cellar/php55/5.5.8/libexec/apache2/libphp5.so
+</code></pre></div></div>
+
+<p>这样就对apache使用的php版本也进行了修改。</p>
+
+<p>后面会用到mongo和mysql，所以可以直接利用下面命令安装php模块，其他模块也类似</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#brew install php55-mysql #这个已经不需要再安装了
+brew install php55-mongo
+</code></pre></div></div>
+
+<h2 id="mysql">MySQL</h2>
+<p>mac不自带mysql，这里需要重新安装，方法依然很简单</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install mysql
+unset TMPDIR
+mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+sudo chown -R your_user /usr/local/var/mysql/
+</code></pre></div></div>
+
+<p>第一句是安装，后面的是确保正常使用。然后是启动命令</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql.server start
+</code></pre></div></div>
+
+<p>最好给mysql设个密码，方法如下</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysqladmin -u root password 'xxx'
+</code></pre></div></div>
+
+<p>如果想修改mysql的配置，在<code class="highlighter-rouge">/usr/local/etc</code>下建立一个<code class="highlighter-rouge">my.cnf</code>，例如增加log</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[mysqld]
+general-log
+general_log_file = /usr/local/var/log/mysqld.log
+</code></pre></div></div>
+
+<h2 id="mongodb">MongoDB</h2>
+<p>MongoDB可以说是最简单的一个，直接执行</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install mongodb
+</code></pre></div></div>
+
+<p>启动方法</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mongod --fork
+</code></pre></div></div>
+
+<h2 id="phpmyadmin">PHPMyAdmin</h2>
+<p>phpmyadmin几乎是管理mysql最容易的web应用了吧，每次我都顺道装上。</p>
+
+<ul>
+  <li>去<a href="http://www.phpmyadmin.net/home_page/downloads.php">官网</a>下载最新的版本</li>
+  <li>解压到~/Sites/phpmyadmin下</li>
+  <li>在phpmyadmin目录下创建一个可写的config目录</li>
+  <li>打开http://localhost/phpmyadmin/setup，安装一个服务，最后保存（这里只需要输入帐号密码就够了）</li>
+  <li>将config下生成的config.inc.php移到phpmyadmin根目录下</li>
+  <li>删除config</li>
+</ul>
+
+<p>这样就装好了，虽然可能有点小复杂，但是来一次就习惯了。</p>
+
+<p>这里很可能会遇到2002错误，就是找不到mysql.sock的问题，用下面方法解决</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mkdir /var/mysql
+sudo ln -s /tmp/mysql.sock /var/mysql/mysql.sock
+</code></pre></div></div>
+
+<h2 id="rockmongo">RockMongo</h2>
+<p>RockMongo是MongoDB很好用的一个web应用，安装也很容易</p>
+
+<ul>
+  <li>去<a href="http://rockmongo.com/">官网</a>下载最新版本</li>
+  <li>解压到~/Sites/rockmongo下</li>
+  <li>运行http://localhost/rockmongo即可</li>
+</ul>
+
+<h2 id="把-site-放在-dropbox-文件夹下">把 site 放在 Dropbox 文件夹下</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s ~/Dropbox/sitename ~/Sites/sitename
+chmod a+rw ~/Dropbox
+chmod a+rw ~/Dropbox/sitename
+</code></pre></div></div>
+
+<h2 id="完成">完成</h2>
+<p>这样就在mac下配置好一个php开发环境了，enjoy it!</p>
+
+<h2 id="参考">参考</h2>
+<ol>
+  <li><a href="http://www.nabito.net/hot-to-install-nginx-php-fpm-5-5-6-mongo-and-mysql-on-mac-with-homebrew/">Hot to install nginx, PHP-fpm 5.5.6, mongo and MySql on mac with homebrew</a></li>
+  <li><a href="http://my.oschina.net/chen0dgax/blog/190161">Mac OSX 10.9搭建nginx+mysql+php-fpm环境</a></li>
+</ol>
+
+:ET

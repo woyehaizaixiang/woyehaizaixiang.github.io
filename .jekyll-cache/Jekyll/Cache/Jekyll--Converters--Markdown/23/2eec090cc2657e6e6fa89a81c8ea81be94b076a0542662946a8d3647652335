@@ -1,0 +1,43 @@
+I"U<h3 id="适用范围">适用范围</h3>
+
+<p>一般需要需要数据缓存的页面，集中在以下几个类别：</p>
+
+<ul>
+  <li>实时性不是很高</li>
+  <li>页面数据繁杂，生成需要读取数据库或者文件</li>
+  <li>访问量较大</li>
+</ul>
+
+<p>如果符合这几点，基本可以确定，利用数据缓存，在不影响业务的情况下可以减少页面加载时间</p>
+
+<h3 id="实现方式">实现方式</h3>
+
+<p>对于PHP而言，我们经常看到的缓存方式有</p>
+
+<ul>
+  <li>Memcache(内存)</li>
+  <li>MongoDB(非关系数据库)或MySQL(关系数据库)</li>
+  <li>File(文件缓存)</li>
+</ul>
+
+<p>效率依次降低，缓存量依次增大，根据自己的业务情况酌情选择即可</p>
+
+<h3 id="代码实现">代码实现</h3>
+
+<p>使用cache()函数来进行缓存和读取，cache()内部实现过期时间判断</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if(!$data = cache('data')){
+  $data = .....
+  cache('data',$data,60);
+}
+</code></pre></div></div>
+
+<h3 id="继续优化可能">继续优化可能</h3>
+
+<p>缓存之后还有多种优化方法</p>
+
+<ul>
+  <li>增加缓存队列，固定缓存大小，防止无限缓存</li>
+  <li>多级缓存，防止击穿（例如在memcache后加mongodb缓存，在memcache挂掉以后能负担一部分负荷）</li>
+</ul>
+:ET

@@ -1,0 +1,30 @@
+I"d<h2 id="常用代码">常用代码</h2>
+
+<h3 id="遍历对象">遍历对象</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for key in a.__dict__:
+    print key,':',a.__dict__[key]
+</code></pre></div></div>
+
+<h3 id="调试方法">调试方法</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assert False   //引发异常，观察错误界面
+import logging
+logging.info('')  //写日志
+</code></pre></div></div>
+
+<h3 id="获得当前时间">获得当前时间</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#时间戳
+time.time()
+#日期时间
+time.ctime()
+#iso时间
+datetime.fromtimestamp(time.time()).isoformat()
+#固定格式
+time.strftime('%Y-%m-%d',time.localtime(time.time())) ### 日期到时间戳
+dateC=datetime.datetime(2010,6,6,8,14,59)
+timestamp=time.mktime(dateC.timetuple()) ### 时间戳到日期
+ltime=time.localtime(1237515355.0)
+timeStr=time.strftime("%Y-%m-%d %H:%M:%S", ltime) ### 之后的包从绝对位置导入
+from __future__ import absolute_import
+</code></pre></div></div>
+
+:ET

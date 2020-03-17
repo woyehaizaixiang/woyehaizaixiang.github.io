@@ -1,0 +1,45 @@
+I"�<h2 id="常用命令">常用命令</h2>
+
+<h3 id="登录数据库">登录数据库</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql -h localhost -uroot -p
+</code></pre></div></div>
+
+<h3 id="导出数据库">导出数据库</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysqldump -uroot -p db &gt; db.sql
+</code></pre></div></div>
+
+<h3 id="导入数据库">导入数据库</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql -uroot -p db &lt; db.sql
+// or
+mysql -uroot -p db -e "source /path/to/db.sql"
+</code></pre></div></div>
+
+<h3 id="开启远程登录">开启远程登录</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grant all privileges on ss.* to 'root'@'%' indentified by 'passoword' with grant option;
+// or 
+update user set Host="%" and User="root"
+// 注意%是不包含localhost的
+flush privileges;
+</code></pre></div></div>
+
+<h3 id="创建用户">创建用户</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE USER 'test'@'localhost' IDENTIFIED BY 'password';
+grant all privileges on *.* to test@'localhost' identified by 'test';
+</code></pre></div></div>
+
+<h3 id="创建表">创建表</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CREATE SCHEMA testdb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+</code></pre></div></div>
+
+<h3 id="赋予数据库权限">赋予数据库权限</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GRANT ALL ON testdb.* TO 'test'@'localhost';
+</code></pre></div></div>
+
+:ET

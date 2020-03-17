@@ -1,0 +1,162 @@
+I"})<blockquote>
+  <p>虽然Composer使得我们可以重用很多现有的类库（例如packagist.org中的），但是我们仍然可能用到一些不兼容composer的包或者类库。另外在某一项目中，我们也可能会创建某一类库，而且可能并没有制作成为composer package 的打算。这个时候我们可以通过以下方式来使用自己的特有类库。</p>
+</blockquote>
+
+<h2 id="增加可直接实例化的类">增加可直接实例化的类</h2>
+<p>有些需要直接在项目中使用的类，可以通过以下方式增加到Laravel中</p>
+
+<ol>
+  <li>创建类库文件<code class="highlighter-rouge">app/libraries/class/myClass.php</code></li>
+  <li>写入文件内容</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="kd">class</span> <span class="nc">Message</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ol>
+  <li>在<code class="highlighter-rouge">app/start/globals.php</code>中增加类导入路径</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="nx">ClassLoader</span><span class="o">::</span><span class="na">addDirectories</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+
+    <span class="nx">app_path</span><span class="p">()</span><span class="o">.</span><span class="s1">'/commands'</span><span class="p">,</span>
+    <span class="nx">app_path</span><span class="p">()</span><span class="o">.</span><span class="s1">'/controllers'</span><span class="p">,</span>
+    <span class="nx">app_path</span><span class="p">()</span><span class="o">.</span><span class="s1">'/models'</span><span class="p">,</span>
+    <span class="nx">app_path</span><span class="p">()</span><span class="o">.</span><span class="s1">'/database/seeds'</span><span class="p">,</span>
+    <span class="nx">app_path</span><span class="p">()</span><span class="o">.</span><span class="s1">'/libaries/class'</span><span class="p">,</span> <span class="c1">// 在这里增加</span>
+
+<span class="p">));</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ol>
+  <li>在<code class="highlighter-rouge">composer.json</code>中增加autoload目录</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">autoload</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">classmap</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">app/commands</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/controllers</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/models</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/database/migrations</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/database/seeds</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/tests/TestCase.php</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/libraries/class</span><span class="dl">"</span>   <span class="c1">//在这里增加</span>
+    <span class="p">]</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<ol>
+  <li>执行<code class="highlighter-rouge">composer dump-autoload</code>来创建导入映射</li>
+  <li>使用自己导入的类直接调用<code class="highlighter-rouge">Message::display()</code>即可</li>
+</ol>
+
+<blockquote>
+  <p>这种方法同样也是增加队列类的方法，很多人不知道Laravel中队列处理类应该放在哪里，其实按照上面的方法，在<code class="highlighter-rouge">app</code>目录下创建一个<code class="highlighter-rouge">queues</code>目录，然后让其可以直接实例化即可</p>
+</blockquote>
+
+<h2 id="增加可直接调用的函数">增加可直接调用的函数</h2>
+<p>有人喜欢用<code class="highlighter-rouge">v()</code>来代替<code class="highlighter-rouge">var_dump()</code>，想要在Laravel中这么做也非常容易</p>
+
+<ol>
+  <li>创建一个函数文件<code class="highlighter-rouge">app/libraries/function/helper.php</code></li>
+  <li>写入文件内容</li>
+</ol>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span> 
+<span class="k">function</span> <span class="nf">v</span><span class="p">(</span><span class="nv">$msg</span><span class="p">){</span>
+    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$msg</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<ol>
+  <li>把文件增加到composer自动导入列表中</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">autoload</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+   <span class="dl">"</span><span class="s2">classmap</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+       <span class="p">...</span>
+   <span class="p">],</span>
+   <span class="dl">"</span><span class="s2">files</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+       <span class="dl">"</span><span class="s2">app/libraries/function/helper.php</span><span class="dl">"</span>
+   <span class="p">],</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<p>或者在项目中显示<code class="highlighter-rouge">require</code>这个文件。打开<code class="highlighter-rouge">app/start/global.php</code>，在末尾增加：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>require app_path().'/libraries/function/helper.php';
+</code></pre></div></div>
+
+<p>个人感觉这两种方式都OK，如果想要控制这个文件加载的时间，甚至可以在<code class="highlighter-rouge">filter.php</code>文件中增加以下内容</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>App::before( function( $request ) {
+    require( "{$GLOBALS['app']['path.base']}/app/libraries/function/helper.php" );
+});
+</code></pre></div></div>
+
+<ol>
+  <li>在项目中直接使用函数<code class="highlighter-rouge">v('hello world')</code>;</li>
+</ol>
+
+<h2 id="增加稍微复杂的类库">增加稍微复杂的类库</h2>
+<p>有的时候一个类库不仅仅是一个文件那么简单，因此下面的方式更加适合有多个文件多个结构的类库。</p>
+
+<ol>
+  <li>创建<a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md">psr0</a>或者<a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md">psr4</a>标准的目录结构。</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>libraries
+    Myapp
+        Search (note directory is capitalized)
+            Search.php
+            SearchFacade.php
+            SearchServiceProvider.php
+        AnotherLib
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Myapp/Search/Search.php</code>中<code class="highlighter-rouge">Search</code>类的命名空间为<code class="highlighter-rouge">Myapp\Search</code>。</p>
+
+<ol>
+  <li>修改composer中autoload</li>
+</ol>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="dl">"</span><span class="s2">autoload</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">classmap</span><span class="dl">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="dl">"</span><span class="s2">app/commands</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/controllers</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/models</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/libraries</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/database/migrations</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/database/seeds</span><span class="dl">"</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">app/tests/TestCase.php</span><span class="dl">"</span>
+    <span class="p">]</span>
+    <span class="p">,</span>
+    <span class="dl">"</span><span class="s2">psr-0</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+         <span class="dl">"</span><span class="s2">Myapp</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">app/libraries</span><span class="dl">"</span>
+    <span class="p">}</span>
+<span class="p">},</span>
+</code></pre></div></div>
+
+<ol>
+  <li>在项目中使用<code class="highlighter-rouge">new Myapp\Search\Search()</code>来实例化某一类</li>
+</ol>
+
+<h2 id="总结">总结</h2>
+<p>虽然Laravel没有强制哪种方式最好，但是有一定的标准可以使得项目结构清晰，多人合作开发时省去很多交流成本。</p>
+
+<h2 id="参考">参考</h2>
+<ol>
+  <li><a href="http://php-problems.blogspot.com/2013/07/adding-new-classes-or-library-to.html">Adding new classes or library to laravel 4</a></li>
+  <li><a href="http://stackoverflow.com/questions/17584810/how-to-autoload-libraries-in-laravel-4">How to autoload ‘libraries’ in laravel 4?</a></li>
+  <li><a href="http://stackoverflow.com/questions/17088917/what-are-the-best-practices-and-best-places-for-laravel-4-helpers-or-basic-funct">What are the best practices and best places for laravel 4 helpers or basic functions?</a></li>
+</ol>
+:ET

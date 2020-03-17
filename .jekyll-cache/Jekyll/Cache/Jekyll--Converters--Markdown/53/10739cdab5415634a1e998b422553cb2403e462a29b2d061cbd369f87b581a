@@ -1,0 +1,34 @@
+I"�<h2 id="mysql管理界面">MySQL管理界面</h2>
+<p>这个没多少选择，大部分人都安装的是phpmyadmin，而且简单方便，在ubuntu下，只要</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install phpmyadmin
+</code></pre></div></div>
+
+<p>设置也不需要，只要在安装过程中输入mysql密码即可，访问<code class="highlighter-rouge">http://localhost/phpmyadmin</code>即可</p>
+
+<h2 id="mongodb管理界面">MongoDB管理界面</h2>
+<p>MongoDB的工具还比较多，没有一个能够统一全部工具的，不过推荐使用RockMongo，这个工具确实速度很快，而且很顺手，支持中文</p>
+
+<p>到<a href="http://rockmongo.com/wiki/introduction?lang=zh_cn">RockMongo</a>下载安装包</p>
+
+<p>如果Apache有根目录，移动到根目录下，否则自己建立一个<code class="highlighter-rouge">/etc/apache2/conf.d/rockmongo.conf</code>，写入</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Alias /rockmongo /var/www/rockmongo
+&lt;Directory /var/www/rockmongo&gt;
+    Options FollowSymLinks
+    DirectoryIndex index.php
+&lt;/Directory&gt;
+</code></pre></div></div>
+
+<p>然后要安装php-mongo模块</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install php5-mongo
+</code></pre></div></div>
+
+<p>修改php配置文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "extension=mongo.so" &gt;&gt; /etc/php5/apache2/php.ini
+</code></pre></div></div>
+
+<p>然后访问<code class="highlighter-rouge">http://localhost/rockmongo</code>即可，帐号密码都是admin</p>
+:ET
