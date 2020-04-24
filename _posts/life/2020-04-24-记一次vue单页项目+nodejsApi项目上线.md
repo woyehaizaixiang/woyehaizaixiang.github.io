@@ -13,8 +13,7 @@ description: 记一次vue单页项目+nodejsApi项目上线
 
 1.vuecli3 2.vue@2.6.11 3.vue-router mode:history 4.开启gzip
 
-``` javascript vue.config.js
-
+``` javascript
 const path = require('path')
 const CompressionPlugin = require("compression-webpack-plugin")
 module.exports = {
