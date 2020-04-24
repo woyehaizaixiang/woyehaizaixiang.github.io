@@ -59,8 +59,8 @@ module.exports = {
 # nodejs
 nodejs项目直接部署在ngnix上，使用pm2守护进程(后台开启,防止nodejs掉线)
 nodejs的api运行在3000端口，稍后会在nginx上配置 将项目中请求'/api'代理到3000端口上
-1.安装pm2 `npm/cnpm install pm2 -g`
-2.cd 到nodejs项目目录 `pm2 start bin/www` 参考https://www.jianshu.com/p/ee935729f49c
+1.安装pm2 ```npm/cnpm install pm2 -g```
+2.cd 到nodejs项目目录 ```pm2 start bin/www``` 参考https://www.jianshu.com/p/ee935729f49c
 
 # ngnix
 nginx配置:
