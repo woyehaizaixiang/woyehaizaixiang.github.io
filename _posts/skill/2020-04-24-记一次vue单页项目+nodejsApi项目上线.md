@@ -115,19 +115,34 @@ http {
                 index index.html;
 
           location /api/ {
-			 proxy_pass http://localhost:3000;
-		}
-		location / {
-			#index index.html;
-			try_files $uri $uri/ /index.html;
-			error_page 404 /index.html;
-		}
-
+		 proxy_pass http://localhost:3000;
+	  }
+	  location / {
+		#index index.html;
+		try_files $uri $uri/ /index.html;
+		error_page 404 /index.html;
+	  }
 	}
 
 }
 ```
 配置完成。重启nginx。
+
+最近有小伙子问我web项目在二级目录下怎么部署：如在 /web/ 目录下
+1. router.js:
+new Router({
+  mode: "history",
+  base: '/web/',
+  routes: routes,
+});
+打包部署
+2. nginx.conf:
+location /web/ {
+  #index index.html;
+  try_files $uri $uri/ /web/index.html;
+  error_page 404 /index.html;
+}
+3. end.
 
 ## 到此，一个完整的项目的部署完毕。总结一下：
 ### 1.前端工程上线：
