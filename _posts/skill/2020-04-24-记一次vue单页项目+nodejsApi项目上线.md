@@ -136,8 +136,8 @@ new Router({
   base: '/web/',
   routes: routes,
 });
-```
 打包部署
+```
 2. nginx.conf:
 ```
 location /web/ {
