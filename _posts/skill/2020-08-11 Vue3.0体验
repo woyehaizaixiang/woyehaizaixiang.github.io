@@ -1,0 +1,12 @@
+# 使用vite初始化项目
+```
+npm i vite
+
+npm init vite-app <project-name>
+
+cd <project-name>
+
+npm install
+
+npm run dev
+```
