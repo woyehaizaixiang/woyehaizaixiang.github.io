@@ -115,7 +115,7 @@ http {
                 index index.html;
 
           location /api/ {
-		 proxy_pass http://localhost:3000;
+		 proxy_pass http://localhost:3000/;
 	  }
 	  location / {
 		#index index.html;
